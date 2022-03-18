@@ -1,0 +1,250 @@
+/* ------ Media Queries ------ */
+@media (min-width: 576px) {
+    .header_content {
+        max-width: 540px;
+    }
+    .form_container {
+        max-width: 540px;
+    }
+}
+@media (min-width: 768px) {
+    .header_content {
+        max-width: 730px;
+    }
+    .form_container {
+        max-width: 730px;
+    }
+}
+@media (min-width: 992px) {
+    .header_content {
+        max-width: 970px;
+    }
+    .form_container {
+        max-width: 970px;
+    }
+    .register_form {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .auth__errors {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+@media (min-width: 1200px) {
+    .header_content {
+        max-width: 1140px;
+    }
+    .form_container {
+        max-width: 1140px;
+    }
+}
+@media (min-width: 1594px) {
+    .header_content {
+        max-width: 60%;
+    }
+}
+
+
+/* Register container styling */
+.register__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    padding-top: 60px;
+    overflow: visible;
+    color: #919596;
+}
+/* .log__container section:nth-last-child(3) {
+    flex-grow: 5;
+} */
+
+/* Register Header styling */
+.header_image_overlay {
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    background: rgba(7, 16, 19, .75);
+    z-index: 11;
+}
+.register_header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-image: url('../../../../assets/images/d2r-market-header-image01.jpg');
+    background-size: cover;
+    background-position: 50% -88%;
+    z-index: 10;
+}
+.header_content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 120px;
+}
+.header_content h1 {
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #f5f5f5 !important;
+    margin-bottom: 0;
+    z-index: 12;
+}
+
+/* Register Body styling */
+.register_body {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-grow: 1;
+    background: var(--primary-background);
+}
+.form_container {
+    background-color: #171e21;
+}
+.form_container .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.register_form {
+    position: relative;
+    flex: 0 0 50%;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.form_header {
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: .5rem !important;
+}
+.form_body {
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: .5rem !important;
+}
+.form_body form {
+    display: block;
+    margin-top: 0em;
+}
+.form_group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+.form_group label:not(button) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #c5c7c8;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.form_control {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--primary-input-text);
+    background-color: #121212;
+    background-clip: border-box;
+    border: 1px solid #213138;
+    border-radius: .15rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, .1);
+}
+.focus {
+    border: 1px solid var(--primary-component-focused) !important;
+    outline: 0;
+    box-shadow: 0 0 0 .15rem rgba(212, 0, 0, 0.25);
+}
+.form_control input {
+    flex-grow: 1;
+    max-width: 100%;
+    padding: .45rem .75rem .3rem;
+    color: var(--primary-input-text);
+    background-color: transparent;
+    border: 0;
+    background-clip: border-box;
+    box-shadow: initial;
+}
+.form_control input:focus {
+    outline: 0;
+    border: 0;
+}
+.register__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.auth__errors {
+    display: flex;
+    width: 100%;
+    height: 474px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    border-bottom: none !important;
+}
+.form_field_errors {
+    display: none;
+    position: absolute;
+    bottom: -8px;
+    right: 10px;
+    background-color: #121212;
+    color: var(--color-danger-text);
+    font-family: 'sans-serif';
+    font-size: 12px;
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 7px;
+    border-right: 1px solid #203137;
+    border-left: 1px solid #203137;
+    pointer-events: none;
+    z-index: 50;
+}
+.form_errors {
+    display: none;
+    background: #34201b;
+    color: var(--color-danger-text);
+    font-family: sans-serif;
+    font-size: 12px;
+    list-style-type: none;
+    border-top: 1px solid var(--border-color-danger);
+    padding: 10px;
+    margin-bottom: 1rem;
+}
+.visible {
+    display: block;
+}
+ul {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.flex_bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 45px;
+    background-color: #101619;
+}

@@ -1,0 +1,57 @@
+/* --------------------- Media Queries --------------------- */
+@media (min-width: 1200px) {
+    .header_search_container {
+        max-width: 1140px;
+    }
+}
+
+
+/* Header container styling */
+.header__container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    min-height: 800px;
+    background-image: url('../../../../assets/images/d2r-market-header-image01.jpg');
+    background-size: cover;
+}
+.header_body {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-grow: 1;
+    min-height: inherit;
+    width: 100%;
+    padding-bottom: 120px;
+}
+.flex--left,
+.flex--right {
+    flex-grow: 1;
+    flex-basis: 0;
+    position: relative;
+}
+
+/* Header search container styling */
+.header_search_container {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    margin-right: -15px;
+    margin-left: -15px;
+    top: 60px;
+    z-index: 20;
+}

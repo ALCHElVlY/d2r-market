@@ -1,0 +1,39 @@
+:root {
+  --primary-link-text: #a53f49;
+  --primary-input-text: #abaeaf;
+  --primary-background: #101619;
+  --primary-button-background: #9c3c3c;
+  --primary-button-background_lighter: rgb(200, 60, 60);
+  --primary-component-focused: #d40000;
+  --color-danger-text: #cc3000;
+  --border-color-danger: #cc3000;
+}
+
+/* Reset and style some global variables */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; 
+}
+
+body {
+  font-family: 'AVQuest';
+  background-color: #2c2f31;
+  color: #fff; 
+}
+
+@font-face {
+  font-family: 'AVQuest';
+  src: url('../../assets/fonts/Avqest.ttf');
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.main__container {
+  min-height: inherit;
+}
