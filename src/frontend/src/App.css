@@ -24,7 +24,7 @@ body {
 
 @font-face {
   font-family: 'AVQuest';
-  src: url('../../assets/fonts/Avqest.ttf');
+  src: url('../../../assets/fonts/Avqest.ttf');
   font-weight: 700;
   font-size: 16px;
   line-height: 1.6;

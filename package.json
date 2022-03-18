@@ -4,14 +4,14 @@
   "description": "www.diabloiiresurrected.market is a place for D2R players to go and trade with each other with in-game currencies",
   "main": "index.js",
   "scripts": {
-    "prod-frontend": "npm start --prefix frontend",
-    "prod-backend": "node backend/server.js",
+    "prod-frontend": "npm start --prefix src/frontend",
+    "prod-backend": "node src/backend/server.js",
     "deploy": "concurrently \"npm run prod-backend\" \"npm run prod-frontend\"",
-    "dev-frontend": "npm start --prefix frontend",
-    "dev-backend": "nodemon backend/server.js",
+    "dev-frontend": "npm start --prefix src/frontend",
+    "dev-backend": "nodemon src/backend/server.js",
     "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
   },
-  "author": "Willia L. Holt",
+  "author": "William L. Holt",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^7.0.0",
