@@ -1,19 +1,17 @@
-// Import express
+// External imports
 const express = require('express');
 
-// Import the db connection
+// Internal imports
 const connectDB = require('./database/config/db');
+const {
+	userRoutes,
+} = require('./routes/index');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Express body parser
 app.use(express.json());
-
-// Import the routes
-const {
-	userRoutes,
-} = require('./routes/index');
 
 // Route the API requests
 app.use('/api/users', userRoutes);

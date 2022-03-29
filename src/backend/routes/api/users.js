@@ -1,17 +1,13 @@
-// Import express
+// Internal imports
 const express = require('express');
 
-// Declare the router
+// External imports
 const router = express.Router();
-
-// Import the protect middleware
-const protect = require('../../middleware/authControllers');
-
-// Import the user middleware
+const protect = require('../../middleware/authControllers.js');
 const {
 	registerUser,
-    loginUser,
-    getMe,
+	loginUser,
+	getUser,
 } = require('../../middleware/userControllers');
 
 // @desc HTTP POST to register a new user
@@ -25,8 +21,8 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 // @desc HTTP GET to retrieve user data
-// @route GET api/users/me
+// @route GET api/users/:id
 // @access Private
-router.get('/me', protect, getMe);
+router.get('/:id', protect, getUser);
 
 module.exports = router;

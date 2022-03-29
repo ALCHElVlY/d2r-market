@@ -1,27 +1,22 @@
-// Import react & react-router-dom
+// Builtin imports
 import React from 'react';
+
+// External imports
 import ReactDOM from 'react-dom';
-
-// Import the app
-import App from './App';
-
-// Import the store file and the provider from redux
-import { store } from './app/store.js';
 import { Provider } from 'react-redux';
 
-// Import the function for recording web vitals
+// Internal imports
+import App from './App';
+import { store } from './app/store.js';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>,
+	// eslint-disable-next-line no-undef
+	document.getElementById('root'),
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

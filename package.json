@@ -1,7 +1,7 @@
 {
   "name": "d2r-market",
   "version": "1.0.0",
-  "description": "www.diabloiiresurrected.market is a place for D2R players to go and trade with each other with in-game currencies",
+  "description": "www.diabloii.market is a place for D2R players to trade in-game items and services with one another. This is a service that is provided by the community and is not affiliated with the official Blizzard team.",
   "main": "index.js",
   "scripts": {
     "prod-frontend": "npm start --prefix src/frontend",
@@ -9,12 +9,16 @@
     "deploy": "concurrently \"npm run prod-backend\" \"npm run prod-frontend\"",
     "dev-frontend": "npm start --prefix src/frontend",
     "dev-backend": "nodemon src/backend/server.js",
-    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix"
   },
   "author": "William L. Holt",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^7.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-react": "^7.29.4",
     "nodemon": "^2.0.15"
   },
   "dependencies": {

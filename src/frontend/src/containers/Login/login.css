@@ -308,7 +308,7 @@
 .visible {
     display: block;
 }
-ul {
+.login_form > ul {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;

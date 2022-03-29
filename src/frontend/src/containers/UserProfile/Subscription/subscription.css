@@ -1,0 +1,33 @@
+/* Subscription container styling */
+.subscription__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    padding-top: 60px;
+    overflow: visible;
+    color: #919596;
+}
+/* Subscription Header styling */
+.subscription__container .header_image_overlay {
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    background: rgba(7, 16, 19, .25);
+    z-index: 11;
+}
+.subscription_header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-image: url('../../../../../../assets/images/d2r-settings-bg-01.jpg');
+    background-size: cover;
+    background-position: 54% -78%;
+    z-index: 10;
+}
+.settings_subheader {
+    background: var(--background-color-darker);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+
+}

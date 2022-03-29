@@ -1,12 +1,22 @@
 :root {
-  --primary-link-text: #a53f49;
+  --primary-link-text: #a53f3f;
+  --primary-active-link: rgb(215, 70, 73);
   --primary-input-text: #abaeaf;
   --primary-background: #101619;
   --primary-button-background: #9c3c3c;
   --primary-button-background_lighter: rgb(200, 60, 60);
   --primary-component-focused: #d40000;
-  --color-danger-text: #cc3000;
+  --background-color: #101619;
+  --background-color-light: #171e21;
+  --background-color-darker: #071013;
+  --border-color: #2d3437;
+  --border-color-light: #203137;
   --border-color-danger: #cc3000;
+  --color-status-online: darkgreen;
+  --color-status-online-ingame: #FF3D99;
+  --color-danger-text: #cc3000;
+  --disabled-text: rgb(128, 128, 128);
+  --disabled-button: rgb(128, 128, 128);
 }
 
 /* Reset and style some global variables */

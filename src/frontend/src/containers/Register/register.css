@@ -56,9 +56,6 @@
     overflow: visible;
     color: #919596;
 }
-/* .log__container section:nth-last-child(3) {
-    flex-grow: 5;
-} */
 
 /* Register Header styling */
 .header_image_overlay {
@@ -233,7 +230,7 @@
 .visible {
     display: block;
 }
-ul {
+.register_form > ul {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;

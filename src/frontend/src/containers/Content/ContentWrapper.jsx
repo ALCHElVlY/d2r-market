@@ -1,35 +1,34 @@
-// Import React
-import React from 'react';
+// External imports
+import { Helmet } from 'react-helmet';
 
-// Import the content wrapper stylesheet
-import './contentwrapper.css';
-
-// Import the content containers
+// Internal imports
+import {
+	FilterRecentOrders,
+} from '../../components/index';
 import {
 	Header,
 	Footer,
 } from '../index';
-
-// Import the components
-import {
-    FilterRecentOrders,
-} from '../../components/index';
+import './contentwrapper.css';
 
 const ContentWrapper = () => {
 	return (
 		<div className='content__container'>
+			<Helmet defer={false}>
+				<title>Diablo II Market</title>
+			</Helmet>
 			<Header />
 			<section className='content'>
 				<div className="content_header_second">
 					<div className="flex__left"></div>
 					<div className="container">
-                    <FilterRecentOrders />
+						<FilterRecentOrders />
 					</div>
 					<div className="flex__right"></div>
 				</div>
 				<div className="content_body_second">
                     This is the second section body
-                </div>
+				</div>
 			</section>
 			<Footer />
 		</div>

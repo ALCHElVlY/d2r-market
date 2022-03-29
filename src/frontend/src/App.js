@@ -1,22 +1,21 @@
-// Import react router dom
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// Builtin imports
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Import the default app stylesheet
+// Internal imports
 import './App.css';
-
-// Import the components
 import {
 	NavMenu,
 } from './components';
-
-// Import the containers
 import {
 	ContentWrapper,
+	Services,
 	Register,
 	Login,
 	Profile,
 	Messages,
-	Services,
+	Settings,
+	Subscription,
+	Notifications,
 } from './containers';
 
 
@@ -27,11 +26,16 @@ function App() {
 				<NavMenu />
 				<Routes>
 					<Route exact path="/" element={<ContentWrapper />} />
+					<Route path='/services' element={<Services />} />
 					<Route path="/register" element={<Register />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/messages" element={<Messages />} />
-					<Route path='/services' element={<Services />} />
+					<Route path="/settings" >
+						<Route path="account" index element={<Settings />} />
+						<Route path="subscription" element={<Subscription />} />
+						<Route path="notifications" element={<Notifications />} />
+					</Route>
 				</Routes>
 			</Router>
 		</div>

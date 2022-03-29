@@ -42,7 +42,7 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: #a53f49;
+    color: var(--primary-link-text);
     padding: 10px;
     height: 60px;
 }
@@ -52,7 +52,7 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: rgb(215, 70, 73);
+    color: var(--primary-active-link);
     padding: 10px;
     height: 60px;
 }
@@ -74,7 +74,7 @@
 .navMenu_category #profileIcon {
     font-size: 20px;
 }
-.navMenu_category #messages {
+.navMenu_category #messagesIcon {
     font-size: 22px;
 }
 .navMenu_category .navMenu_title

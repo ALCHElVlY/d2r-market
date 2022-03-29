@@ -1,0 +1,162 @@
+.navMenu_profileComboBox .profileShift {
+    visibility: hidden;
+    background: var(--background-color);
+    border: 1px dotted var(--border-color);
+    padding: 0;
+    list-style-type: none;
+    box-shadow: 0 0 10px -1px rgb(7 16 19 / 25%);
+    transform: translate3d(0, 286px, 0);
+    transition: transform .5s ease-out;
+    margin-top: -286px;
+}
+.open_close {
+    visibility: visible !important;
+}
+.profile_text_entry {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 45px;
+    font-size: 12px;
+    color: #c5c7c8;
+    align-items: center;
+    background: var(--background-color-light);
+    text-transform: uppercase;
+    letter-spacing: .5;
+    justify-content: center;
+}
+.userProfileHeader {
+    display: flex;
+    flex-direction: row;
+    height: 62px;
+    cursor: pointer;
+    justify-content: space-around;
+    padding: 10px 15px;
+    opacity: .99;
+}
+.userProfileHeader .default_user_avatar {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+.userProfileHeader .custom_user_avatar {
+    max-width: 40px;
+    max-height: 40px;
+    border: 1px solid #2d3437;
+    vertical-align: middle;
+}
+.username_and_status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+.nickname {
+    max-width: 200px;
+    font-size: 18px;
+    color: var(--primary-link-text);
+    text-transform: initial !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.statusIndicator {
+    display: block;
+    min-width: 105px;
+    font-size: 12px;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0;
+}
+.statusIndicator .status {
+    position: relative;
+    color: darkgrey;
+    text-transform: uppercase;
+    overflow: visible;
+    align-items: center;
+    justify-content: flex-start;
+}
+.icon_caret {
+    position: relative;
+    top: 12px;
+    height: 20px !important;
+    vertical-align: -.125em;
+    color: var(--primary-link-text);
+    margin: 0;
+    transition: transform .5s;
+    transform: rotate(0deg);
+}
+.icon_caret_rotate {
+    transition: transform .5s;
+    transform: rotate(-90deg);
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+.profile_status_switch {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color);
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.profile_status_switch > .status_online {
+    color: var(--color-status-online);
+}
+.profile_status_switch > .status_online_ingame {
+    color: var(--color-status-online-ingame);
+}
+.profile_status_switch > .status_invisible {
+    color: grey;
+}
+.profile_settings .smartlink {
+    display: flex;
+    flex-direction: row;
+    color: var(--primary-link-text);
+    background: var(--background-color-light);
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.profile_signout .smartlink {
+    display: flex;
+    flex-direction: row;
+    color: var(--primary-link-text);
+    background: var(--background-color-light);
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.profile_settings_icon,
+.profile_logout_icon {
+    font-size: 24px;
+}
+.profile_settings_title,
+.profile_logout_title {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3px;
+    margin-left: 10px;
+    letter-spacing: .5px;
+    font-size: 18px;
+    text-transform: initial;
+    line-height: 1;
+}
+.profile_settings:hover > :nth-child(1),
+.profile_settings:hover > :nth-child(2) {
+    color: var(--primary-active-link);
+}
+.profile_signout:hover > :nth-child(1),
+.profile_signout:hover > :nth-child(2) {
+    color: var(--primary-active-link);
+}
