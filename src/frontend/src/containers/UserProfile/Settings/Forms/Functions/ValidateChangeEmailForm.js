@@ -73,10 +73,10 @@ const HandleFormInputFocus = (focusState, references) => {
  * @param {object} error The input error object
  * @param {Array} references An array of references to the input fields
  */
-const HandleFormInputError = (error, references) => {};
+// const HandleFormInputError = (error, references) => {};
 
 module.exports = {
 	ValidateForm,
 	HandleFormInputFocus,
-	HandleFormInputError,
+	// HandleFormInputError,
 };

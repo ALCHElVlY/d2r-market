@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Internal imports
-import './App.css';
 import {
 	NavMenu,
 } from './components';
@@ -17,6 +16,7 @@ import {
 	Subscription,
 	Notifications,
 } from './containers';
+import './App.css';
 
 
 function App() {

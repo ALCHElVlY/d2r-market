@@ -23,11 +23,9 @@ const FilterRecentOrders = () => {
 			</div>
 			<div className="statusFilter">
 				<FormControl>
-					<FormLabel
-						className="statusFilter_label"
+					<FormLabel className="statusFilter_label"
 						sx={{ color: '#fff', fontFamily: 'inherit' }}
-						focused={false}
-					>
+						focused={false}>
                         Online Status
 					</FormLabel>
 					<RadioGroup

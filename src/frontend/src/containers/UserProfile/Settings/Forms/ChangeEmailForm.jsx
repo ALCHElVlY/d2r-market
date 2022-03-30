@@ -4,9 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 // Internal imports
 import ChangeEmailConfirm from '../Buttons/ChangeEmailConfirm.jsx';
 import {
-	ValidateForm,
+	// ValidateForm,
 	HandleFormInputFocus,
-	HandleFormInputError,
+	// HandleFormInputError,
 } from './Functions/ValidateChangeEmailForm.js';
 
 const ChangeEmailForm = () => {

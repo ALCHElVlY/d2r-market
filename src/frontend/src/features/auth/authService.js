@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-// Import axios
+// External imports
 import axios from 'axios';
 
 // Declare a variable for the user api

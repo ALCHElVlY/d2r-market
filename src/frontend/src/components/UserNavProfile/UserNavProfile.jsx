@@ -10,9 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal imports
-import './usernavprofile.css';
-// Import the getMe and reset actions
 // import { reset } from '../../features/auth/authSlice';
+import './usernavprofile.css';
 
 const UserNavProfile = (props) => {
 	// Declare the dispatch variable
