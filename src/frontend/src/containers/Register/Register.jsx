@@ -11,20 +11,20 @@ const Register = () => {
 			<Helmet defer={false}>
 				<title>Registration | Diablo II Market</title>
 			</Helmet>
-			<header className="register_header">
+			<header className="register_header flex__root">
 				<div className="flex__left"></div>
-				<div className="header_content">
+				<div className="header_content flex__root">
 					<h1>Registration</h1>
 				</div>
 				<div className="flex__right"></div>
 				<div className="header_image_overlay"></div>
 			</header>
-			<div className="register_body">
+			<div className="register_body flex__root">
 				<div className="flex__left"></div>
 				<div className="form_container">
-					<div className="row">
+					<div className="row py-4">
 						<RegisterForm />
-						<div className="auth__errors"></div>
+						<div className="col-12 col-lg-6"></div>
 					</div>
 				</div>
 				<div className="flex__right"></div>

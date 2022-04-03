@@ -7,7 +7,7 @@ const protect = require('../../middleware/authControllers.js');
 const {
 	registerUser,
 	loginUser,
-	getUser,
+	updateUser,
 } = require('../../middleware/userControllers');
 
 // @desc HTTP POST to register a new user
@@ -20,9 +20,9 @@ router.post('/register', registerUser);
 // @access Public
 router.post('/login', loginUser);
 
-// @desc HTTP GET to retrieve user data
-// @route GET api/users/:id
+// @desc HTTP PATCH to update the users data in the database
+// @route PATCH api/users/:id
 // @access Private
-router.get('/:id', protect, getUser);
+router.patch('/:id', protect, updateUser);
 
 module.exports = router;

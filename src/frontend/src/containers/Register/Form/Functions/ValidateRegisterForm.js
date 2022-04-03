@@ -66,18 +66,18 @@ const HandleFormInputFocus = (focusState, references) => {
 	// Handle when the inputs are focused
 	switch (inputIsFocused) {
 	case 'email':
-		references[0].current.classList.add('focus');
+		references[0].current.classList.add('input_focus');
 		break;
 	case 'password':
-		references[1].current.classList.add('focus');
+		references[1].current.classList.add('input_focus');
 		break;
 	case 'confirmPassword':
-		references[2].current.classList.add('focus');
+		references[2].current.classList.add('input_focus');
 		break;
 	default:
-		references[0].current.classList.remove('focus');
-		references[1].current.classList.remove('focus');
-		references[2].current.classList.remove('focus');
+		references[0].current.classList.remove('input_focus');
+		references[1].current.classList.remove('input_focus');
+		references[2].current.classList.remove('input_focus');
 	}
 };
 

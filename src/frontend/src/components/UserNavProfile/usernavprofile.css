@@ -5,9 +5,10 @@
     padding: 0;
     list-style-type: none;
     box-shadow: 0 0 10px -1px rgb(7 16 19 / 25%);
-    transform: translate3d(0, 286px, 0);
+    /* transform: translate3d(0, 287px, 0); */
+    transform: translate3d(0 , 287px, 0);
     transition: transform .5s ease-out;
-    margin-top: -286px;
+    margin-top: -226px;
 }
 .open_close {
     visibility: visible !important;

@@ -127,12 +127,12 @@ const LoginForm = () => {
 	}, [isFocused, error, isError, isSuccess, message, navigate, dispatch]);
 
 	return (
-		<div className="login_form">
-			<div className="form_row_1">
-				<div className="form_row_1_header">
+		<div className="col-12 col-lg-6">
+			<div className="row py-4">
+				<div className="pb-2 col-12">
 					<h2>Login through</h2>
 				</div>
-				<div className='flex_evenly'>
+				<div className='flex_evenly col-12'>
 					<Link to="#">
 						<img src="https://imgur.com/yJwXBdC.png" alt="login-steam" />
 					</Link>
@@ -144,12 +144,12 @@ const LoginForm = () => {
 					</Link>
 				</div>
 			</div>
-			<div className="form_outline"></div>
-			<div className="form_row_2">
-				<div className="form_row_2_header">
+			<div className="row b-outline mx-0"></div>
+			<div className="row py-4">
+				<div className="pb-2 col-12">
 					<h2>Or Login with</h2>
 				</div>
-				<div className="form_row_2_body">
+				<div className="col-12">
 					<form onSubmit={handleSubmit}>
 						<div className="form_group">
 							<label htmlFor="email">
@@ -206,9 +206,9 @@ const LoginForm = () => {
 					</form>
 				</div>
 			</div>
-			<div className="form_outline"></div>
-			<div className="form_row_3">
-				<div className="form_row_3_body">
+			<div className="row b-outline mx-0"></div>
+			<div className="row py-4">
+				<div className="col-12">
 					<Link to="/register" className='register'>
                         Or register
 					</Link>

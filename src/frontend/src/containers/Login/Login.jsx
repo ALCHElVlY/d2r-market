@@ -13,7 +13,7 @@ const Login = () => {
 			</Helmet>
 			<header className="login_header">
 				<div className="flex__left"></div>
-				<div className="header_content">
+				<div className="header_content flex__root">
 					<h1>Sign In</h1>
 				</div>
 				<div className="flex__right"></div>
@@ -24,7 +24,7 @@ const Login = () => {
 				<div className="form_container">
 					<div className="row">
 						<LoginForm />
-						<div className="auth__errors"></div>
+						<div className="auth__errors py-4 col-12 col-lg-6"></div>
 					</div>
 				</div>
 				<div className="flex__right"></div>

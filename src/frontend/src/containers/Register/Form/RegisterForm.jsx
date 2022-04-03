@@ -134,83 +134,85 @@ const RegisterForm = () => {
 	}, [isFocused, error, isError, isSuccess, message, navigate, dispatch]);
 
 	return (
-		<div className="register_form">
-			<div className="form_header">
-				<h2>Registration</h2>
-			</div>
-			<div className="form_body">
-				<form onSubmit={handleSubmit}>
-					<div className="form_group">
-						<label htmlFor="email">
-                            Email address
-						</label>
-						<div className="form_control"
-							onFocus={handleFocus}
-							onBlur={handleBlur}
-							ref={emailFocus}>
-							<input type="email"
-								id='email'
-								name='email'
-								value={email}
-								autoComplete='email'
-								placeholder='Your email'
-								onChange={handleChange} />
+		<div className="col-12 col-lg-6">
+			<div className="row">
+				<div className="pb-2 col-12">
+					<h2>Registration</h2>
+				</div>
+				<div className="col-12">
+					<form onSubmit={handleSubmit}>
+						<div className="form_group">
+							<label htmlFor="email">
+								Email address
+							</label>
+							<div className="form_control"
+								onFocus={handleFocus}
+								onBlur={handleBlur}
+								ref={emailFocus}>
+								<input type="email"
+									id='email'
+									name='email'
+									value={email}
+									autoComplete='email'
+									placeholder='Your email'
+									onChange={handleChange} />
+							</div>
+							<ul className="form_field_errors"
+								ref={emailError}>
+								{error.email && <li>Field required</li>}
+							</ul>
 						</div>
-						<ul className="form_field_errors"
-							ref={emailError}>
-							{error.email && <li>Field required</li>}
-						</ul>
-					</div>
-					<div className="form_group">
-						<label htmlFor="password">
-                            Password
-						</label>
-						<div className="form_control"
-							onFocus={handleFocus}
-							onBlur={handleBlur}
-							ref={passwordFocus}>
-							<input type="password"
-								id='password'
-								name='password'
-								value={password}
-								autoComplete='current-password'
-								placeholder='Your password'
-								onChange={handleChange} />
+						<div className="form_group">
+							<label htmlFor="password">
+								Password
+							</label>
+							<div className="form_control"
+								onFocus={handleFocus}
+								onBlur={handleBlur}
+								ref={passwordFocus}>
+								<input type="password"
+									id='password'
+									name='password'
+									value={password}
+									autoComplete='current-password'
+									placeholder='Your password'
+									onChange={handleChange} />
+							</div>
+							<ul className="form_field_errors"
+								ref={passwordError}>
+								{error.password && <li>Field required</li>}
+							</ul>
 						</div>
-						<ul className="form_field_errors"
-							ref={passwordError}>
-							{error.password && <li>Field required</li>}
-						</ul>
-					</div>
-					<div className="form_group">
-						<label htmlFor="confirmpassword">
-                            Confirm Password
-						</label>
-						<div className="form_control"
-							onFocus={handleFocus}
-							onBlur={handleBlur}
-							ref={confirmPasswordFocus}>
-							<input type="password"
-								id='confirmPassword'
-								name='confirmPassword'
-								value={confirmPassword}
-								autoComplete='current-password'
-								placeholder='Your password'
-								onChange={handleChange} />
+						<div className="form_group">
+							<label htmlFor="confirmpassword">
+								Confirm Password
+							</label>
+							<div className="form_control"
+								onFocus={handleFocus}
+								onBlur={handleBlur}
+								ref={confirmPasswordFocus}>
+								<input type="password"
+									id='confirmPassword'
+									name='confirmPassword'
+									value={confirmPassword}
+									autoComplete='current-password'
+									placeholder='Your password'
+									onChange={handleChange} />
+							</div>
+							<ul className="form_field_errors"
+								ref={confirmPasswordError}>
+								{error.confirmPassword && <li>Field required</li>}
+							</ul>
 						</div>
-						<ul className="form_field_errors"
-							ref={confirmPasswordError}>
-							{error.confirmPassword && <li>Field required</li>}
+						<ul className="form_errors"
+							ref={formErrors}>
+							{error.formError && <li>{error.message}</li>}
 						</ul>
-					</div>
-					<ul className="form_errors"
-						ref={formErrors}>
-						{error.formError && <li>{error.message}</li>}
-					</ul>
-					<div className="register__actions">
-						<RegisterButton onClick={handleClick} />
-					</div>
-				</form>
+						<div className="register__actions">
+							<RegisterButton onClick={handleClick} />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	);

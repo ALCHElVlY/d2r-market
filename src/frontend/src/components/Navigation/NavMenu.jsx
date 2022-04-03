@@ -114,7 +114,7 @@ const NavMenu = () => {
 						<div className='navMenu_title'>
 							<span>Services</span>
 							<span className="navMenu_title_subscript">
-                Rushes | Cows | Ubers
+								Rushes | Cows | Ubers
 							</span>
 						</div>
 					</NavLink>
@@ -133,47 +133,47 @@ const NavMenu = () => {
 							<div className='navMenu_title'><span>My Profile</span></div>
 						</NavLink>
 					</li><li className="navMenu_category">
-						<NavLink to="/messages" className={({ isActive }) => isActive
-							? 'navMenu_link_active'
-							: 'navMenu_link'}>
-							<Icon baseClassName='fa'
-								className='fa-solid fa-envelope' id='messagesIcon' />
-							<div className='navMenu_title'><span>My Messages</span></div>
-						</NavLink>
-					</li><li className="navMenu_profileComboBox"
-						onMouseEnter={handleMouseEnter}
-						onMouseLeave={handleMouseOut}>
-						<UserNavProfile open={open} />
-						<ul className="profileShift"
-							ref={userNavProfileRef}>
-							<li className="profile_text_entry">
-                    Select your status
-							</li>
-							<li className="profile_status_switch">
-								<span className='status_online'>Online</span>
-								<span className='status_online_ingame'>Online in game</span>
-								<span className='status_invisible'>Invisible</span>
-							</li>
-							<li className="profile_settings">
-								<Link to="/settings/account" className="smartlink">
-									<FontAwesomeIcon icon={faGears}
-										className="profile_settings_icon" />
-									<div className='profile_settings_title'>
-										<span>Settings</span>
-									</div>
-								</Link>
-							</li>
-							<li className="profile_signout">
-								<Link to='/' onClick={handleLogout} className="smartlink">
-									<FontAwesomeIcon icon={faRightFromBracket}
-										className="profile_logout_icon" />
-									<div className='profile_logout_title'>
-										<span>Sign out</span>
-									</div>
-								</Link>
-							</li>
-						</ul>
-					</li></>
+							<NavLink to="/messages" className={({ isActive }) => isActive
+								? 'navMenu_link_active'
+								: 'navMenu_link'}>
+								<Icon baseClassName='fa'
+									className='fa-solid fa-envelope' id='messagesIcon' />
+								<div className='navMenu_title'><span>My Messages</span></div>
+							</NavLink>
+						</li><li className="navMenu_profileComboBox"
+							onMouseEnter={handleMouseEnter}
+							onMouseLeave={handleMouseOut}>
+							<ul className="profileShift"
+								ref={userNavProfileRef}>
+								<li className="profile_text_entry">
+									Select your status
+								</li>
+								<li className="profile_status_switch">
+									<span className='status_online'>Online</span>
+									<span className='status_online_ingame'>Online in game</span>
+									<span className='status_invisible'>Invisible</span>
+								</li>
+								<li className="profile_settings">
+									<Link to="/settings/account" className="smartlink">
+										<FontAwesomeIcon icon={faGears}
+											className="profile_settings_icon" />
+										<div className='profile_settings_title'>
+											<span>Settings</span>
+										</div>
+									</Link>
+								</li>
+								<li className="profile_signout">
+									<Link to='/' onClick={handleLogout} className="smartlink">
+										<FontAwesomeIcon icon={faRightFromBracket}
+											className="profile_logout_icon" />
+										<div className='profile_logout_title'>
+											<span>Sign out</span>
+										</div>
+									</Link>
+								</li>
+							</ul>
+							<UserNavProfile open={open} />
+						</li></>
 				) : (
 					<li className='navMenu_category'>
 						<NavLink to="/login" className={({ isActive }) => isActive

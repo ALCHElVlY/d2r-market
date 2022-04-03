@@ -37,7 +37,6 @@ const registerUser = async (req, res) => {
 		await User.create({ email, password: hashedPassword })
 			.then((user) => res.status(201).json({
 				id: user._id,
-				email: user.email,
 				token: generateToken(user._id),
 			}))
 			.catch(() => res.json({ message: 'There was an error registering the user' }));
@@ -75,34 +74,27 @@ const loginUser = async (req, res) => {
 };
 
 /**
- * The getUser function takes in the req and res objects
- * and utilizes the User model to find a user with the given id and returns the user data.
+ * The updateUser function takes in the req and res objects
+ * and utilizes the User model to find a user with the given id and updates their data.
  * @param {*} req
  * @param {*} res
  */
-const getUser = async (req, res) => {
+const updateUser = async (req, res) => {
 	await User.findById(req.user.id)
-		.then((user) => res.status(200).json({
-			id: user._id,
-			username: user.username,
-			customAvatar: user.customAvatar,
-			defaultAvatar: user.defaultAvatar,
-			platform: user.platform,
-			onlineStatus: user.onlineStatus,
-		}))
+		.then((user) => res.status(200).json(user)
 		.catch(() => res.status(500).json({
 			message: 'There was an error retrieving the user',
-		}));
+		})));
 };
 
 // Generate JWT
 const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET,
-		{ expiresIn: '4h' });
+		{ expiresIn: '2h' });
 };
 
 module.exports = {
 	registerUser,
 	loginUser,
-	getUser,
+	updateUser,
 };
