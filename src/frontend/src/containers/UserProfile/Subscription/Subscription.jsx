@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 
 // External imports
-import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -16,19 +15,21 @@ const Subscription = () => {
 	// Get the user from state
 	const { user } = useSelector((state) => state.auth);
 
-	// Create a hook to load the font awesome icons into the css
+	// Create a hook to prevent users who are not logged in
+	// from accessing this page
 	useEffect(() => {
-		// If the user is not logged in, redirect to the home page
 		if (!user) {
-			navigate('/');
+			navigate('/login');
 		}
 	}, [user, navigate]);
 
+	// Create a hook to dynamically change the page title
+	useEffect(() => {
+		document.title = 'Settings | Patronage';
+	}, []);
+
 	return (
 		<section className="subscription__container">
-			<Helmet defer={false}>
-				<title>Settings | Patronage</title>
-			</Helmet>
 			<header className="subscription_header">
 				<div className="flex__left"></div>
 				<div className="header_content">

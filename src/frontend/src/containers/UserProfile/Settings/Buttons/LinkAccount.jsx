@@ -27,13 +27,14 @@ const LinkAccount = (props) => {
 		'&&:hover': {
 			backgroundColor: 'var(--primary-button-background_lighter)',
 		},
+		
 	};
 
 	return (
 		<Button
 			variant='contained'
 			sx={ButtonProps}
-			className='disabled_button'
+			className='link_account disabled_button'
 			disableRipple
 			type='submit'
 			onClick={props.onClick}

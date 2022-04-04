@@ -80,11 +80,9 @@ const loginUser = async (req, res) => {
  * @param {*} res
  */
 const updateUser = async (req, res) => {
-	await User.findById(req.user.id)
-		.then((user) => res.status(200).json(user)
-		.catch(() => res.status(500).json({
-			message: 'There was an error retrieving the user',
-		})));
+	await User.findByIdAndUpdate(req.params.id, req.body)
+		.then(() => res.status(200).json({ succes: true }))
+		.catch(() => res.status(400).json({ succes: false }));
 };
 
 // Generate JWT

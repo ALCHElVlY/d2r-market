@@ -84,7 +84,7 @@
     margin-left: auto;
     min-height: 120px;
 }
-.header_content h1 {
+.login_header > .header_content h1 {
     text-transform: uppercase;
     font-size: 1.3rem;
     line-height: 1.2;

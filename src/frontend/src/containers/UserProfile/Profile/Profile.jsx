@@ -12,11 +12,11 @@ const Profile = () => {
 	// Get the user from state
 	const { user } = useSelector((state) => state.auth);
 
-	// Create a hook to load the font awesome icons into the css
+	// Create a hook to prevent users who are not logged in
+	// from accessing this page
 	useEffect(() => {
-		// If the user is not logged in, redirect to the home page
 		if (!user) {
-			navigate('/');
+			navigate('/login');
 		}
 	}, [user, navigate]);
 

@@ -1,5 +1,5 @@
 // External imports
-import { Helmet } from 'react-helmet';
+import { useEffect } from 'react';
 
 // Internal imports
 import {
@@ -12,11 +12,13 @@ import {
 import './contentwrapper.css';
 
 const ContentWrapper = () => {
+	// Create a hook to dymanically change the page title
+	useEffect(() => {
+		document.title = 'Diablo II Market';
+	}, []);
+	
 	return (
 		<div className='content__container'>
-			<Helmet defer={false}>
-				<title>Diablo II Market</title>
-			</Helmet>
 			<Header />
 			<section className='content'>
 				<div className="content_header_second">

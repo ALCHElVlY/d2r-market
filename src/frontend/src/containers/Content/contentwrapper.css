@@ -102,15 +102,24 @@
     background-color: #101619;
 }
 .b-outline {
-    border-bottom: 1px solid #203137;
+    border-bottom: 1px solid var(--border-color-light);
 }
 .visible {
-    display: block;
+    display: block !important;
 }
 .input_focus {
     border: 1px solid var(--primary-component-focused) !important;
     outline: 0;
     box-shadow: 0 0 0 .15rem rgba(212, 0, 0, 0.25);
+}
+.disabled_link {
+    color: var(--disabled-text) !important;
+    cursor: not-allowed !important;
+}
+.disabled_button {
+    background-color: var(--disabled-text) !important;
+    color: var(--primary-link-text) !important;
+    cursor: not-allowed !important;
 }
 
 
@@ -158,4 +167,10 @@
 .mx-0 {
     margin-right: 0 !important;
     margin-left: 0 !important;
+}
+.mb-2 {
+    margin-bottom: .5rem !important;
+}
+.mb-3 {
+    margin-bottom: 1rem !important;
 }

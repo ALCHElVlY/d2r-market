@@ -1,16 +1,18 @@
 // External imports
-import { Helmet } from 'react-helmet';
+import { useEffect } from 'react';
 
 // Internal imports
 import LoginForm from './Form/LoginForm.jsx';
 import './login.css';
 
 const Login = () => {
+	// Create a hook to dymanically change the page title
+	useEffect(() => {
+		document.title = 'Sign In | Diablo II Market';
+	}, []);
+
 	return (
 		<section className="login__container">
-			<Helmet defer={false}>
-				<title>Sign In | Diablo II Market</title>
-			</Helmet>
 			<header className="login_header">
 				<div className="flex__left"></div>
 				<div className="header_content flex__root">
