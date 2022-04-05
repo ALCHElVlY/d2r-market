@@ -37,6 +37,10 @@ const registerUser = async (req, res) => {
 		await User.create({ email, password: hashedPassword })
 			.then((user) => res.status(201).json({
 				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
 				token: generateToken(user._id),
 			}))
 			.catch(() => res.json({ message: 'There was an error registering the user' }));
@@ -62,7 +66,6 @@ const loginUser = async (req, res) => {
 			id: user._id,
 			username: user.username,
 			customAvatar: user.customAvatar,
-			defaultAvatar: user.defaultAvatar,
 			platform: user.platform,
 			onlineStatus: user.onlineStatus,
 			token: generateToken(user._id),
@@ -80,9 +83,14 @@ const loginUser = async (req, res) => {
  * @param {*} res
  */
 const updateUser = async (req, res) => {
-	await User.findByIdAndUpdate(req.params.id, req.body)
+	console.log(req.body);
+	// Find the user with the given id
+	// const user = await User.findById(req.params.id);
+
+	
+	/* await User.findByIdAndUpdate(req.params.id, req.body)
 		.then(() => res.status(200).json({ succes: true }))
-		.catch(() => res.status(400).json({ succes: false }));
+		.catch(() => res.status(400).json({ succes: false }));*/
 };
 
 // Generate JWT

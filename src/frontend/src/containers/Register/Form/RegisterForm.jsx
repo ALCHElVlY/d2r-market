@@ -1,5 +1,5 @@
 // Builtin imports
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 // External imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,10 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { register, reset } from '../../../features/auth/authSlice';
 import RegisterButton from '../Buttons/RegisterButton.jsx';
 import {
-	ValidateRegistrationForm,
-	HandleFormInputFocus,
-	HandleFormInputError,
-} from './Functions/ValidateRegisterForm.js';
+	ValidateForm,
+	HandleInputFocus,
+	HandleFormError,
+} from '../../../features/forms/ValidateForm.js';
 
 const RegisterForm = () => {
 	// Create a ref to the input fields
@@ -36,18 +36,19 @@ const RegisterForm = () => {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { isError, isSuccess, message } = useSelector(
+	const { user, isError, message } = useSelector(
 		(state) => state.auth);
 
 	// Set the state for the input focus
 	const [isFocused, setIsFocused] = useState({});
+	// eslint-disable-next-line no-unused-vars
+	const [didSubmit, setDidSubmit] = useState(false);
 
 	// Set the state for the input validation errors
 	const [error, setError] = useState({
 		email: false,
 		password: false,
 		confirmPassword: false,
-		passwordMisMatch: false,
 		formError: false,
 		message: '',
 	});
@@ -78,8 +79,11 @@ const RegisterForm = () => {
 
 	// Handle when the form button is clicked
 	const handleClick = async () => {
-		// Check if the form inputs are empty
-		ValidateRegistrationForm(inputs, setError);
+		ValidateForm(
+			'register',
+			inputs,
+			setError,
+		);
 	};
 
 	// Handle when the form is submitted
@@ -87,51 +91,66 @@ const RegisterForm = () => {
 		// Prevent the default form submission
 		e.preventDefault();
 
-		// Check if the registration process returned an error
-		if (password !== confirmPassword) {
+		// Check if there are any input errors
+		const inputErrors = Object.entries(error).filter(key => 
+			key.includes('email') || key.includes('password') ||
+			key.includes('confirmPassword'));
+		const hasInputError = inputErrors.some(key => key[1] === true);
+		if (hasInputError) {
+			return setDidSubmit(false);
+		}
+		else if (password !== confirmPassword) {
 			setError((prevState) => ({
 				...prevState,
-				passwordMisMatch: true,
+				formError: true,
 				message: 'Passwords do not match',
 			}));
+			return setDidSubmit(false);
 		}
-		else {
-			// Dispatch the register action
-			dispatch(register({ email, password }));
-		}
+
+		// Dispatch the login action
+		await dispatch(register({ email, password }));
+		await setDidSubmit(true);
 	};
 
-
-	// React hook to handle different effects
+	// React hook to keep logged in users from accidently navigating
+	// to the login page
 	useEffect(() => {
-		// Handle form input focus
-		HandleFormInputFocus(
+		if (user) {
+			navigate('/');
+		}
+	}, [user, navigate]);
+
+	// React hook to handle the input focus
+	useEffect(() => {
+		HandleInputFocus(
+			'register',
 			isFocused,
 			[emailFocus, passwordFocus, confirmPasswordFocus],
 		);
+	}, [isFocused]);
 
-		// Handle setting the for input validation errors
-		HandleFormInputError(
+	// React hook to handle the form errors
+	useEffect(() => {
+		HandleFormError(
+			'register',
 			error,
 			[emailError, passwordError, confirmPasswordError, formErrors],
 		);
 
-
 		if (isError) {
+			// Set the form error state
 			setError((prevState) => ({
 				...prevState,
 				formError: true,
 				message: message,
 			}));
 		}
-		if (isSuccess) {
-			// Redirect to the home page
-			navigate('/');
+		else {
+			// Dispatch the reset action
+			dispatch(reset());
 		}
-
-		// Reset the state
-		dispatch(reset());
-	}, [isFocused, error, isError, isSuccess, message, navigate, dispatch]);
+	}, [isError, message, error, navigate, dispatch]);
 
 	return (
 		<div className="col-12 col-lg-6">

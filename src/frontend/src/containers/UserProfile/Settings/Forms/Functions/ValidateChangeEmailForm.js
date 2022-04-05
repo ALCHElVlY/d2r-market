@@ -7,37 +7,29 @@
 const ValidateForm = (values, action) => {
 	// Handle pre-submit form validation
 	if (values.currentPassword === '' &&
-        values.newPassword === '' &&
-        values.confirmNewPassword === '') {
+		values.newEmail === '') {
 		action((prevState) => ({
 			...prevState,
 			currentPassword: true,
-			newPassword: true,
-			confirmNewPassword: true,
+			newEmail: true,
 		}));
-	}
-	else if (values.newPassword) {
+	} else if (values.currentPassword === '') {
+		action((prevState) => ({
+			...prevState,
+			currentPassword: true,
+			newEmail: false,
+		}));
+	} else if (values.newEmail === '') {
 		action((prevState) => ({
 			...prevState,
 			currentPassword: false,
-			newPassword: true,
-			confirmNewPassword: false,
+			newEmail: true,
 		}));
-	}
-	else if (values.confirmNewPassword) {
+	} else {
 		action((prevState) => ({
 			...prevState,
 			currentPassword: false,
-			newPassword: false,
-			confirmNewPassword: true,
-		}));
-	}
-	else {
-		action((prevState) => ({
-			...prevState,
-			currentPassword: false,
-			newPassword: false,
-			confirmNewPassword: false,
+			newEmail: false,
 		}));
 	}
 };
@@ -55,15 +47,15 @@ const HandleFormInputFocus = (focusState, references) => {
 
 	// Handle when the inputs are focused
 	switch (inputIsFocused) {
-	case 'currentPassword':
-		references[0].current.classList.add('focus');
-		break;
-	case 'newEmail':
-		references[1].current.classList.add('focus');
-		break;
-	default:
-		references[0].current.classList.remove('focus');
-		references[1].current.classList.remove('focus');
+		case 'currentPassword':
+			references[0].current.classList.add('input_focus');
+			break;
+		case 'newEmail':
+			references[1].current.classList.add('input_focus');
+			break;
+		default:
+			references[0].current.classList.remove('input_focus');
+			references[1].current.classList.remove('input_focus');
 	}
 };
 
@@ -73,10 +65,32 @@ const HandleFormInputFocus = (focusState, references) => {
  * @param {object} error The input error object
  * @param {Array} references An array of references to the input fields
  */
-// const HandleFormInputError = (error, references) => {};
+const HandleFormInputError = (error, references) => {
+	switch (error.currentPassword) {
+		case true:
+			references[0].current.classList.add('visible');
+			break;
+		default:
+			references[0].current.classList.remove('visible');
+	}
+	switch (error.newEmail) {
+		case true:
+			references[1].current.classList.add('visible');
+			break;
+		default:
+			references[1].current.classList.remove('visible');
+	}
+	switch (error.formError) {
+		case true:
+			references[2].current.classList.add('visible');
+			break;
+		default:
+			references[2].current.classList.remove('visible');
+	}
+};
 
 module.exports = {
 	ValidateForm,
 	HandleFormInputFocus,
-	// HandleFormInputError,
+	HandleFormInputError,
 };

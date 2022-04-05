@@ -9,10 +9,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login, reset } from '../../../features/auth/authSlice';
 import LoginButton from '../Buttons/LoginButton.jsx';
 import {
-	ValidateLoginForm,
-	HandleFormInputFocus,
-	HandleFormInputError,
-} from './Functions/ValidateLoginForm.js';
+	ValidateForm,
+	HandleInputFocus,
+	HandleFormError,
+} from '../../../features/forms/ValidateForm.js';
 
 const LoginForm = () => {
 	// Declare the dispatch variable
@@ -20,7 +20,7 @@ const LoginForm = () => {
 	// Declare the navigate variable
 	const navigate = useNavigate();
 
-	const { isError, isSuccess, message } = useSelector(
+	const { user, isError, isSuccess, message } = useSelector(
 		(state) => state.auth);
 
 	// Create a ref to email and password focus
@@ -41,6 +41,8 @@ const LoginForm = () => {
 
 	// Set the state for the input focus
 	const [isFocused, setIsFocused] = useState({});
+	// eslint-disable-next-line no-unused-vars
+	const [didSubmit, setDidSubmit] = useState(false);
 
 	// Set the state for the input validation errors
 	const [error, setError] = useState({
@@ -77,7 +79,11 @@ const LoginForm = () => {
 	// Handle when the form button is clicked
 	const handleClick = async () => {
 		// Check if the email and password inputs are empty
-		ValidateLoginForm(inputs, setError);
+		await ValidateForm(
+			'login',
+			inputs,
+			setError,
+		);
 	};
 
 	// Handle when the form is submitted
@@ -85,46 +91,60 @@ const LoginForm = () => {
 		// Prevent the default form submission
 		e.preventDefault();
 
-		// Check if any form errors exist
-		const hasError = Object.values(error).some(value => value === true);
-		switch (hasError) {
-		case true:
-			break;
-		default:
-			// Dispatch the login action
-			dispatch(login({ email, password }));
-		}
+		// Check if there are any input errors
+		const inputErrors = Object.entries(error).filter(key => 
+			key.includes('email') || key.includes('password'));
+		const hasInputError = inputErrors.some(key => key[1] === true);
+		if (hasInputError) return setDidSubmit(false);
+
+		// Dispatch the login action
+		await dispatch(login({ email, password }));
+		await setDidSubmit(true);
 	};
 
-	// React hook to handle different effects
+
+	// React hook to keep logged in users from accidently navigating
+	// to the login page
 	useEffect(() => {
-		// Handle form input focus
-		HandleFormInputFocus(
+		if (user) {
+			navigate('/');
+		}
+	}, [user, navigate]);
+
+	// React hook to handle input focus
+	useEffect(() => {
+		HandleInputFocus(
+			'login',
 			isFocused,
 			[emailFocus, passwordFocus],
 		);
+	}, [isFocused]);
 
-		// Handle setting the email and password validation errors
-		HandleFormInputError(
+	// React hook to handle the form errors
+	useEffect(() => {
+		HandleFormError(
+			'login',
 			error,
 			[emailInputRef, passwordInputRef, formErrors],
 		);
 
 		if (isError) {
+			// Set the form error state
 			setError((prevState) => ({
 				...prevState,
 				formError: true,
 				message: message,
 			}));
 		}
-		if (isSuccess) {
-			// Redirect to the home page
+		else if (isSuccess) {
+			// Redirect to the homepage
 			navigate('/');
 		}
-
-		// Reset the state
-		dispatch(reset());
-	}, [isFocused, error, isError, isSuccess, message, navigate, dispatch]);
+		else {
+			// Dispatch the reset action
+			dispatch(reset());
+		}
+	}, [isError, isSuccess, message, error, navigate, dispatch]);
 
 	return (
 		<div className="col-12 col-lg-6">

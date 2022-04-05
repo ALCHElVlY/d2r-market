@@ -36,13 +36,13 @@ const NavMenu = () => {
 	const [open, setOpen] = useState(false);
 
 	// Handle the logout event
-	const handleLogout = () => {
+	const handleLogout = async () => {
 		// Dispatch the logout action
-		dispatch(logout());
+		await dispatch(logout());
 		// Dispatch the reset action
-		dispatch(reset());
+		await dispatch(reset());
 		// Redirect the user back to the home page
-		navigate('/');
+		await navigate('/');
 	};
 
 	// Handle when the user mourses over the profile dropdown
@@ -57,7 +57,7 @@ const NavMenu = () => {
 		setOpen(false);
 	};
 
-	// Create a hook to load the font awesome icons into the css
+	// React hook to load the font-awesome css file
 	useEffect(() => {
 		const node = loadCSS(
 			'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
@@ -65,7 +65,13 @@ const NavMenu = () => {
 			// eslint-disable-next-line no-undef
 			document.querySelector('#font-awesome-css') || document.head.firstChild,
 		);
+		return () => {
+			node.parentNode.removeChild(node);
+		};
+	}, []);
 
+	// REact hook to handle when the profile dropdown is opened
+	useEffect(() => {
 		// When the user hovers over the profile dropdown
 		// Set the caret icon to rotate
 		if (user && open) {
@@ -77,11 +83,6 @@ const NavMenu = () => {
 		else {
 			setOpen(false);
 		}
-
-
-		(() => {
-			node.parentNode.removeChild(node);
-		})();
 	}, [user, open]);
 
 

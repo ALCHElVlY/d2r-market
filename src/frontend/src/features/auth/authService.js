@@ -16,8 +16,6 @@ const register = async (userData) => {
 
 	if (response.data) {
 		localStorage.setItem('user', JSON.stringify(response.data));
-		// Redirect to the home page
-		window.location.href = '/';
 	}
 
 	return response.data;

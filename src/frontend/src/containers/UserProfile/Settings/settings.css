@@ -193,3 +193,32 @@
     color: var(--primary-active-link);
     border-bottom: 3px solid var(--primary-active-link);
 }
+.settings_content .form_field_errors {
+    display: none;
+    position: absolute;
+    bottom: -8px;
+    right: 10px;
+    background-color: #121212;
+    color: var(--color-danger-text);
+    font-family: 'sans-serif';
+    font-size: 12px;
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 0 7px;
+    border-right: 1px solid #203137;
+    border-left: 1px solid #203137;
+    pointer-events: none;
+    z-index: 50;
+}
+.settings_content .form_errors {
+    display: none;
+    background: #34201b;
+    color: var(--color-danger-text);
+    font-family: sans-serif;
+    font-size: 12px;
+    list-style-type: none;
+    border-top: 1px solid var(--border-color-danger);
+    padding: 10px;
+    margin-bottom: 1rem;
+}
