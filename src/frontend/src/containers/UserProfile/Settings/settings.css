@@ -175,6 +175,11 @@
     display: flex;
     align-items: center;
 }
+.fixed_height > .confirm_removal {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 100px !important;
+}
 .settings__container .header_lightened {
     color: #eff2f3;
 }

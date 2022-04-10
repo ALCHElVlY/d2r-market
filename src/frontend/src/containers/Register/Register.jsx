@@ -1,11 +1,14 @@
 // External imports
 import { useEffect } from 'react';
 
+
 // Internal imports
 import RegisterForm from './Form/RegisterForm.jsx';
+
 import './register.css';
 
 const Register = () => {
+
 	// Create a hook to dymanically change the page title
 	useEffect(() => {
 		document.title = 'Registration | Diablo II Market';

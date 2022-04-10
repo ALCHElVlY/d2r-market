@@ -139,6 +139,9 @@ const LoginForm = () => {
 		else if (isSuccess) {
 			// Redirect to the homepage
 			navigate('/');
+
+			// Reset the state
+			dispatch(reset());
 		}
 		else {
 			// Dispatch the reset action

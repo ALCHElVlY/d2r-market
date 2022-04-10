@@ -141,6 +141,15 @@
     padding-right: 15px;
     padding-left: 15px;
 }
+.col-6 {
+    flex: 0 0 50%;
+    position: relative;
+    max-width: 50%;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
 .col-12 {
     position: relative;
     width: 100%;

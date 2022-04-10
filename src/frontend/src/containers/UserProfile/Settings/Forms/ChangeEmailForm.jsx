@@ -84,7 +84,7 @@ const ChangeEmailForm = () => {
 			[currentPasswordRef, newEmailRef],
 		);
 
-		// Handle setting the for input validation errors
+		// Handle form input errors
 		HandleFormInputError(
 			error,
 			[currentPasswordError, newEmailError, formErrors],

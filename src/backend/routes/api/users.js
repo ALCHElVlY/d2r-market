@@ -8,6 +8,7 @@ const {
 	registerUser,
 	loginUser,
 	updateUser,
+	deleteUser,
 } = require('../../middleware/userControllers');
 
 // @desc HTTP POST to register a new user
@@ -24,5 +25,10 @@ router.post('/login', loginUser);
 // @route PATCH api/users/:id
 // @access Private
 router.patch('/:id', protect, updateUser);
+
+// @desc HTTP DELETE to remove a user from the database
+// @route DELETE api/users/:id
+// @access Private
+router.delete('/:id', protect, deleteUser);
 
 module.exports = router;

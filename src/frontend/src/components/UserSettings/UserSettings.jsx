@@ -1,11 +1,18 @@
+// Built-in imports
+import { useState } from 'react';
+
 // External imports
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Internal imports
-import RemoveAccount from '../../containers/UserProfile/Settings/Buttons/RemoveAccount.jsx';
+import CancelRemoveAccount from '../../containers/UserProfile/Settings/Buttons/CancelRemoveAccount.jsx';
 import ChangeEmailForm from '../../containers/UserProfile/Settings/Forms/ChangeEmailForm.jsx';
 import ChangePasswordForm from '../../containers/UserProfile/Settings/Forms/ChangePasswordForm.jsx';
+import ConfirmRemoveAccount from '../../containers/UserProfile/Settings/Buttons/ConfirmRemoveAccount.jsx';
 import LinkBlocks from '../../components/UserSettings/LinkBlocks.jsx';
+import { deleteUser, reset } from '../../features/auth/authSlice';
+import RemoveAccount from '../../containers/UserProfile/Settings/Buttons/RemoveAccount.jsx';
 
 
 const UserSettings = () => {
@@ -49,6 +56,38 @@ const UserSettings = () => {
     );
 }
 const SettingsContent = () => {
+    // Get the user from state
+	const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // Declre a state variable for the account removal confirmation
+    const [pendingRemoval, setPendingRemoval] = useState(false);
+
+    // Handle when the RemoveAccount button is clicked
+    const handleClick = () => {
+        // Set the state to true
+        setPendingRemoval(true);
+    };
+
+    // Handle when the user cancels the account removal process
+    const handleCancelRemoval = () => {
+        setPendingRemoval(false);
+    };
+
+    // Handle when the user confirms the account removal process
+    const handleConfirmRemoval = async () => {
+        // Delete the users data from the database
+        await dispatch(deleteUser(user));
+
+        // Redirect the user to the home page
+        await navigate('/');
+
+        // Reset the state
+        await dispatch(reset());
+    };
+
+
     return (
         <div className="container settings_content">
             <div className="row">
@@ -106,20 +145,29 @@ const SettingsContent = () => {
                 </div>
                 <div className="col-12">
                     <div className="row fixed_height">
-                        <div className="col-12 col-md-8 mb-3">
-                            <p>
-                                Your Account and all related data will be deleted in a few minutes, including
-                                your orders, trade reviews, and reputation points.
-                                <br />
-                                After this it will be impossible to restore your account.
-                                <br />
-                                If you want to continue, click the button to the right and confirm your
-                                request.
-                            </p>
-                        </div>
-                        <div className="removal_button col-12 col-md-4">
-                            <RemoveAccount />
-                        </div>
+                        {pendingRemoval
+                            ? <div className='confirm_removal col-6'>
+                                Are you sure you want to remove your account?    
+                            </div>
+                            : <div className="col-12 col-md-8 mb-3">
+                                <p>
+                                    Your Account and all related data will be deleted in a few minutes, including
+                                    your orders, trade reviews, and reputation points.
+                                    <br />
+                                    After this it will be impossible to restore your account.
+                                    <br />
+                                    If you want to continue, click the button to the right and confirm your
+                                    request.
+                                </p>
+                            </div>}
+                        {pendingRemoval
+                            ? <div className='confirm_removal col-6'>
+                                <CancelRemoveAccount onClick={handleCancelRemoval} />
+                                <ConfirmRemoveAccount onClick={handleConfirmRemoval} />
+                            </div>
+                            : <div className="removal_button col-12 col-md-4">
+                                <RemoveAccount onClick={handleClick} />
+                            </div>}
                     </div>
                 </div>
             </div>

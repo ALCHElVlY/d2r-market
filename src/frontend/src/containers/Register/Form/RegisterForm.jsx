@@ -36,7 +36,7 @@ const RegisterForm = () => {
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { user, isError, message } = useSelector(
+	const { user, isError, isSuccess, message } = useSelector(
 		(state) => state.auth);
 
 	// Set the state for the input focus
@@ -92,7 +92,7 @@ const RegisterForm = () => {
 		e.preventDefault();
 
 		// Check if there are any input errors
-		const inputErrors = Object.entries(error).filter(key => 
+		const inputErrors = Object.entries(error).filter(key =>
 			key.includes('email') || key.includes('password') ||
 			key.includes('confirmPassword'));
 		const hasInputError = inputErrors.some(key => key[1] === true);
@@ -108,7 +108,7 @@ const RegisterForm = () => {
 			return setDidSubmit(false);
 		}
 
-		// Dispatch the login action
+		// Dispatch the register action
 		await dispatch(register({ email, password }));
 		await setDidSubmit(true);
 	};
@@ -146,11 +146,12 @@ const RegisterForm = () => {
 				message: message,
 			}));
 		}
-		else {
+		else if (isSuccess) {
 			// Dispatch the reset action
 			dispatch(reset());
 		}
-	}, [isError, message, error, navigate, dispatch]);
+	}, [isError, isSuccess, message, error, navigate, dispatch]);
+
 
 	return (
 		<div className="col-12 col-lg-6">

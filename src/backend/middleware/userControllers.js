@@ -14,19 +14,28 @@ const User = require('../database/models/User');
  */
 const registerUser = async (req, res) => {
 	try {
-		const { email, password } = req.body;
+		const {
+			email,
+			password
+		} = req.body;
 
 		// Check if an email and password was provided
 		if (!email || !password) {
 			return res.status(400)
-				.json({ message: 'Missing required fields' });
+				.json({
+					message: 'Missing required fields'
+				});
 		}
 
 		// Check if an account already exists with the given email
-		const userExists = await User.findOne({ email });
+		const userExists = await User.findOne({
+			email
+		});
 		if (userExists) {
 			return res.status(400)
-				.json({ message: 'Email already registered' });
+				.json({
+					message: 'Email already registered'
+				});
 		}
 
 		// Hash the password
@@ -34,7 +43,10 @@ const registerUser = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, salt);
 
 		// Create a new user
-		await User.create({ email, password: hashedPassword })
+		await User.create({
+				email,
+				password: hashedPassword
+			})
 			.then((user) => res.status(201).json({
 				id: user._id,
 				username: user.username,
@@ -43,10 +55,13 @@ const registerUser = async (req, res) => {
 				onlineStatus: user.onlineStatus,
 				token: generateToken(user._id),
 			}))
-			.catch(() => res.json({ message: 'There was an error registering the user' }));
-	}
-	catch (e) {
-		res.status(500).send({ message: e.message });
+			.catch(() => res.json({
+				message: 'There was an error registering the user'
+			}));
+	} catch (e) {
+		res.status(500).send({
+			message: e.message
+		});
 	}
 };
 
@@ -57,10 +72,15 @@ const registerUser = async (req, res) => {
  * @param {*} res
  */
 const loginUser = async (req, res) => {
-	const { email, password } = req.body;
+	const {
+		email,
+		password
+	} = req.body;
 
 	// Check for a valid user email
-	const user = await User.findOne({ email });
+	const user = await User.findOne({
+		email
+	});
 	if (user && (await bcrypt.compare(password, user.password))) {
 		res.json({
 			id: user._id,
@@ -70,9 +90,10 @@ const loginUser = async (req, res) => {
 			onlineStatus: user.onlineStatus,
 			token: generateToken(user._id),
 		});
-	}
-	else {
-		res.status(400).json({ message: 'Invalid credentials' });
+	} else {
+		res.status(400).json({
+			message: 'Invalid credentials'
+		});
 	}
 };
 
@@ -87,20 +108,49 @@ const updateUser = async (req, res) => {
 	// Find the user with the given id
 	// const user = await User.findById(req.params.id);
 
-	
+
 	/* await User.findByIdAndUpdate(req.params.id, req.body)
 		.then(() => res.status(200).json({ succes: true }))
 		.catch(() => res.status(400).json({ succes: false }));*/
 };
 
+
+const deleteUser = async (req, res) => {
+	try {
+		// Delete the user
+		await User.findByIdAndDelete(req.params.id)
+			.then(() => res.status(200).json({
+				succes: true,
+			}))
+			.catch(() => res.status(400).json({
+				succes: false,
+			}));
+	} catch (e) {
+		console.log(e);
+		if (e.name === 'TokenExpiredError') {
+			res.status(401).json({
+				message: 'Token expired',
+			});
+		};
+
+		res.status(500).send({
+			message: e.message,
+		});
+	}
+};
+
 // Generate JWT
 const generateToken = (id) => {
-	return jwt.sign({ id }, process.env.JWT_SECRET,
-		{ expiresIn: '2h' });
+	return jwt.sign({
+		id
+	}, process.env.JWT_SECRET, {
+		expiresIn: '2h'
+	});
 };
 
 module.exports = {
 	registerUser,
 	loginUser,
 	updateUser,
+	deleteUser,
 };

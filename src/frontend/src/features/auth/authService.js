@@ -43,12 +43,25 @@ const logout = () => {
 	localStorage.removeItem('user');
 };
 
+/**
+ * The delete function logs the user out of the application and deletes
+ * the user from the database.
+ */
+const deleteUser = async (userData) => {
+	const response = await axios.delete(`${API_URL}/${userData.id}`, {
+		headers: { 'Authorization': `Bearer ${userData.token}` },
+	});
+
+	if (response) logout();
+};
+
 // Declare a auth service object
 // to export and use
 const authService = {
 	register,
 	login,
 	logout,
+	deleteUser,
 };
 
 export default authService;
