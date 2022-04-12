@@ -119,8 +119,6 @@ Twitter: n/a
 <!-- ACKNOWLEDGEMENTS -->
 ## ACKNOWLEDGEMENTS
 
-<insert content>
-
 1. My amazing girlfriend Rey0Sun2187#6979 for her continued support in all of my programming projects!
 
 
