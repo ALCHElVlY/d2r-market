@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 
 // Internal imports
-import LoginForm from './Form/LoginForm.jsx';
+import LoginForm from '../../components/Forms/LoginForm.jsx';
 import './login.css';
 
 const Login = () => {

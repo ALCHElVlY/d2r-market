@@ -44,6 +44,21 @@ const logout = () => {
 };
 
 /**
+ * The updateUser function takes in a user object and
+ * updates the users data in the database.
+ * @param {*} userData 
+ */
+const updateUser = async (userData) => {
+	const response = await axios.patch(`${API_URL}/${userData.user.id}`, userData.data, {
+		headers: { 'Authorization': `Bearer ${userData.user.token}` },
+	});
+
+	if (response) {
+		localStorage.setItem('user', JSON.stringify(response.data));
+	}
+};
+
+/**
  * The delete function logs the user out of the application and deletes
  * the user from the database.
  */
@@ -61,6 +76,7 @@ const authService = {
 	register,
 	login,
 	logout,
+	updateUser,
 	deleteUser,
 };
 

@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // Internal imports
-import { register, reset } from '../../../features/auth/authSlice';
+import { register, reset } from '../../features/auth/authSlice';
 import RegisterButton from '../Buttons/RegisterButton.jsx';
 import {
 	ValidateForm,
 	HandleInputFocus,
 	HandleFormError,
-} from '../../../features/forms/ValidateForm.js';
+} from '../../features/forms/ValidateForm.js';
 
 const RegisterForm = () => {
 	// Create a ref to the input fields
@@ -79,11 +79,7 @@ const RegisterForm = () => {
 
 	// Handle when the form button is clicked
 	const handleClick = async () => {
-		ValidateForm(
-			'register',
-			inputs,
-			setError,
-		);
+		await ValidateForm(inputs, setError);
 	};
 
 	// Handle when the form is submitted
@@ -124,7 +120,6 @@ const RegisterForm = () => {
 	// React hook to handle the input focus
 	useEffect(() => {
 		HandleInputFocus(
-			'register',
 			isFocused,
 			[emailFocus, passwordFocus, confirmPasswordFocus],
 		);
@@ -133,7 +128,6 @@ const RegisterForm = () => {
 	// React hook to handle the form errors
 	useEffect(() => {
 		HandleFormError(
-			'register',
 			error,
 			[emailError, passwordError, confirmPasswordError, formErrors],
 		);

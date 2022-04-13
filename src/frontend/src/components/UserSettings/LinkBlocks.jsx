@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Internal imports
-import LinkAccount from '../../containers/UserProfile/Settings/Buttons/LinkAccount.jsx';
+import LinkAccount from '../../components/Buttons/LinkAccount.jsx';
 
 
 const LinkBlocks = () => {

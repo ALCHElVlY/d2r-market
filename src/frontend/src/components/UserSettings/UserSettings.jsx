@@ -6,13 +6,17 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal imports
-import CancelRemoveAccount from '../../containers/UserProfile/Settings/Buttons/CancelRemoveAccount.jsx';
-import ChangeEmailForm from '../../containers/UserProfile/Settings/Forms/ChangeEmailForm.jsx';
-import ChangePasswordForm from '../../containers/UserProfile/Settings/Forms/ChangePasswordForm.jsx';
-import ConfirmRemoveAccount from '../../containers/UserProfile/Settings/Buttons/ConfirmRemoveAccount.jsx';
+import {
+    ChangeEmailForm,
+    ChangePasswordForm,
+} from '../Forms/index.js';
+import {
+    RemoveAccount,
+    ConfirmRemoveAccount,
+    CancelRemoveAccount,
+} from '../Buttons/index.js';
 import LinkBlocks from '../../components/UserSettings/LinkBlocks.jsx';
 import { deleteUser, reset } from '../../features/auth/authSlice';
-import RemoveAccount from '../../containers/UserProfile/Settings/Buttons/RemoveAccount.jsx';
 
 
 const UserSettings = () => {
@@ -23,7 +27,6 @@ const UserSettings = () => {
             e.preventDefault();
         }
     };
-
 
     return (
         <div className="settings_tab">

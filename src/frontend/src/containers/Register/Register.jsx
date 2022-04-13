@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 
 // Internal imports
-import RegisterForm from './Form/RegisterForm.jsx';
+import RegisterForm from '../../components/Forms/RegisterForm.jsx';
 
 import './register.css';
 

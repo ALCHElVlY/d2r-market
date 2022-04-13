@@ -104,11 +104,43 @@ const loginUser = async (req, res) => {
  * @param {*} res
  */
 const updateUser = async (req, res) => {
-	console.log(req.body);
-	// Find the user with the given id
-	// const user = await User.findById(req.params.id);
+	// Find the user by their id
+	const user = await User.findById(req.params.id);
+	const {
+		newPassword,
+		newEmail,
+	} = req.body;
 
+	// Check if the user provided the correct password
+	const validPassword = await bcrypt.compare(req.body.currentPassword, user.password);
+	if (!validPassword) return res.status(400)
+		.json({ message: 'Invalid password' });
+	
+	if (newEmail) {
+		// Update the user's email
+		user.email = newEmail;
 
+		// Check if the new email is already in use
+		const userExists = await User.findOne({
+			email: newEmail
+		});
+		if (userExists) return res.status(400)
+			.json({ message: 'Email already registered' });
+
+		// Save the user
+		await user.save()
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			}));
+	}
+	if (newPassword) {
+		console.log('newPassword:' + newPassword);
+	}
 	/* await User.findByIdAndUpdate(req.params.id, req.body)
 		.then(() => res.status(200).json({ succes: true }))
 		.catch(() => res.status(400).json({ succes: false }));*/

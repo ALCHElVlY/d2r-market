@@ -1,15 +1,26 @@
 // Builtin imports
 import { useState, useRef, useEffect } from 'react';
 
+// External imports
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
 // Internal imports
-import ChangePasswordConfirm from '../Buttons/ChangePasswordConfirm.jsx';
+import {
+	ChangePasswordConfirm,
+} from '../Buttons/index.js';
 import {
 	ValidateForm,
-	HandleFormInputFocus,
-	HandleFormInputError,
-} from './Functions/ValidateChangePasswordForm.js';
+	HandleInputFocus,
+	HandleFormError,
+} from '../../features/forms/ValidateForm.js';
+import { updateUser, reset } from '../../features/auth/authSlice';
 
 const ChangePasswordForm = () => {
+	// Get the user from state
+	const { user, isError, isSuccess, message } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
 	// Create a ref to the input fields
 	const currentPasswordRef = useRef(null),
 		newPasswordRef = useRef(null),
@@ -36,12 +47,14 @@ const ChangePasswordForm = () => {
 	// Set the state for the input focus
 	const [isFocused, setIsFocused] = useState({});
 
+	// eslint-disable-next-line no-unused-vars
+	const [didSubmit, setDidSubmit] = useState(false);
+
 	// Set the state for the input validation errors
 	const [error, setError] = useState({
-		email: false,
-		password: false,
-		confirmPassword: false,
-		passwordMisMatch: false,
+		currentPassword: false,
+		newPassword: false,
+		confirmNewPassword: false,
 		formError: false,
 		message: '',
 	});
@@ -75,57 +88,84 @@ const ChangePasswordForm = () => {
 		// Prevent the default form submission
 		e.preventDefault();
 
-		// Check if the registration process returned an error
-		if (error) return;
-		if (newPassword !== confirmNewPassword) {
-			setError((prevState) => ({
-				...prevState,
-				passwordMisMatch: true,
-				message: 'Passwords do not match',
-			}));
-		}
-		else {
-			// Dispatch the register action
-			// eslint-disable-next-line no-undef
-			alert(
-				`Your new password is: ${newPassword}`,
-			);
-		}
+		// Check if there are any input errors
+		const inputErrors = Object.entries(error).filter(key => 
+			key.includes('currentPassword') || key.includes('newPassword') ||
+			key.includes('confirmNewPassword'));
+		const hasInputError = inputErrors.some(key => key[1] === true);
+		if (hasInputError) return setDidSubmit(false);
+
+		// Dispatch the login action
+		await dispatch(updateUser({ user, data: inputs }));
+		await setDidSubmit(true);
 	};
 
 	// Handle the buttom click on the form
-	const handleClick = () => {
-		// Validate the form input fields
-		ValidateForm(inputs, setError);
+	// Check if any form inputs are empty
+	const handleClick = async () => {
+		await ValidateForm(inputs, setError);
+
+		// Handle if the passwords don't match
+		if (newPassword !== confirmNewPassword) {
+			setError((prevState) => ({
+				...prevState,
+				formError: true,
+				message: 'Passwords do not match',
+			}));
+		}
 	};
 
-	// Declare a hook to handle the input focus
+	// React hook to handle the form input focus
 	useEffect(() => {
-		// Handle form input focus
-		HandleFormInputFocus(
+		HandleInputFocus(
 			isFocused,
 			[currentPasswordRef, newPasswordRef, confirmNewPasswordRef],
 		);
+	}, [isFocused]);
 
-		// Handle form input error
-		HandleFormInputError(
+	// React hook to handle the form errors
+	useEffect(() => {
+		HandleFormError(
 			error,
 			[currentPasswordError, newPasswordError, confirmNewPasswordError, formErrors],
 		);
-	}, [isFocused, error]);
+
+		if (isError) {
+			setError((prevState) => ({
+				...prevState,
+				formError: true,
+				message: message,
+			}));
+		}
+		else if (isSuccess) {
+			console.log('success');
+			setError((prevState) => ({
+				...prevState,
+				formError: false,
+				message: '',
+			}));
+		}
+	}, [error, isError, isSuccess, message, dispatch]);
+
 
 	return (
 		<form className="change_password_form"
 			onSubmit={handleSubmit}>
+			<div className="form_group hidden">
+			<input type="text" id="formUsername"
+				name='formUsername'
+				autoComplete='username'
+				hidden={true} />
+			</div>
 			<div className="form_group">
-				<label htmlFor="currentPassword">
+				<label htmlFor="cPassword_CurrentPassword">
                     Current password
 				</label>
 				<div className="form_control"
 					onFocus={handleFocus}
 					onBlur={handleBlur}
 					ref={currentPasswordRef}>
-					<input type="password" id="currentPassword"
+					<input type="password" id="cPassword_CurrentPassword"
 						name='currentPassword'
 						autoComplete="current-password"
 						placeholder="Your current password"
@@ -167,6 +207,7 @@ const ChangePasswordForm = () => {
 					ref={confirmNewPasswordRef}>
 					<input type="password" id="confirmNewPassword"
 						name='confirmNewPassword'
+						autoComplete='new-password'
 						placeholder="Confirm new password"
 						value={confirmNewPassword}
 						onChange={handleChange} />

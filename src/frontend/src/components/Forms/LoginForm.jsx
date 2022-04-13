@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Internal imports
-import { login, reset } from '../../../features/auth/authSlice';
-import LoginButton from '../Buttons/LoginButton.jsx';
+import { login, reset } from '../../features/auth/authSlice';
+import { LoginButton } from '../Buttons//index.js';
 import {
 	ValidateForm,
 	HandleInputFocus,
 	HandleFormError,
-} from '../../../features/forms/ValidateForm.js';
+} from '../../features/forms/ValidateForm.js';
 
 const LoginForm = () => {
 	// Declare the dispatch variable
@@ -79,11 +79,7 @@ const LoginForm = () => {
 	// Handle when the form button is clicked
 	const handleClick = async () => {
 		// Check if the email and password inputs are empty
-		await ValidateForm(
-			'login',
-			inputs,
-			setError,
-		);
+		await ValidateForm(inputs, setError);
 	};
 
 	// Handle when the form is submitted
@@ -114,7 +110,6 @@ const LoginForm = () => {
 	// React hook to handle input focus
 	useEffect(() => {
 		HandleInputFocus(
-			'login',
 			isFocused,
 			[emailFocus, passwordFocus],
 		);
@@ -123,7 +118,6 @@ const LoginForm = () => {
 	// React hook to handle the form errors
 	useEffect(() => {
 		HandleFormError(
-			'login',
 			error,
 			[emailInputRef, passwordInputRef, formErrors],
 		);
@@ -141,10 +135,6 @@ const LoginForm = () => {
 			navigate('/');
 
 			// Reset the state
-			dispatch(reset());
-		}
-		else {
-			// Dispatch the reset action
 			dispatch(reset());
 		}
 	}, [isError, isSuccess, message, error, navigate, dispatch]);

@@ -10,7 +10,7 @@ import {
 	FilterAll,
 	FilterOnSite,
 	FilterInGame,
-} from './Buttons/index';
+} from '../Buttons/index';
 import './filterrecentorders.css';
 
 const FilterRecentOrders = () => {

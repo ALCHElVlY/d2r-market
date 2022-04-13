@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@mui/material';
 
 // Internal imports
-import ClearSearchButton from './Buttons/ClearSearchButton';
+import ClearSearchButton from '../Buttons/ClearSearchButton';
 import './itemsearchbar.css';
 
 const ItemSearchBar = () => {

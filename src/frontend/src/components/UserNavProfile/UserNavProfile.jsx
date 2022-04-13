@@ -38,6 +38,10 @@ const UserNavProfile = (props) => {
 
 	}, [user, props.open]);
 
+	useEffect(() => {
+		console.log(user);
+	}, [user]);
+
 	return (
 		<div className="userProfileHeader" >
 			{user.customAvatar ? (

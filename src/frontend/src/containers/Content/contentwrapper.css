@@ -107,6 +107,9 @@
 .visible {
     display: block !important;
 }
+.hidden {
+    display: none !important;
+}
 .input_focus {
     border: 1px solid var(--primary-component-focused) !important;
     outline: 0;

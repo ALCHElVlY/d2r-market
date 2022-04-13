@@ -1,6 +1,10 @@
 // Builtin imports
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// External imports
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Internal imports
 import {
 	NavMenu,
@@ -38,6 +42,7 @@ function App() {
 					</Route>
 				</Routes>
 			</Router>
+			<ToastContainer />
 		</div>
 	);
 }
