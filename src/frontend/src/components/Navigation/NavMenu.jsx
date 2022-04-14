@@ -38,7 +38,7 @@ const NavMenu = () => {
 	// Handle the logout event
 	const handleLogout = async () => {
 		// Dispatch the logout action
-		await dispatch(logout());
+		await dispatch(logout(user));
 		// Dispatch the reset action
 		await dispatch(reset());
 		// Redirect the user back to the home page

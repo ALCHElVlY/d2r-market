@@ -117,15 +117,15 @@ const updateUser = async (req, res) => {
 		.json({ message: 'Invalid password' });
 	
 	if (newEmail) {
-		// Update the user's email
-		user.email = newEmail;
-
 		// Check if the new email is already in use
-		const userExists = await User.findOne({
+		const emailExists = await User.findOne({
 			email: newEmail
 		});
-		if (userExists) return res.status(400)
+		if (emailExists) return res.status(400)
 			.json({ message: 'Email already registered' });
+
+		// Update the user's email
+		user.email = newEmail;
 
 		// Save the user
 		await user.save()
@@ -139,14 +139,70 @@ const updateUser = async (req, res) => {
 			}));
 	}
 	if (newPassword) {
-		console.log('newPassword:' + newPassword);
+		// Hash the new password
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(newPassword, salt);
+		
+		// Update the user's email
+		user.password = hashedPassword;
+
+		// Save the user
+		await user.save()
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			}));
 	}
-	/* await User.findByIdAndUpdate(req.params.id, req.body)
-		.then(() => res.status(200).json({ succes: true }))
-		.catch(() => res.status(400).json({ succes: false }));*/
 };
 
+/**
+ * The updateUser function takes in the req and res objects and
+ * returns the user's current data.
+ * @param {*} req 
+ * @param {*} res
+ */
+const getUser = async (req, res) => {
+	try {
+		// Find the user by their id
+		const user = await User.findById(req.params.id);
+		if (!user) return res.status(404).json({
+			message: 'User not found'
+		});
 
+		// Return the user's data
+		res.status(200).json({
+			id: user._id,
+			username: user.username,
+			customAvatar: user.customAvatar,
+			platform: user.platform,
+			onlineStatus: user.onlineStatus,
+			token: generateToken(user._id),
+		});
+	} catch (e) {
+		console.log(e);
+		if (e.name === 'TokenExpiredError') {
+			res.status(401).json({
+				message: 'Token expired',
+			});
+		};
+
+		res.status(500).send({
+			message: e.message,
+		});
+	}
+};
+
+/**
+ * The deleteUser function takes in the req and res objects
+ * and utilizes the User model to find a user with the given id and deletes
+ * them from the database.
+ * @param {*} req 
+ * @param {*} res 
+ */
 const deleteUser = async (req, res) => {
 	try {
 		// Delete the user
@@ -184,5 +240,6 @@ module.exports = {
 	registerUser,
 	loginUser,
 	updateUser,
+	getUser,
 	deleteUser,
 };

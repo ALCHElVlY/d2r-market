@@ -101,7 +101,6 @@ const ChangePasswordForm = () => {
 	};
 
 	// Handle the buttom click on the form
-	// Check if any form inputs are empty
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
 
@@ -138,12 +137,27 @@ const ChangePasswordForm = () => {
 			}));
 		}
 		else if (isSuccess) {
-			console.log('success');
+			toast.success('Password updated successfully', {
+				position: 'bottom-right',
+			});
+
+			// Reset the form
+			setInputs((prevState) => ({
+				...prevState,
+				currentPassword: '',
+				newPassword: '',
+				confirmNewPassword: '',
+			}));
+
+			// Reset the form errors
 			setError((prevState) => ({
 				...prevState,
 				formError: false,
 				message: '',
 			}));
+			formErrors.current.classList.remove('visible');
+
+			dispatch(reset());
 		}
 	}, [error, isError, isSuccess, message, dispatch]);
 

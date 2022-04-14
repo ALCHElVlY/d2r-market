@@ -8,6 +8,7 @@ const {
 	registerUser,
 	loginUser,
 	updateUser,
+	getUser,
 	deleteUser,
 } = require('../../middleware/userControllers');
 
@@ -30,5 +31,10 @@ router.patch('/:id', protect, updateUser);
 // @route DELETE api/users/:id
 // @access Private
 router.delete('/:id', protect, deleteUser);
+
+// @desc HTTP GET to retrieve user data from the database
+// @route GET api/users/:id
+// @access Private
+router.get('/:id', protect, getUser);
 
 module.exports = router;

@@ -13,12 +13,10 @@ const API_URL = '/api/users';
  */
 const register = async (userData) => {
 	const response = await axios.post(`${API_URL}/register`, userData);
-
-	if (response.data) {
-		localStorage.setItem('user', JSON.stringify(response.data));
+	
+	if (response.status === 200) {
+		return response.data;
 	}
-
-	return response.data;
 };
 
 /**
@@ -28,19 +26,23 @@ const register = async (userData) => {
  */
 const login = async (userData) => {
 	const response = await axios.post(`${API_URL}/login`, userData);
-
-	if (response.data) {
-		localStorage.setItem('user', JSON.stringify(response.data));
+	
+	if (response.status === 200) {
+		return response.data;
 	}
-
-	return response.data;
 };
 
 /**
- * The logout function logs the user out of the application.
+ * The logout function takes in a user object and logs the user out of
+ * the application.
+ * @param {*} userData 
+ * @returns 
  */
-const logout = () => {
-	localStorage.removeItem('user');
+const logout = async (userData) => {
+	const response = await axios.get(`${API_URL}/${userData.id}`, {
+		headers: { 'Authorization': `Bearer ${userData.token}` },
+	});
+	return response.data;
 };
 
 /**
@@ -52,9 +54,9 @@ const updateUser = async (userData) => {
 	const response = await axios.patch(`${API_URL}/${userData.user.id}`, userData.data, {
 		headers: { 'Authorization': `Bearer ${userData.user.token}` },
 	});
-
-	if (response) {
-		localStorage.setItem('user', JSON.stringify(response.data));
+	
+	if (response.status === 200) {
+		return response.data;
 	}
 };
 
@@ -63,11 +65,10 @@ const updateUser = async (userData) => {
  * the user from the database.
  */
 const deleteUser = async (userData) => {
-	const response = await axios.delete(`${API_URL}/${userData.id}`, {
+	await axios.delete(`${API_URL}/${userData.id}`, {
 		headers: { 'Authorization': `Bearer ${userData.token}` },
 	});
 
-	if (response) logout();
 };
 
 // Declare a auth service object

@@ -7,23 +7,19 @@ import {
 	faCaretLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Internal imports
 // import { reset } from '../../features/auth/authSlice';
 import './usernavprofile.css';
 
 const UserNavProfile = (props) => {
-	// Declare the dispatch variable
-	// eslint-disable-next-line no-unused-vars
-	const dispatch = useDispatch();
-
 	// Declare ref hooks for the user profile dropdown icons
 	const caretIconRef = useRef(null);
 
 	// Get the user from state
 	// eslint-disable-next-line no-unused-vars
-	const { user, isError, isSuccess, message } = useSelector(
+	const { user } = useSelector(
 		(state) => state.auth);
 
 	useEffect(() => {
@@ -38,9 +34,6 @@ const UserNavProfile = (props) => {
 
 	}, [user, props.open]);
 
-	useEffect(() => {
-		console.log(user);
-	}, [user]);
 
 	return (
 		<div className="userProfileHeader" >

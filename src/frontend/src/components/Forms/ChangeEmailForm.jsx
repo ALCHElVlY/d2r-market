@@ -79,7 +79,6 @@ const ChangeEmailForm = () => {
 	};
 
 	// Handle when the form submit button is clicked
-	// Check if any form inputs are empty
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
 	};
@@ -110,6 +109,11 @@ const ChangeEmailForm = () => {
 
 	// React hook to handle the form errors
 	useEffect(() => {
+		HandleFormError(
+			error,
+			[currentPasswordError, newEmailError, formErrors],
+		);
+
 		if (isError) {
 			setError((prevState) => ({
 				...prevState,
@@ -132,21 +136,13 @@ const ChangeEmailForm = () => {
 			// Reset the form errors
 			setError((prevState) => ({
 				...prevState,
-				curentPassword: false,
 				formError: false,
 				message: '',
 			}));
-
-			// Remove the visible class from the form errors
 			formErrors.current.classList.remove('visible');
 
 			dispatch(reset());
 		}
-
-		HandleFormError(
-			error,
-			[currentPasswordError, newEmailError, formErrors],
-		);
 	}, [error, isError, isSuccess, message, dispatch]);
 
 
