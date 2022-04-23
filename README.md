@@ -87,7 +87,7 @@ Here are any frameworks/libraries used in the applications development.
 
 
 <!-- Documentation -->
-## Docs
+## API Docs
 
 _See the [Documentation](#) for further command details and usage._
 
