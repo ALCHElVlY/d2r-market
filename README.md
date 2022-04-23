@@ -87,7 +87,7 @@ Here are any frameworks/libraries used in the applications development.
 
 
 <!-- Documentation -->
-## API Docs
+## API
 
 <code>__API documentation coming soon..__</code>
 
