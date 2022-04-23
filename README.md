@@ -79,9 +79,9 @@
 ## Built With
 
 Here are any frameworks/libraries used in the applications development.
-* [MongoDB](#)
-* [Express](#)
-* [React](#)
+* [MongoDB](https://www.mongodb.com/cloud)
+* [Express](http://expressjs.com/)
+* [React](https://reactjs.org/)
 * [Node](https://nodejs.org/en/)
 
 
@@ -89,7 +89,7 @@ Here are any frameworks/libraries used in the applications development.
 <!-- Documentation -->
 ## API Docs
 
-_See the [Documentation](#) for further command details and usage._
+<code>__API documentation coming soon..__</code>
 
 
 
