@@ -71,7 +71,7 @@
 <p>
    A market web application for Diablo II: Resurrected. Players can buy and sell their in-game items at their leisure, as well as list in-game services they may 
    like to provide to other players; such as cow runs, rushes, and even uber killing services. This application does not condone nor support the use of real-world 
-   money trading and any user caught doing so will be immediately banned and reported to Blizzard for further punishment.
+   money trading and any user caught doing so will be reported to Blizzard for further punishment.
 </p>
 
 
