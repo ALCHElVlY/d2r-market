@@ -14,7 +14,7 @@ import {
 import { loadCSS } from 'fg-loadcss';
 
 const PlatformSelector = () => {
-	// Declare a hook to store the platform
+	// State variables
 	const [platform, setPlatform] = useState(1);
 	const [anchorEl, setAnchorEl] = useState(false);
 	const open = Boolean(anchorEl);
@@ -26,7 +26,7 @@ const PlatformSelector = () => {
 		'nintendo-switch',
 	);
 
-	// Custom select menu styling
+	// Custom prop styling
 	const SelectProps = {
 		color: '#a53f49',
 		fontSize: '24px',
@@ -40,15 +40,13 @@ const PlatformSelector = () => {
 			color: '#a53f49',
 		},
 	};
-
-	// Custom menu item styling
 	const MenuItemProps = {
 		color: '#a53f49',
 		backgroundColor: '#2c2f31',
 		fontWeight: 'fontWeightBold',
 	};
 
-	// Create an array of platform objects
+	// Array of platform objects
 	const platforms = [
 		{
 			code: '1',
@@ -88,15 +86,13 @@ const PlatformSelector = () => {
 		},
 	];
 
-	// Handle the change of the platform
+	// Event handlers
 	const handleChange = (e) => {
 		setPlatform(e.target.value);
 	};
-
 	const handlePopoverOpen = (e) => {
 		setAnchorEl(e.currentTarget);
 	};
-
 	const handlePopoverClose = () => {
 		setAnchorEl(false);
 	};

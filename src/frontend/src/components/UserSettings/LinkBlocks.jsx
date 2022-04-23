@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // Internal imports
 import LinkAccount from '../../components/Buttons/LinkAccount.jsx';
 
-
 const LinkBlocks = () => {
     return (
         <div className="settings_links col-12">

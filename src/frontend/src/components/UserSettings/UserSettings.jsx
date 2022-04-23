@@ -59,37 +59,28 @@ const UserSettings = () => {
     );
 }
 const SettingsContent = () => {
-    // Get the user from state
-	const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
 
-    // Declre a state variable for the account removal confirmation
+    // State variables
     const [pendingRemoval, setPendingRemoval] = useState(false);
 
-    // Handle when the RemoveAccount button is clicked
+    // Event handlers
     const handleClick = () => {
-        // Set the state to true
         setPendingRemoval(true);
     };
-
-    // Handle when the user cancels the account removal process
     const handleCancelRemoval = () => {
         setPendingRemoval(false);
     };
-
-    // Handle when the user confirms the account removal process
     const handleConfirmRemoval = async () => {
         // Delete the users data from the database
         await dispatch(deleteUser(user));
-
         // Redirect the user to the home page
         await navigate('/');
-
         // Reset the state
         await dispatch(reset());
     };
-
 
     return (
         <div className="container settings_content">

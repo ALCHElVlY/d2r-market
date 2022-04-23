@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-undef */
 // External imports
 import {
 	createSlice,
@@ -10,11 +8,9 @@ import {
 import authService from './authService';
 
 
-// Get user from localStorage
-const user = JSON.parse(localStorage.getItem('user'));
 // Set the initial state
 const initialState = {
-	user: user ? user : null,
+	user: null,
 	isError: false,
 	isSuccess: false,
 	isLoading: false,
@@ -26,7 +22,8 @@ export const register = createAsyncThunk(
 	'auth/register',
 	async (user, thunkAPI) => {
 		try {
-			return await authService.register(user);
+			await authService.register(user);
+			return await authService.login(user);
 		}
 		catch (error) {
 			const message = (error.response &&
@@ -61,7 +58,6 @@ export const logout = createAsyncThunk(
 			return await authService.logout(user);
 		}
 		catch (error) {
-			console.log(error);
 			const message = (error.response &&
 				error.response.data && error.response.data.message)
 			|| error.message || error.toString();
@@ -78,6 +74,7 @@ export const updateUser = createAsyncThunk(
 			return await authService.updateUser(user);
 		}
 		catch (error) {
+			console.log(error);
 			const message = (error.response &&
 				error.response.data && error.response.data.message)
 			|| error.message || error.toString();
@@ -147,7 +144,6 @@ export const authSlice = createSlice({
 				state.isError = true;
 				state.isSuccess = false;
 				state.message = action.payload;
-				state.user = null;
 			})
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
@@ -183,7 +179,6 @@ export const authSlice = createSlice({
 				state.isError = true;
 				state.isSuccess = false;
 				state.message = action.payload;
-				state.user = null;
 			});
 	},
 });

@@ -8,7 +8,7 @@ const ConfirmRemoveAccount = (props) => {
 	const ButtonProps = {
 		width: '100%',
 		height: '32px',
-		backgroundColor: 'var(--primary-button-background)',
+		backgroundColor: '#029702',
 		fontSize: '14px',
 		fontWeight: '400',
 		whiteSpace: 'nowrap',
@@ -25,7 +25,7 @@ const ConfirmRemoveAccount = (props) => {
 		userSelect: 'none',
 
 		'&&:hover': {
-			backgroundColor: 'var(--primary-button-background_lighter)',
+			backgroundColor: '#03b503',
 		},
 	};
 

@@ -8,7 +8,7 @@ const CancelRemoveAccount = (props) => {
 	const ButtonProps = {
 		width: '100%',
 		height: '32px',
-		backgroundColor: '#0583a6',
+		backgroundColor: '#a22506',
 		fontSize: '14px',
 		fontWeight: '400',
 		whiteSpace: 'nowrap',
@@ -25,7 +25,7 @@ const CancelRemoveAccount = (props) => {
 		userSelect: 'none',
 
 		'&&:hover': {
-			backgroundColor: '#07b3e2',
+			backgroundColor: '#c52902',
 		},
 	};
 

@@ -1,6 +1,6 @@
 :root {
-  --primary-link-text: #a53f3f;
-  --primary-active-link: rgb(215, 70, 73);
+  --primary-link-text: rgb(180, 69, 69);
+  --primary-active-link: rgb(247, 76, 79);
   --primary-input-text: #abaeaf;
   --primary-background: #101619;
   --primary-button-background: #9c3c3c;

@@ -64,12 +64,13 @@
 .navMenu_category .navMenu_title {
     display: flex;
     flex-direction: column;
+    letter-spacing: .5px;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    line-height: 1;
     padding-top: 3px;
     margin-left: 10px;
-    letter-spacing: .5px;
-    font-size: 16px;
-    text-transform: uppercase;
-    line-height: 1;
 }
 .navMenu_category #profileIcon {
     font-size: 20px;

@@ -10,21 +10,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 
 // Internal imports
-// import { reset } from '../../features/auth/authSlice';
 import './usernavprofile.css';
 
 const UserNavProfile = (props) => {
-	// Declare ref hooks for the user profile dropdown icons
+	// Reference variables
 	const caretIconRef = useRef(null);
 
-	// Get the user from state
-	// eslint-disable-next-line no-unused-vars
-	const { user } = useSelector(
-		(state) => state.auth);
+	// State variables
+	const { user } = useSelector((state) => state.auth);
 
+	// React hook to handle the user profile dropdown open and close
 	useEffect(() => {
-		// When the user hovers over the profile dropdown
-		// Set the caret icon to rotate
 		if (user && props.open) {
 			return caretIconRef.current.classList.add('icon_caret_rotate');
 		}

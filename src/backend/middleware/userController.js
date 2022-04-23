@@ -47,14 +47,16 @@ const registerUser = async (req, res) => {
 				email,
 				password: hashedPassword
 			})
-			.then((user) => res.status(201).json({
-				id: user._id,
-				username: user.username,
-				customAvatar: user.customAvatar,
-				platform: user.platform,
-				onlineStatus: user.onlineStatus,
-				token: generateToken(user._id),
-			}))
+			.then((user) => {
+				res.status(201).json({
+					id: user._id,
+					username: user.username,
+					customAvatar: user.customAvatar,
+					platform: user.platform,
+					onlineStatus: user.onlineStatus,
+					token: generateToken(user._id),
+				})
+			})
 			.catch(() => res.json({
 				message: 'There was an error registering the user'
 			}));
@@ -67,7 +69,7 @@ const registerUser = async (req, res) => {
 
 /**
  * The loginUser function takes in the req and res objects
- * and uses the User model to find a user with the given emailand logs them in.
+ * and uses the User model to find a user with the given email and logs them in.
  * @param {*} req
  * @param {*} res
  */
@@ -98,6 +100,17 @@ const loginUser = async (req, res) => {
 };
 
 /**
+ * The logoutUser functions logs the user out of the application
+ * @param {*} req 
+ * @param {*} res 
+ */
+const logoutUser = (req, res) => {
+	res.status(200).json({
+		succes: true,
+	});
+};
+
+/**
  * The updateUser function takes in the req and res objects
  * and utilizes the User model to find a user with the given id and updates their data.
  * @param {*} req
@@ -109,14 +122,14 @@ const updateUser = async (req, res) => {
 	const {
 		newPassword,
 		newEmail,
-	} = req.body;
+	} = req.body.data;
 
 	// Check if the user provided the correct password
-	const validPassword = await bcrypt.compare(req.body.currentPassword, user.password);
+	const validPassword = await bcrypt.compare(req.body?.data?.currentPassword, user.password);
 	if (!validPassword) return res.status(400)
 		.json({ message: 'Invalid password' });
 	
-	if (newEmail) {
+	if (newEmail && !newPassword) {
 		// Check if the new email is already in use
 		const emailExists = await User.findOne({
 			email: newEmail
@@ -138,7 +151,7 @@ const updateUser = async (req, res) => {
 				token: generateToken(user._id),
 			}));
 	}
-	if (newPassword) {
+	if (!newEmail && newPassword) {
 		// Hash the new password
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(newPassword, salt);
@@ -160,7 +173,7 @@ const updateUser = async (req, res) => {
 };
 
 /**
- * The updateUser function takes in the req and res objects and
+ * The getUser function takes in the req and res objects and
  * returns the user's current data.
  * @param {*} req 
  * @param {*} res
@@ -168,8 +181,8 @@ const updateUser = async (req, res) => {
 const getUser = async (req, res) => {
 	try {
 		// Find the user by their id
-		const user = await User.findById(req.params.id);
-		if (!user) return res.status(404).json({
+		const findUserByID = await User.findById(req.params.id);
+		if (!findUserByID) return res.status(404).json({
 			message: 'User not found'
 		});
 
@@ -227,18 +240,23 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-// Generate JWT
+// Generate JWT access token
 const generateToken = (id) => {
-	return jwt.sign({
-		id
-	}, process.env.JWT_SECRET, {
-		expiresIn: '2h'
-	});
+	return jwt.sign({ id },
+		process.env.ACCESS_TOKEN_SECRET,
+		{ expiresIn: '2h' });
+};
+
+const generateRefreshToken = (id) => {
+	return jwt.sign({ id },
+		process.env.REFRESH_TOKEN_SECRET,
+		{ expiresIn: '3h' });
 };
 
 module.exports = {
 	registerUser,
 	loginUser,
+	logoutUser,
 	updateUser,
 	getUser,
 	deleteUser,

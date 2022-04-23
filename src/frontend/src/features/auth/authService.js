@@ -1,60 +1,61 @@
-/* eslint-disable no-undef */
-// External imports
-import axios from 'axios';
+// Internal imports
+import {
+	axiosPrivate
+} from '../../app/axiosPrivate.js';
 
-// Declare a variable for the user api
-const API_URL = '/api/users';
+// API Endpoint
+const USERS_ENDPOINT = '/api/users';
 
 
 /**
- * The register function takes in a user object and sends it to the server,
- * registering a new user.
- * @param {*} userData
+ * The register function sends the user payload to the server,
+ * registering fresh user data in the database.
+ * @param {object} payload
  */
-const register = async (userData) => {
-	const response = await axios.post(`${API_URL}/register`, userData);
-	
+const register = async (payload) => {
+	const response = await axiosPrivate.post(`${USERS_ENDPOINT}/register`, payload);
+
 	if (response.status === 200) {
 		return response.data;
 	}
 };
 
 /**
- * The login function takes in a user object and sends it to the server,
- * logging the user into the application.
- * @param {*} userData
+ * The login function sends the user payload to the server,
+ * authenticating the user and logging them into the application.
+ * @param {object} payload
  */
-const login = async (userData) => {
-	const response = await axios.post(`${API_URL}/login`, userData);
-	
+const login = async (payload) => {
+	const response = await axiosPrivate.post(`${USERS_ENDPOINT}/login`, payload);
+
 	if (response.status === 200) {
 		return response.data;
 	}
 };
 
 /**
- * The logout function takes in a user object and logs the user out of
- * the application.
- * @param {*} userData 
- * @returns 
+ * The logout function sends the user payload to the server,
+ * logging the user out of the application.
+ * @param {obejct} payload
  */
-const logout = async (userData) => {
-	const response = await axios.get(`${API_URL}/${userData.id}`, {
-		headers: { 'Authorization': `Bearer ${userData.token}` },
+const logout = async (payload) => {
+	const response = await axiosPrivate.get(`${USERS_ENDPOINT}/${payload.id}/logout`, {
+		user: payload,
 	});
-	return response.data;
+
+	if (response.status === 200) {
+		return response.data;
+	}
 };
 
 /**
- * The updateUser function takes in a user object and
- * updates the users data in the database.
- * @param {*} userData 
+ * The updateUser function sends the user payload to the server,
+ * updating the user data in the database.
+ * @param {object} payload 
  */
-const updateUser = async (userData) => {
-	const response = await axios.patch(`${API_URL}/${userData.user.id}`, userData.data, {
-		headers: { 'Authorization': `Bearer ${userData.user.token}` },
-	});
-	
+const updateUser = async (payload) => {
+	const response = await axiosPrivate.patch(`${USERS_ENDPOINT}/${payload?.user.id}`, payload);
+
 	if (response.status === 200) {
 		return response.data;
 	}
@@ -62,13 +63,14 @@ const updateUser = async (userData) => {
 
 /**
  * The delete function logs the user out of the application and deletes
- * the user from the database.
+ * the user data from the database.
+ * @param {object} payload
+ * @returns {Promise<*>}
  */
-const deleteUser = async (userData) => {
-	await axios.delete(`${API_URL}/${userData.id}`, {
-		headers: { 'Authorization': `Bearer ${userData.token}` },
+const deleteUser = async (payload) => {
+	await axiosPrivate.delete(`${USERS_ENDPOINT}/${payload.id}`, {
+		user: payload,
 	});
-
 };
 
 // Declare a auth service object

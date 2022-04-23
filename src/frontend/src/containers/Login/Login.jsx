@@ -1,15 +1,30 @@
-// External imports
+// Built-in imports
 import { useEffect } from 'react';
+
+// External imports
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // Internal imports
 import LoginForm from '../../components/Forms/LoginForm.jsx';
 import './login.css';
 
 const Login = () => {
-	// Create a hook to dymanically change the page title
+	const navigate = useNavigate();
+	const { user } = useSelector((state) => state.auth);
+
+	// React hook to dynamically set the page title
 	useEffect(() => {
 		document.title = 'Sign In | Diablo II Market';
 	}, []);
+
+	// React hook to redirect the user to the home page if they
+	// are already logged in
+	useEffect(() => {
+		if (user) {
+			navigate('/');
+		}
+	});
 
 	return (
 		<section className="login__container">

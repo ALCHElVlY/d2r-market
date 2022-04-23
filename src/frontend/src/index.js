@@ -7,15 +7,20 @@ import { Provider } from 'react-redux';
 
 // Internal imports
 import App from './App';
-import { store } from './app/store.js';
+import { AuthProvider } from './components/AuthProvider/AuthProvider';
+import { store, Persistor } from './app/storage/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
-		<Provider store={store}>
+	<Provider store={store}>
+	<PersistGate loading={null} persistor={Persistor}>
+		<AuthProvider>
 			<App />
-		</Provider>
-	</React.StrictMode>,
+		</AuthProvider>
+	</PersistGate>
+	</Provider>
 );
 reportWebVitals();

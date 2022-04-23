@@ -10,20 +10,19 @@ import ClearSearchButton from '../Buttons/ClearSearchButton';
 import './itemsearchbar.css';
 
 const ItemSearchBar = () => {
-	const searchInputRef = useRef(null); // The search input ref
-	const [searchInput, setSearchInput] = useState(''); // The search input state
-	const [isVisible, setIsVisible] = useState(false); // The clear search button state
-	const [isFocused, setIsFocused] = useState(false); // The search input focus state
+	// Reference variables
+	const searchInputRef = useRef(null);
 
-	// The handleSearchInput function is called whenever
-	// the user types in the search bar
+	// State variables
+	const [searchInput, setSearchInput] = useState('');
+	const [isVisible, setIsVisible] = useState(false);
+	const [isFocused, setIsFocused] = useState(false);
+
+	// Event handlers
 	const handleSearchInput = (e) => {
 		setSearchInput(e.target.value);
 		handleClearSearchVisibility(e);
 	};
-
-	// The handleClearSearchVisibility function handles the visibility
-	// of the clear search button
 	const handleClearSearchVisibility = (e) => {
 		switch (e.target.value.length > 0) {
 		case true:
@@ -33,25 +32,17 @@ const ItemSearchBar = () => {
 			setIsVisible(false);
 		}
 	};
-
-	// The handleClearSearch function is called when the user clicks
-	// the clear search button
 	const handleClearSearchButtonClick = () => {
 		setSearchInput('');
 		setIsVisible(false);
 	};
-
 	// Test log the search value
 	const handleSearchButtonClick = () => {
 		console.log(searchInput);
 	};
-
-	// Handle the when the ItemSearchBar is focused
 	const handleFocus = () => {
 		setIsFocused(true);
 	};
-
-	// Handle the when the ItemSearchBar is blurred
 	const handleBlur = () => {
 		setIsFocused(false);
 	};
@@ -59,16 +50,14 @@ const ItemSearchBar = () => {
 	// React hook to handle the focus and blur events
 	useEffect(() => {
 		if (isFocused) {
-			// Add the focus class to the search input field
 			searchInputRef.current.classList.add('focus');
 		}
 		else {
-			// Remove the focus class from the search input field
 			searchInputRef.current.classList.remove('focus');
 		}
 	}, [isFocused]);
 
-	// Define some custom search button properties
+	// Custom prop styling
 	const searchButtonProps = {
 		backgroundColor: 'var(--primary-button-background)',
 		borderRadius: '1.5px',

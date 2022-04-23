@@ -21,21 +21,17 @@ import PlatformSelector from './PlatformSelector/PlatformSelector.jsx';
 import './navmenu.css';
 
 const NavMenu = () => {
-	// Declare the dispatch variable
 	const dispatch = useDispatch();
-	// Declare the navigate variable
 	const navigate = useNavigate();
-
-	// Declare ref hooks for the user profile dropdown icons
-	const userNavProfileRef = useRef(null);
-
-	// Get the user from state
 	const { user } = useSelector((state) => state.auth);
 
-	// Declare a state hook for the user profile dropdown
+	// Reference variables
+	const userNavProfileRef = useRef(null);
+
+	// State variables
 	const [open, setOpen] = useState(false);
 
-	// Handle the logout event
+	// Event handlers
 	const handleLogout = async () => {
 		// Dispatch the logout action
 		await dispatch(logout(user));
@@ -44,16 +40,10 @@ const NavMenu = () => {
 		// Redirect the user back to the home page
 		await navigate('/');
 	};
-
-	// Handle when the user mourses over the profile dropdown
 	const handleMouseEnter = () => {
-		// Set the open state to true
 		setOpen(true);
 	};
-
-	// Handle when the user mouses out of the profile dropdown
 	const handleMouseOut = () => {
-		// Set the open state to false
 		setOpen(false);
 	};
 
@@ -70,10 +60,8 @@ const NavMenu = () => {
 		};
 	}, []);
 
-	// REact hook to handle when the profile dropdown is opened
+	// React hook to handle when the profile dropdown is opened
 	useEffect(() => {
-		// When the user hovers over the profile dropdown
-		// Set the caret icon to rotate
 		if (user && open) {
 			userNavProfileRef.current.classList.add('open_close');
 		}
@@ -174,7 +162,7 @@ const NavMenu = () => {
 								</li>
 							</ul>
 							<UserNavProfile open={open} />
-						</li></>
+					</li></>
 				) : (
 					<li className='navMenu_category'>
 						<NavLink to="/login" className={({ isActive }) => isActive

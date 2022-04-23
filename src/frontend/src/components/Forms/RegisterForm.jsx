@@ -1,5 +1,9 @@
 // Builtin imports
-import { useState, useRef, useEffect } from 'react';
+import {
+	useEffect,
+	useState,
+	useRef,
+} from 'react';
 
 // External imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,36 +19,30 @@ import {
 } from '../../features/forms/ValidateForm.js';
 
 const RegisterForm = () => {
-	// Create a ref to the input fields
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { isError, isSuccess, message } = useSelector(
+		(state) => state.auth);
+
+	// Reference variables
 	const emailFocus = useRef(null),
 		passwordFocus = useRef(null),
 		confirmPasswordFocus = useRef(null);
-
-	// Create refs for the various input and form errors
 	const emailError = useRef(null),
 		passwordError = useRef(null),
 		confirmPasswordError = useRef(null),
 		formErrors = useRef(null);
 
-	// Set the state for the form inputs
+	// State variables
 	const [inputs, setInputs] = useState({
 		email: '',
 		password: '',
 		confirmPassword: '',
 	});
 	const { email, password, confirmPassword } = inputs;
-
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const { user, isError, isSuccess, message } = useSelector(
-		(state) => state.auth);
-
-	// Set the state for the input focus
 	const [isFocused, setIsFocused] = useState({});
 	// eslint-disable-next-line no-unused-vars
 	const [didSubmit, setDidSubmit] = useState(false);
-
-	// Set the state for the input validation errors
 	const [error, setError] = useState({
 		email: false,
 		password: false,
@@ -53,36 +51,43 @@ const RegisterForm = () => {
 		message: '',
 	});
 
-	// Handle when the input fields are focused
-	const handleFocus = (e) => {
-		setIsFocused(() => ({
+	// Event handlers
+	const handleFocus = async (e) => {
+		await setIsFocused(() => ({
 			...isFocused,
 			[e.target.name]: true,
 		}));
 	};
-
-	// Handle when the input fields are blurred
-	const handleBlur = (e) => {
-		setIsFocused(() => ({
+	const handleBlur = async (e) => {
+		await setIsFocused(() => ({
 			...isFocused,
 			[e.target.name]: false,
 		}));
 	};
-
-	// Handle when the input fields are changed
-	const handleChange = (e) => {
-		setInputs((prevState) => ({
+	const handleChange = async (e) => {
+		await setInputs((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
 		}));
 	};
-
-	// Handle when the form button is clicked
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
-	};
 
-	// Handle when the form is submitted
+		if (password !== confirmPassword) {
+			setError((prevState) => ({
+				...prevState,
+				formError: true,
+				message: 'Passwords do not match',
+			}));
+		}
+		else {
+			setError((prevState) => ({
+				...prevState,
+				formError: false,
+				message: '',
+			}));
+		}
+	};
 	const handleSubmit = async (e) => {
 		// Prevent the default form submission
 		e.preventDefault();
@@ -90,61 +95,75 @@ const RegisterForm = () => {
 		// Check if there are any input errors
 		const inputErrors = Object.entries(error).filter(key =>
 			key.includes('email') || key.includes('password') ||
-			key.includes('confirmPassword'));
+			key.includes('confirmPassword') || key.includes('formError'));
 		const hasInputError = inputErrors.some(key => key[1] === true);
-		if (hasInputError) {
-			return setDidSubmit(false);
+		switch (hasInputError) {
+			case true:
+				await setDidSubmit(false);
+				break;
+			default:
+				await dispatch(register({ email, password }));
+				await setDidSubmit(true);
 		}
-		else if (password !== confirmPassword) {
-			setError((prevState) => ({
-				...prevState,
-				formError: true,
-				message: 'Passwords do not match',
-			}));
-			return setDidSubmit(false);
-		}
-
-		// Dispatch the register action
-		await dispatch(register({ email, password }));
-		await setDidSubmit(true);
 	};
 
-	// React hook to keep logged in users from accidently navigating
-	// to the login page
+	// React hook to handle input focus
 	useEffect(() => {
-		if (user) {
-			navigate('/');
-		}
-	}, [user, navigate]);
-
-	// React hook to handle the input focus
-	useEffect(() => {
-		HandleInputFocus(
-			isFocused,
-			[emailFocus, passwordFocus, confirmPasswordFocus],
-		);
+		(async () => {
+			HandleInputFocus(
+				isFocused,
+				[emailFocus, passwordFocus, confirmPasswordFocus],
+			);
+		})();
 	}, [isFocused]);
 
-	// React hook to handle the form errors
+	// React hook to handle form errors
 	useEffect(() => {
-		HandleFormError(
-			error,
-			[emailError, passwordError, confirmPasswordError, formErrors],
-		);
+		(async () => {
+			await HandleFormError(
+				error,
+				[emailError, passwordError, confirmPasswordError, formErrors],
+			);
 
-		if (isError) {
-			// Set the form error state
-			setError((prevState) => ({
-				...prevState,
-				formError: true,
-				message: message,
-			}));
-		}
-		else if (isSuccess) {
-			// Dispatch the reset action
-			dispatch(reset());
-		}
-	}, [isError, isSuccess, message, error, navigate, dispatch]);
+			if (isError) {
+				// Set the form error state
+				setError((prevState) => ({
+					...prevState,
+					formError: true,
+					message: message,
+				}));
+			}
+			
+			if (isSuccess) {
+				// Reset the form
+				setInputs((prevState) => ({
+					...prevState,
+					email: '',
+					password: '',
+					confirmPassword: '',
+				}));
+
+				// Reset the form error state
+				setError((prevState) => ({
+					...prevState,
+					formError: false,
+					message: '',
+				}));
+
+				// Reset the state
+				await navigate('/');
+			}
+
+			// Reset the state
+			await dispatch(reset());
+		})();
+	}, [
+		didSubmit,
+		// Form state
+		isError, isSuccess, message, error,
+		// Functions
+		navigate, dispatch
+	]);
 
 
 	return (
@@ -220,7 +239,8 @@ const RegisterForm = () => {
 						</div>
 						<ul className="form_errors"
 							ref={formErrors}>
-							{error.formError && <li>{error.message}</li>}
+							{(error.passwordMismatch || error.formError) &&
+							<li>{error.message}</li>}
 						</ul>
 						<div className="register__actions">
 							<RegisterButton onClick={handleClick} />

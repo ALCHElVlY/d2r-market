@@ -1,5 +1,9 @@
 // Builtin imports
-import { useEffect, useState, useRef } from 'react';
+import {
+	useEffect,
+	useState,
+	useRef,
+} from 'react';
 
 // External imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,36 +19,27 @@ import {
 } from '../../features/forms/ValidateForm.js';
 
 const LoginForm = () => {
-	// Declare the dispatch variable
 	const dispatch = useDispatch();
-	// Declare the navigate variable
 	const navigate = useNavigate();
-
-	const { user, isError, isSuccess, message } = useSelector(
+	const { isLoading, isError, isSuccess, message } = useSelector(
 		(state) => state.auth);
 
-	// Create a ref to email and password focus
+	// Reference variables
 	const emailFocus = useRef(null),
 		passwordFocus = useRef(null);
-
-	// Create a ref to email and password validation errors
 	const emailInputRef = useRef(null),
 		passwordInputRef = useRef(null),
 		formErrors = useRef(null);
 
-	// Set the state for the form inputs
+	// State variables
 	const [inputs, setInputs] = useState({
 		email: '',
 		password: '',
 	});
 	const { email, password } = inputs;
-
-	// Set the state for the input focus
 	const [isFocused, setIsFocused] = useState({});
 	// eslint-disable-next-line no-unused-vars
 	const [didSubmit, setDidSubmit] = useState(false);
-
-	// Set the state for the input validation errors
 	const [error, setError] = useState({
 		email: false,
 		password: false,
@@ -52,92 +47,88 @@ const LoginForm = () => {
 		message: '',
 	});
 
-	// Handle when the input fields are focused
-	const handleFocus = (e) => {
-		setIsFocused((prevState) => ({
+	// Event handlers
+	const handleFocus = async (e) => {
+		await setIsFocused((prevState) => ({
 			...prevState,
 			[e.target.name]: true,
 		}));
 	};
-
-	// Handle when the input fields are blurred
-	const handleBlur = (e) => {
-		setIsFocused((prevState) => ({
+	const handleBlur = async (e) => {
+		await setIsFocused((prevState) => ({
 			...prevState,
 			[e.target.name]: false,
 		}));
 	};
-
-	// Handle when the input fields are changed
-	const handleChange = (e) => {
-		setInputs((prevState) => ({
+	const handleChange = async (e) => {
+		await setInputs((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
 		}));
 	};
-
-	// Handle when the form button is clicked
 	const handleClick = async () => {
-		// Check if the email and password inputs are empty
 		await ValidateForm(inputs, setError);
 	};
-
-	// Handle when the form is submitted
 	const handleSubmit = async (e) => {
 		// Prevent the default form submission
 		e.preventDefault();
 
 		// Check if there are any input errors
-		const inputErrors = Object.entries(error).filter(key => 
+		const inputErrors = Object.entries(error).filter(key =>
 			key.includes('email') || key.includes('password'));
 		const hasInputError = inputErrors.some(key => key[1] === true);
-		if (hasInputError) return setDidSubmit(false);
-
-		// Dispatch the login action
-		await dispatch(login({ email, password }));
-		await setDidSubmit(true);
+		switch (hasInputError) {
+			case true:
+				await setDidSubmit(false);
+				break;
+			default:
+				await dispatch(login({ email, password }));
+				await setDidSubmit(true);
+		}
 	};
 
-
-	// React hook to keep logged in users from accidently navigating
-	// to the login page
+	// React hook to handle form input focus
 	useEffect(() => {
-		if (user) {
-			navigate('/');
-		}
-	}, [user, navigate]);
-
-	// React hook to handle input focus
-	useEffect(() => {
-		HandleInputFocus(
-			isFocused,
-			[emailFocus, passwordFocus],
-		);
+		(async () => {
+			HandleInputFocus(
+				isFocused,
+				[emailFocus, passwordFocus],
+			);
+		})();
 	}, [isFocused]);
 
-	// React hook to handle the form errors
+	// React hook to handleform errors
 	useEffect(() => {
-		HandleFormError(
-			error,
-			[emailInputRef, passwordInputRef, formErrors],
-		);
+		(async () => {
+			await HandleFormError(
+				error,
+				[emailInputRef, passwordInputRef, formErrors],
+			);
 
-		if (isError) {
-			// Set the form error state
-			setError((prevState) => ({
-				...prevState,
-				formError: true,
-				message: message,
-			}));
-		}
-		else if (isSuccess) {
-			// Redirect to the homepage
-			navigate('/');
+			if (isError) {
+				// Set the form error state
+				setError((prevState) => ({
+					...prevState,
+					formError: true,
+					message: message,
+				}));
+			}
+			if (isSuccess) {
+				await navigate('/');
+				// Reset the state
+				await dispatch(reset());
+			}
 
 			// Reset the state
-			dispatch(reset());
-		}
-	}, [isError, isSuccess, message, error, navigate, dispatch]);
+			await dispatch(reset());
+		})();
+	}, [
+		didSubmit,
+		// Form state
+		isLoading, isError, isSuccess, message, error,
+		// Functions
+		navigate, dispatch
+	]);
 
 	return (
 		<div className="col-12 col-lg-6">
@@ -166,7 +157,7 @@ const LoginForm = () => {
 					<form onSubmit={handleSubmit}>
 						<div className="form_group">
 							<label htmlFor="email">
-                                Email address
+								Email address
 							</label>
 							<div className="form_control"
 								onFocus={handleFocus}
@@ -187,7 +178,7 @@ const LoginForm = () => {
 						</div>
 						<div className="form_group">
 							<label htmlFor="password">
-                                Password
+								Password
 							</label>
 							<div className="form_control"
 								onFocus={handleFocus}
@@ -213,7 +204,7 @@ const LoginForm = () => {
 						<div className="login__actions">
 							<LoginButton onClick={handleClick} />
 							<Link to="#" className='forgotpass'>
-                                Forgot password?
+								Forgot password?
 							</Link>
 						</div>
 					</form>
@@ -223,7 +214,7 @@ const LoginForm = () => {
 			<div className="row py-4">
 				<div className="col-12">
 					<Link to="/register" className='register'>
-                        Or register
+						Or register
 					</Link>
 				</div>
 			</div>

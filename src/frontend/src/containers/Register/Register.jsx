@@ -1,18 +1,32 @@
-// External imports
+// Built-in imports
 import { useEffect } from 'react';
 
+// External imports
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // Internal imports
 import RegisterForm from '../../components/Forms/RegisterForm.jsx';
-
 import './register.css';
 
 const Register = () => {
+	const navigate = useNavigate();
+	const { user, } = useSelector(
+		(state) => state.auth);
 
-	// Create a hook to dymanically change the page title
+
+	// React hook to dynamically set the page title
 	useEffect(() => {
 		document.title = 'Registration | Diablo II Market';
 	}, []);
+
+	// React hook to keep logged in users from accidently navigating
+	// back to the login page
+	useEffect(() => {
+		(async () => {
+			if (user) await navigate('/');
+		})();
+	}, [user, navigate]);
 
 	return (
 		<section className="register__container">

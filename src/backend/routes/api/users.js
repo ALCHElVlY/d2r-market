@@ -3,14 +3,15 @@ const express = require('express');
 
 // External imports
 const router = express.Router();
-const protect = require('../../middleware/authControllers.js');
+const protect = require('../../middleware/authController.js');
 const {
 	registerUser,
 	loginUser,
+	logoutUser,
 	updateUser,
 	getUser,
 	deleteUser,
-} = require('../../middleware/userControllers');
+} = require('../../middleware/userController');
 
 // @desc HTTP POST to register a new user
 // @route POST api/users/register
@@ -22,6 +23,11 @@ router.post('/register', registerUser);
 // @access Public
 router.post('/login', loginUser);
 
+// @desc HTTP GET to authenticate a user and log them out
+// @route GET api/users/:id/logout
+// @access Public
+router.get('/:id/logout', logoutUser);
+
 // @desc HTTP PATCH to update the users data in the database
 // @route PATCH api/users/:id
 // @access Private
@@ -31,10 +37,5 @@ router.patch('/:id', protect, updateUser);
 // @route DELETE api/users/:id
 // @access Private
 router.delete('/:id', protect, deleteUser);
-
-// @desc HTTP GET to retrieve user data from the database
-// @route GET api/users/:id
-// @access Private
-router.get('/:id', protect, getUser);
 
 module.exports = router;

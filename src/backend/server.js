@@ -1,5 +1,6 @@
 // External imports
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 // Internal imports
 const connectDB = require('./database/config/db');
@@ -10,8 +11,9 @@ const {
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Express body parser
+// Express middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // Route the API requests
 app.use('/api/users', userRoutes);

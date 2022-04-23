@@ -17,36 +17,25 @@ import {
 import { updateUser, reset } from '../../features/auth/authSlice';
 
 const ChangeEmailForm = () => {
-	// Get the user from state
+	const dispatch = useDispatch();
 	const { user, isError, isSuccess, message } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
 
-	// Create a ref to the input fields
+	// Reference variables
 	const currentPasswordRef = useRef(null),
 		newEmailRef = useRef(null),
 		formErrors = useRef(null);
-
-	// Create refs for the form errors
 	const currentPasswordError = useRef(null),
 		newEmailError = useRef(null);
 
-	// Set the state for the form inputs
+	// State variables
 	const [inputs, setInputs] = useState({
 		currentPassword: '',
 		newEmail: '',
 	});
-	const {
-		currentPassword,
-		newEmail,
-	} = inputs;
-
-	// Set the state for the input focus
+	const { currentPassword, newEmail } = inputs;
 	const [isFocused, setIsFocused] = useState({});
-
-	// eslint-disable-next-line no-unused-vars
+	const [isMounted, setIsMounted] = useState(null);
 	const [didSubmit, setDidSubmit] = useState(false);
-
-	// Set the state for the input validation errors
 	const [error, setError] = useState({
 		currentPassword: false,
 		newEmail: false,
@@ -54,36 +43,30 @@ const ChangeEmailForm = () => {
 		message: '',
 	});
 
-	// Handle when the input fields are focused
-	const handleFocus = (e) => {
-		setIsFocused(() => ({
+	// Event handlers
+	const handleFocus = async (e) => {
+		await setIsFocused(() => ({
 			...isFocused,
 			[e.target.name]: true,
 		}));
 	};
-
-	// Handle when the input fields are blurred
-	const handleBlur = (e) => {
-		setIsFocused(() => ({
+	const handleBlur = async (e) => {
+		await setIsFocused(() => ({
 			...isFocused,
 			[e.target.name]: false,
 		}));
 	};
-
-	// Handle when the input fields are changed
-	const handleChange = (e) => {
-		setInputs((prevState) => ({
+	const handleChange = async (e) => {
+		await setInputs((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
 		}));
 	};
-
-	// Handle when the form submit button is clicked
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
-	};
 
-	// Handle when the form is submitted
+		setIsMounted('changeEmailForm');
+	};
 	const handleSubmit = async (e) => {
 		// Prevent the default form submission
 		e.preventDefault();
@@ -109,41 +92,46 @@ const ChangeEmailForm = () => {
 
 	// React hook to handle the form errors
 	useEffect(() => {
-		HandleFormError(
-			error,
-			[currentPasswordError, newEmailError, formErrors],
-		);
+		(async () => {
+			
+			await HandleFormError(
+				error,
+				[currentPasswordError, newEmailError, formErrors],
+			);
 
-		if (isError) {
-			setError((prevState) => ({
-				...prevState,
-				formError: true,
-				message: message,
-			}));
-		}
-		else if (isSuccess) {
-			toast.success('Email updated successfully', {
-				position: 'bottom-right',
-			});
+			if (isError) {
+				setError((prevState) => ({
+					...prevState,
+					formError: true,
+					message: message,
+				}));
+			}
+			
+			if (isMounted && isSuccess) {
+				toast.success('Email updated successfully', {
+					position: 'bottom-right',
+				});
+	
+				// Reset the form
+				setInputs((prevState) => ({
+					...prevState,
+					currentPassword: '',
+					newEmail: '',
+				}));
+	
+				// Reset the form errors
+				setError((prevState) => ({
+					...prevState,
+					formError: false,
+					message: '',
+				}));
+	
+				await dispatch(reset());
+			}
 
-			// Reset the form
-			setInputs((prevState) => ({
-				...prevState,
-				currentPassword: '',
-				newEmail: '',
-			}));
-
-			// Reset the form errors
-			setError((prevState) => ({
-				...prevState,
-				formError: false,
-				message: '',
-			}));
-			formErrors.current.classList.remove('visible');
-
-			dispatch(reset());
-		}
-	}, [error, isError, isSuccess, message, dispatch]);
+			await dispatch(reset());
+		})();
+	}, [isMounted, didSubmit, isError, isSuccess, message, error, dispatch]);
 
 
 	return (
@@ -196,7 +184,7 @@ const ChangeEmailForm = () => {
 			</div>
 			<ul className="form_errors"
 				ref={formErrors}>
-				{error.formError && <li>{error.message}</li>}
+				{((isMounted && didSubmit) && error.formError) && <li>{error.message}</li>}
 			</ul>
 			<div className="change_password_submit">
 				<ChangeEmailConfirm onClick={handleClick} />

@@ -1,9 +1,5 @@
-// Builtin imports
+// Built-in imports
 import { useEffect } from 'react';
-
-// External imports
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 // Internal imports
 import UserSettings from '../../../components/UserSettings/UserSettings.jsx';
@@ -11,20 +7,6 @@ import { SettingsContent } from '../../../components//UserSettings//UserSettings
 import './settings.css';
 
 const Settings = () => {
-	// Declare the navigate variable
-	const navigate = useNavigate();
-
-	// Get the user from state
-	const { user } = useSelector((state) => state.auth);
-
-	// Create a hook to prevent users who are not logged in
-	// from accessing this page
-	useEffect(() => {
-		if (!user) {
-			navigate('/login');
-		}
-	}, [user, navigate]);
-
 	// Create a hook to dynamically change the page title
 	useEffect(() => {
 		document.title = 'Settings | Verification';

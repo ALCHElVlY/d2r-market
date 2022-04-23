@@ -17,22 +17,22 @@ import {
 import { updateUser, reset } from '../../features/auth/authSlice';
 
 const ChangePasswordForm = () => {
-	// Get the user from state
+	const dispatch = useDispatch();
 	const { user, isError, isSuccess, message } = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
 
-	// Create a ref to the input fields
+	// Reference variables
 	const currentPasswordRef = useRef(null),
 		newPasswordRef = useRef(null),
 		confirmNewPasswordRef = useRef(null),
 		formErrors = useRef(null);
-
-	// Create refs for the various input and form errors
 	const currentPasswordError = useRef(null),
 		newPasswordError = useRef(null),
 		confirmNewPasswordError = useRef(null);
 
-	// Set the state for the form inputs
+	// State variables
+	const [isFocused, setIsFocused] = useState({});
+	const [didSubmit, setDidSubmit] = useState(false);
+	const [isMounted, setIsMounted] = useState(null);
 	const [inputs, setInputs] = useState({
 		currentPassword: '',
 		newPassword: '',
@@ -43,14 +43,6 @@ const ChangePasswordForm = () => {
 		newPassword,
 		confirmNewPassword,
 	} = inputs;
-
-	// Set the state for the input focus
-	const [isFocused, setIsFocused] = useState({});
-
-	// eslint-disable-next-line no-unused-vars
-	const [didSubmit, setDidSubmit] = useState(false);
-
-	// Set the state for the input validation errors
 	const [error, setError] = useState({
 		currentPassword: false,
 		newPassword: false,
@@ -59,59 +51,60 @@ const ChangePasswordForm = () => {
 		message: '',
 	});
 
-	// Handle when the input fields are focused
+	// Event handlers
 	const handleFocus = (e) => {
 		setIsFocused(() => ({
 			...isFocused,
 			[e.target.name]: true,
 		}));
 	};
-
-	// Handle when the input fields are blurred
 	const handleBlur = (e) => {
 		setIsFocused(() => ({
 			...isFocused,
 			[e.target.name]: false,
 		}));
 	};
-
-	// Handle when the input fields are changed
 	const handleChange = (e) => {
 		setInputs((prevState) => ({
 			...prevState,
 			[e.target.name]: e.target.value,
 		}));
 	};
+	const handleClick = async () => {
+		await ValidateForm(inputs, setError);
 
-	// Handle when the form is submitted
+		setIsMounted('changePasswordForm');
+
+		// Handle if the passwords don't match
+		if (newPassword !== confirmNewPassword) {
+			return setError((prevState) => ({
+				...prevState,
+				formError: true,
+				message: 'Passwords do not match',
+			}));
+		}
+		else {
+			setError((prevState) => ({
+				...prevState,
+				formError: false,
+				message: '',
+			}));
+		}
+	};
 	const handleSubmit = async (e) => {
 		// Prevent the default form submission
 		e.preventDefault();
 
 		// Check if there are any input errors
-		const inputErrors = Object.entries(error).filter(key => 
+		const inputErrors = Object.entries(error).filter(key =>
 			key.includes('currentPassword') || key.includes('newPassword') ||
-			key.includes('confirmNewPassword'));
+			key.includes('confirmNewPassword') || key.includes('formError'));
 		const hasInputError = inputErrors.some(key => key[1] === true);
 		if (hasInputError) return setDidSubmit(false);
 
 		// Dispatch the login action
 		await dispatch(updateUser({ user, data: inputs }));
 		await setDidSubmit(true);
-	};
-
-	// Handle the buttom click on the form
-	const handleClick = async () => {
-		await ValidateForm(inputs, setError);
-
-		// Handle if the passwords don't match
-		if (newPassword !== confirmNewPassword) {
-			setError((prevState) => ({
-				...prevState,
-				formError: true,
-				message: 'Passwords do not match',
-			}));
-		}
 	};
 
 	// React hook to handle the form input focus
@@ -124,56 +117,64 @@ const ChangePasswordForm = () => {
 
 	// React hook to handle the form errors
 	useEffect(() => {
-		HandleFormError(
-			error,
-			[currentPasswordError, newPasswordError, confirmNewPasswordError, formErrors],
-		);
+		(async () => {
+			
 
-		if (isError) {
-			setError((prevState) => ({
-				...prevState,
-				formError: true,
-				message: message,
-			}));
-		}
-		else if (isSuccess) {
-			toast.success('Password updated successfully', {
-				position: 'bottom-right',
-			});
+			await HandleFormError(
+				error,
+				[currentPasswordError, newPasswordError, confirmNewPasswordError, formErrors],
+			);
 
-			// Reset the form
-			setInputs((prevState) => ({
-				...prevState,
-				currentPassword: '',
-				newPassword: '',
-				confirmNewPassword: '',
-			}));
+			if (isError) {
+				setError((prevState) => ({
+					...prevState,
+					formError: true,
+					message: message,
+				}));
+			}
 
-			// Reset the form errors
-			setError((prevState) => ({
-				...prevState,
-				formError: false,
-				message: '',
-			}));
-			formErrors.current.classList.remove('visible');
+			if (isMounted && isSuccess) {
+				toast.success('Password updated successfully', {
+					position: 'bottom-right',
+				});
 
-			dispatch(reset());
-		}
-	}, [error, isError, isSuccess, message, dispatch]);
+				// Reset the form
+				setInputs((prevState) => ({
+					...prevState,
+					currentPassword: '',
+					newPassword: '',
+					confirmNewPassword: '',
+				}));
+
+				// Reset the form errors
+				setError((prevState) => ({
+					...prevState,
+					formError: false,
+					message: '',
+				}));
+
+				// Reset the state
+				await dispatch(reset());
+			}
+
+			// Reset the state
+			await dispatch(reset());
+		})();
+	}, [isMounted, didSubmit, isError, isSuccess, message, error, dispatch]);
 
 
 	return (
 		<form className="change_password_form"
 			onSubmit={handleSubmit}>
 			<div className="form_group hidden">
-			<input type="text" id="formUsername"
-				name='formUsername'
-				autoComplete='username'
-				hidden={true} />
+				<input type="text" id="formUsername"
+					name='formUsername'
+					autoComplete='username'
+					hidden={true} />
 			</div>
 			<div className="form_group">
 				<label htmlFor="cPassword_CurrentPassword">
-                    Current password
+					Current password
 				</label>
 				<div className="form_control"
 					onFocus={handleFocus}
@@ -193,7 +194,7 @@ const ChangePasswordForm = () => {
 			</div>
 			<div className="form_group">
 				<label htmlFor="newPassword">
-                    New password
+					New password
 				</label>
 				<div className="form_control"
 					onFocus={handleFocus}
@@ -213,7 +214,7 @@ const ChangePasswordForm = () => {
 			</div>
 			<div className="form_group">
 				<label htmlFor="confirmNewPassword">
-                    Confirm new password
+					Confirm new password
 				</label>
 				<div className="form_control"
 					onFocus={handleFocus}
