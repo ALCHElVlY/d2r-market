@@ -49,12 +49,12 @@
 .navMenu_link_active {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
     color: var(--primary-active-link);
-    padding: 10px;
     height: 60px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px;
 }
 .navMenu_market_icon {
     height: 1rem;

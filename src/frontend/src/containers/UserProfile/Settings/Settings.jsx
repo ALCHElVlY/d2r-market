@@ -7,7 +7,7 @@ import { SettingsContent } from '../../../components//UserSettings//UserSettings
 import './settings.css';
 
 const Settings = () => {
-	// Create a hook to dynamically change the page title
+	// React hook to set the page title
 	useEffect(() => {
 		document.title = 'Settings | Verification';
 	}, []);

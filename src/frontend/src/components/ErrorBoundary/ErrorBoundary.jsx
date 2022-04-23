@@ -7,12 +7,15 @@ import { toast } from 'react-toastify';
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = {
+      hasError: false,
+      message: '',
+    };
   }
 
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
-    return { hasError: true };
+    return { hasError: true, message: error.message };
   }
 
   componentDidCatch(error, errorInfo) {
@@ -23,7 +26,7 @@ class ErrorBoundary extends Component {
   render() {
     return (
       this.hasError
-        ? toast.error('An error has occured!', {
+        ? toast.error(`An error has occured!\n${this.state.message}`, {
           position: "top-center",
         })
         : this.props.children

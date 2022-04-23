@@ -19,6 +19,23 @@
   --disabled-button: rgb(128, 128, 128);
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.6); 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(180, 69, 69); 
+  border-radius: 10px;
+}
+
 /* Reset and style some global variables */
 * {
   box-sizing: border-box;

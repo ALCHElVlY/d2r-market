@@ -50,8 +50,8 @@ function App() {
 
 				</Routes>
 			</Router>
-			</ErrorBoundary>
 			<ToastContainer />
+			</ErrorBoundary>
 		</div>
 	);
 }

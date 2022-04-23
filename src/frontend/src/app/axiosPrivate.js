@@ -15,7 +15,6 @@ export const axiosPrivate = axios.create({
 });
 axiosPrivate.interceptors.request.use(
     (config) => {
-        console.log(config);
         if (config.user) {
             config.headers.Authorization = `Bearer ${config.user?.token}`;
         } 
