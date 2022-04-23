@@ -9,7 +9,6 @@ const {
 	loginUser,
 	logoutUser,
 	updateUser,
-	getUser,
 	deleteUser,
 } = require('../../middleware/userController');
 
@@ -26,7 +25,7 @@ router.post('/login', loginUser);
 // @desc HTTP GET to authenticate a user and log them out
 // @route GET api/users/:id/logout
 // @access Public
-router.get('/:id/logout', logoutUser);
+router.get('/:id/logout', protect, logoutUser);
 
 // @desc HTTP PATCH to update the users data in the database
 // @route PATCH api/users/:id
