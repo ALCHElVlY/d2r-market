@@ -64,7 +64,6 @@ const ChangeEmailForm = () => {
 	};
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
-
 		setIsMounted('changeEmailForm');
 	};
 	const handleSubmit = async (e) => {
@@ -95,6 +94,7 @@ const ChangeEmailForm = () => {
 		(async () => {
 			
 			await HandleFormError(
+				isMounted,
 				error,
 				[currentPasswordError, newEmailError, formErrors],
 			);
@@ -126,12 +126,20 @@ const ChangeEmailForm = () => {
 					message: '',
 				}));
 	
+				// Reset the state
 				await dispatch(reset());
+				formErrors.current.classList.remove('visible');
 			}
 
 			await dispatch(reset());
 		})();
-	}, [isMounted, didSubmit, isError, isSuccess, message, error, dispatch]);
+	}, [ 
+		isMounted, didSubmit, 
+		// Form state
+		isError, isSuccess, message, error,
+		// Functions
+		dispatch,
+	]);
 
 
 	return (
@@ -182,9 +190,9 @@ const ChangeEmailForm = () => {
 					{error.newEmail && <li>Field required</li>}
 				</ul>
 			</div>
-			<ul className="form_errors"
+			<ul className="changeEmail_form_errors"
 				ref={formErrors}>
-				{((isMounted && didSubmit) && error.formError) && <li>{error.message}</li>}
+				{error.formError && <li>{error.message}</li>}
 			</ul>
 			<div className="change_password_submit">
 				<ChangeEmailConfirm onClick={handleClick} />

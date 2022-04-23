@@ -216,7 +216,8 @@
     pointer-events: none;
     z-index: 50;
 }
-.settings_content .form_errors {
+.settings_content .changeEmail_form_errors,
+.changePassword_form_errors {
     display: none;
     background: #34201b;
     color: var(--color-danger-text);

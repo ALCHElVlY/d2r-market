@@ -38,7 +38,7 @@ const LoginForm = () => {
 	});
 	const { email, password } = inputs;
 	const [isFocused, setIsFocused] = useState({});
-	// eslint-disable-next-line no-unused-vars
+	const [isMounted, setIsMounted] = useState(null);
 	const [didSubmit, setDidSubmit] = useState(false);
 	const [error, setError] = useState({
 		email: false,
@@ -68,6 +68,7 @@ const LoginForm = () => {
 	};
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
+		setIsMounted('loginForm');
 	};
 	const handleSubmit = async (e) => {
 		// Prevent the default form submission
@@ -97,10 +98,11 @@ const LoginForm = () => {
 		})();
 	}, [isFocused]);
 
-	// React hook to handleform errors
+	// React hook to handle form errors
 	useEffect(() => {
 		(async () => {
 			await HandleFormError(
+				isMounted,
 				error,
 				[emailInputRef, passwordInputRef, formErrors],
 			);
@@ -123,11 +125,11 @@ const LoginForm = () => {
 			await dispatch(reset());
 		})();
 	}, [
-		didSubmit,
+		isMounted, didSubmit,
 		// Form state
 		isLoading, isError, isSuccess, message, error,
 		// Functions
-		navigate, dispatch
+		navigate, dispatch,
 	]);
 
 	return (

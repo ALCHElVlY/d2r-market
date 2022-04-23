@@ -41,8 +41,8 @@ const RegisterForm = () => {
 	});
 	const { email, password, confirmPassword } = inputs;
 	const [isFocused, setIsFocused] = useState({});
-	// eslint-disable-next-line no-unused-vars
 	const [didSubmit, setDidSubmit] = useState(false);
+	const [isMounted, setIsMounted] = useState(null);
 	const [error, setError] = useState({
 		email: false,
 		password: false,
@@ -72,6 +72,7 @@ const RegisterForm = () => {
 	};
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
+		setIsMounted('registerForm');
 
 		if (password !== confirmPassword) {
 			setError((prevState) => ({
@@ -121,6 +122,7 @@ const RegisterForm = () => {
 	useEffect(() => {
 		(async () => {
 			await HandleFormError(
+				isMounted,
 				error,
 				[emailError, passwordError, confirmPasswordError, formErrors],
 			);
@@ -158,11 +160,11 @@ const RegisterForm = () => {
 			await dispatch(reset());
 		})();
 	}, [
-		didSubmit,
+		isMounted, didSubmit,
 		// Form state
 		isError, isSuccess, message, error,
 		// Functions
-		navigate, dispatch
+		navigate, dispatch,
 	]);
 
 

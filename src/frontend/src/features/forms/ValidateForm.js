@@ -25,7 +25,7 @@ function HandleInputFocus(inputs, references) {
  * @param {object} errors A form error object
  * @param {Array} references An array of form error references
  */
-async function HandleFormError(errors, references) {
+async function HandleFormError(form, errors, references) {
     Object.entries(errors)
         .forEach(async ([key, value], index) => {
             if (!value) return;
@@ -33,10 +33,40 @@ async function HandleFormError(errors, references) {
 
             switch (value) {
                 case true:
-                    references[index]?.current.classList.add('visible');
+                    switch (form) {
+                        case 'loginForm':
+                            references[index]?.current.classList.add('visible');
+                            break;
+                        case 'registerForm':
+                            references[index]?.current.classList.add('visible');
+                            break;
+                        case 'changeEmailForm':
+                            references[index]?.current.classList.add('visible');
+                            break;
+                        case 'changePasswordForm':
+                            references[index]?.current.classList.add('visible');
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
-                    references[index]?.current.classList.remove('visible');
+                    switch (form) {
+                        case 'loginForm':
+                            references[index]?.current.classList.remove('visible'); 
+                            break;
+                        case 'registerForm':
+                            references[index]?.current.classList.remove('visible');
+                            break;
+                        case 'changeEmailForm':
+                            references[index]?.current.classList.remove('visible');
+                            break;
+                        case 'changePasswordForm':
+                            references[index]?.current.classList.remove('visible');
+                            break;
+                        default:
+                            break;
+                    }
             }
         });
 }

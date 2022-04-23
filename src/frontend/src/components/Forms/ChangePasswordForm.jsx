@@ -18,7 +18,8 @@ import { updateUser, reset } from '../../features/auth/authSlice';
 
 const ChangePasswordForm = () => {
 	const dispatch = useDispatch();
-	const { user, isError, isSuccess, message } = useSelector((state) => state.auth);
+	const { user, isError, isSuccess, message } = useSelector(
+		(state) => state.auth);
 
 	// Reference variables
 	const currentPasswordRef = useRef(null),
@@ -72,7 +73,6 @@ const ChangePasswordForm = () => {
 	};
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
-
 		setIsMounted('changePasswordForm');
 
 		// Handle if the passwords don't match
@@ -121,6 +121,7 @@ const ChangePasswordForm = () => {
 			
 
 			await HandleFormError(
+				isMounted,
 				error,
 				[currentPasswordError, newPasswordError, confirmNewPasswordError, formErrors],
 			);
@@ -155,12 +156,19 @@ const ChangePasswordForm = () => {
 
 				// Reset the state
 				await dispatch(reset());
+				formErrors.current.classList.remove('visible');
 			}
 
 			// Reset the state
 			await dispatch(reset());
 		})();
-	}, [isMounted, didSubmit, isError, isSuccess, message, error, dispatch]);
+	}, [
+		isMounted, didSubmit,
+		// Form state
+		isError, isSuccess, message, error,
+		// Functions
+		dispatch,
+	]);
 
 
 	return (
@@ -232,7 +240,7 @@ const ChangePasswordForm = () => {
 					{error.confirmNewPassword && <li>Field required</li>}
 				</ul>
 			</div>
-			<ul className="form_errors"
+			<ul className="changePassword_form_errors"
 				ref={formErrors}>
 				{error.formError && <li>{error.message}</li>}
 			</ul>
