@@ -90,26 +90,21 @@ const NavMenu = () => {
 		if (user) {
 			setOnlineStatus(user.onlineStatus);
 
-			// Toggle the active status class when  the users status changes
-		switch (onlineStatus) {
-			case 'online':
-				onlineStatus === 'online'
-					? onlineStatusRef.current.classList.toggle('activeStatus')
-					: onlineStatusRef.current.classList.toggle('activeStatus');
-				break;
-			case 'online in game':
-				onlineStatus === 'online in game'
-					? onlineGameStatusRef.current.classList.toggle('activeStatus')
-					: onlineGameStatusRef.current.classList.toggle('activeStatus');
-				break;
-			case 'invisible':
-				onlineStatus === 'invisible'
-					? invisStatusRef.current.classList.toggle('activeStatus')
-					: invisStatusRef.current.classList.toggle('activeStatus');
-				break;
-			default:
-				break;
-		}
+			if (onlineStatus === 'online') {
+				onlineStatusRef.current.classList.add('activeStatus');
+			} else {
+				onlineStatusRef.current.classList.remove('activeStatus');
+			}
+			if (onlineStatus === 'online in game') {
+				onlineGameStatusRef.current.classList.add('activeStatus');
+			} else {
+				onlineGameStatusRef.current.classList.remove('activeStatus');
+			}
+			if (onlineStatus === 'invisible') {
+				invisStatusRef.current.classList.add('activeStatus');
+			} else {
+				invisStatusRef.current.classList.remove('activeStatus');
+			}
 		}
 	}, [
 		user, open, onlineStatus,
