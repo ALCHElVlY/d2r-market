@@ -1,5 +1,6 @@
 // External imports
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 // Default Axios instance
@@ -31,16 +32,26 @@ axiosPrivate.interceptors.request.use(
     },
 );
 
-/* axiosPrivate.interceptors.response.use(
+axiosPrivate.interceptors.response.use(
     response => response,
     async (error) => {
-        const prevRequest = error?.config;
-        if (error?.response?.status === 403 && !prevRequest?.sent) {
+        // console.log(error.response);
+        const TokenExpired = error.response.data.message
+        // const prevRequest = error?.config;
+
+        if (error?.response?.status === 401 &&
+            TokenExpired === 'Token expired') {
+                // const user = JSON.parse(error.config.data);
+                toast.error('Your session has expired. Please login again.');
+
+                // Remove the local storage token
+                localStorage.removeItem('persist:root');
+            }
+        /* if (error?.response?.status === 403 && !prevRequest?.sent) {
             prevRequest.sent = true;
-            const newAccessToken = 'Some token'
-            prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+            prevRequest.headers.Authorization = `Bearer ${undefined}`;
             return axiosPrivate(prevRequest);
-        }
+        }*/
         return Promise.reject(error);
     }
-);*/
+);

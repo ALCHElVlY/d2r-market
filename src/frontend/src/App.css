@@ -14,23 +14,20 @@
   --border-color-danger: #cc3000;
   --color-status-online: darkgreen;
   --color-status-online-ingame: #FF3D99;
+  --color-status-invisible: grey;
   --color-danger-text: #cc3000;
   --disabled-text: rgb(128, 128, 128);
   --disabled-button: rgb(128, 128, 128);
 }
 
-/* width */
+/* Custom scroll bar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.6); 
   border-radius: 10px;
 }
- 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(180, 69, 69); 
   border-radius: 10px;

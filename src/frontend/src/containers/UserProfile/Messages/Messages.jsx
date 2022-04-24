@@ -15,6 +15,7 @@ const Messages = () => {
 	// Create a hook to prevent users who are not logged in
 	// from accessing this page
 	useEffect(() => {
+		document.title = 'Chats';
 		if (!user) {
 			navigate('/login');
 		}

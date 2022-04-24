@@ -72,7 +72,6 @@
 }
 .statusIndicator .status {
     position: relative;
-    color: darkgrey;
     text-transform: uppercase;
     overflow: visible;
     align-items: center;
@@ -105,6 +104,15 @@ svg:not(:root) {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
+.profile_status_switch > span {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: color .2s ease-out, backgorund .2s ease-out;
+}
+.profile_status_switch > span:hover {
+    background: var(--background-color-darker);
+}
 .profile_status_switch > .status_online {
     color: var(--color-status-online);
 }
@@ -112,7 +120,11 @@ svg:not(:root) {
     color: var(--color-status-online-ingame);
 }
 .profile_status_switch > .status_invisible {
-    color: grey;
+    color: var(--color-status-invisible);
+}
+
+.activeStatus {
+    background: var(--border-color);
 }
 .profile_settings .smartlink {
     display: flex;

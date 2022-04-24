@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 // Internal imports
-import { logout, reset } from '../../features/auth/authSlice';
+import { logout, updateUser, reset } from '../../features/auth/authSlice';
 import UserNavProfile from '../UserNavProfile/UserNavProfile.jsx';
 import PlatformSelector from './PlatformSelector/PlatformSelector.jsx';
 import './navmenu.css';
@@ -27,9 +27,13 @@ const NavMenu = () => {
 
 	// Reference variables
 	const userNavProfileRef = useRef(null);
+	const invisStatusRef = useRef(null);
+	const onlineStatusRef = useRef(null);
+	const onlineGameStatusRef = useRef(null);
 
 	// State variables
 	const [open, setOpen] = useState(false);
+	const [onlineStatus, setOnlineStatus] = useState('');
 
 	// Event handlers
 	const handleLogout = async () => {
@@ -40,6 +44,16 @@ const NavMenu = () => {
 		// Redirect the user back to the home page
 		await navigate('/');
 	};
+	const handleClick = (e) => {
+		const prev = onlineStatus;
+		const target = e.target.innerHTML.toLowerCase();
+		const payload ={
+			user: user,
+			data: { status: target },
+		}
+		if (target === prev) return;
+		dispatch(updateUser(payload));
+	}
 	const handleMouseEnter = () => {
 		setOpen(true);
 	};
@@ -71,7 +85,35 @@ const NavMenu = () => {
 		else {
 			setOpen(false);
 		}
-	}, [user, open]);
+
+
+		if (user) {
+			setOnlineStatus(user.onlineStatus);
+
+			// Toggle the active status class when  the users status changes
+		switch (onlineStatus) {
+			case 'online':
+				onlineStatus === 'online'
+					? onlineStatusRef.current.classList.toggle('activeStatus')
+					: onlineStatusRef.current.classList.toggle('activeStatus');
+				break;
+			case 'online in game':
+				onlineStatus === 'online in game'
+					? onlineGameStatusRef.current.classList.toggle('activeStatus')
+					: onlineGameStatusRef.current.classList.toggle('activeStatus');
+				break;
+			case 'invisible':
+				onlineStatus === 'invisible'
+					? invisStatusRef.current.classList.toggle('activeStatus')
+					: invisStatusRef.current.classList.toggle('activeStatus');
+				break;
+			default:
+				break;
+		}
+		}
+	}, [
+		user, open, onlineStatus,
+	]);
 
 
 	return (
@@ -138,9 +180,18 @@ const NavMenu = () => {
 									Select your status
 								</li>
 								<li className="profile_status_switch">
-									<span className='status_online'>Online</span>
-									<span className='status_online_ingame'>Online in game</span>
-									<span className='status_invisible'>Invisible</span>
+									<span className='status_online'
+									ref={onlineStatusRef}
+									onClick={handleClick}
+									>Online</span>
+									<span className='status_online_ingame'
+									ref={onlineGameStatusRef}
+									onClick={handleClick}
+									>Online in game</span>
+									<span className='status_invisible'
+									ref={invisStatusRef}
+									onClick={handleClick}
+									>Invisible</span>
 								</li>
 								<li className="profile_settings">
 									<Link to="/settings/account" className="smartlink">

@@ -111,6 +111,15 @@
 .hidden {
     display: none !important;
 }
+.online {
+    color: var(--color-status-online);
+}
+.online_ingame {
+    color: var(--color-status-online-ingame);
+}
+.invisible {
+    color: var(--color-status-invisible);
+}
 .input_focus {
     border: 1px solid var(--primary-component-focused) !important;
     outline: 0;

@@ -18,6 +18,9 @@ const Profile = () => {
 		if (!user) {
 			navigate('/login');
 		}
+		else {
+			document.title = `Profile - ${user.username} | Diablo II Market`;
+		}
 	}, [user, navigate]);
 
 	return (

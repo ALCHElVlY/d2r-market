@@ -122,14 +122,14 @@ const updateUser = async (req, res) => {
 	const {
 		newPassword,
 		newEmail,
+		status,
 	} = req.body.data;
-
-	// Check if the user provided the correct password
-	const validPassword = await bcrypt.compare(req.body?.data?.currentPassword, user.password);
-	if (!validPassword) return res.status(400)
-		.json({ message: 'Invalid password' });
 	
 	if (newEmail && !newPassword) {
+		// Check if the user provided the correct password
+		const validPassword = await bcrypt.compare(req.body?.data?.currentPassword, user.password);
+		if (!validPassword) return res.status(400)
+			.json({ message: 'Invalid password' });
 		// Check if the new email is already in use
 		const emailExists = await User.findOne({
 			email: newEmail
@@ -152,12 +152,32 @@ const updateUser = async (req, res) => {
 			}));
 	}
 	if (!newEmail && newPassword) {
+		// Check if the user provided the correct password
+		const validPassword = await bcrypt.compare(req.body?.data?.currentPassword, user.password);
+		if (!validPassword) return res.status(400)
+			.json({ message: 'Invalid password' });
+
 		// Hash the new password
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(newPassword, salt);
 		
 		// Update the user's email
 		user.password = hashedPassword;
+
+		// Save the user
+		await user.save()
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			}));
+	}
+	if (status) {
+		// Set the user's new status
+		user.onlineStatus = status;
 
 		// Save the user
 		await user.save()
@@ -214,7 +234,7 @@ const getUser = async (req, res) => {
  * and utilizes the User model to find a user with the given id and deletes
  * them from the database.
  * @param {*} req 
- * @param {*} res 
+ * @param {*} res
  */
 const deleteUser = async (req, res) => {
 	try {
@@ -245,12 +265,6 @@ const generateToken = (id) => {
 	return jwt.sign({ id },
 		process.env.ACCESS_TOKEN_SECRET,
 		{ expiresIn: '2h' });
-};
-
-const generateRefreshToken = (id) => {
-	return jwt.sign({ id },
-		process.env.REFRESH_TOKEN_SECRET,
-		{ expiresIn: '3h' });
 };
 
 module.exports = {
