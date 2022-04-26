@@ -29,6 +29,7 @@
 .focus {
     border: 1px solid var(--primary-component-focused) !important;
     outline: 0;
+    /* box-shadow: 0 0 0 .15rem rgba(0, 49, 212, 0.25); */
     box-shadow: 0 0 0 .15rem rgba(212, 0, 0, 0.25);
 }
 .item_finder_input {

@@ -1,4 +1,16 @@
 /* --------------------- Media Queries --------------------- */
+@media (max-width: 769px) {
+    .header__container {
+        background-size: 1800px !important;
+        background-position: 50% -80px !important;
+    }
+}
+@media (max-width: 821px) {
+    .header__container {
+        background-size: 1550px !important;
+        background-position: 50% -40px !important;
+    }
+}
 @media (min-width: 1200px) {
     .header_search_container {
         max-width: 1140px;
@@ -12,9 +24,11 @@
     flex-direction: column;
     align-items: stretch;
     position: relative;
-    min-height: 800px;
-    background-image: url('../../../../../assets/images/home/d2r-market-header-1100.jpg');
-    background-size: cover;
+    min-height: 600px;
+    background-image: url('../../../../../assets/images/home/D2R-SelectHeroBackground-1900.jpg');
+    background-size: 100%;
+    background-position: 0px -5.8rem;
+    background-attachment: scroll;
 }
 .header_body {
     display: flex;

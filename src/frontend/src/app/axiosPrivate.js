@@ -43,9 +43,6 @@ axiosPrivate.interceptors.response.use(
             TokenExpired === 'Token expired') {
                 // const user = JSON.parse(error.config.data);
                 toast.error('Your session has expired. Please login again.');
-
-                // Remove the local storage token
-                localStorage.removeItem('persist:root');
             }
         /* if (error?.response?.status === 403 && !prevRequest?.sent) {
             prevRequest.sent = true;

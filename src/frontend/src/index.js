@@ -16,11 +16,11 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<Provider store={store}>
-	<PersistGate loading={null} persistor={Persistor}>
-		<AuthProvider>
-			<App />
-		</AuthProvider>
-	</PersistGate>
+		<PersistGate loading={null} persistor={Persistor}>
+			<AuthProvider>
+				<App />
+			</AuthProvider>
+		</PersistGate>
 	</Provider>
 );
 reportWebVitals();

@@ -64,7 +64,7 @@ const ItemSearchBar = () => {
 
 
 		'&&:hover': {
-			backgroundColor: 'var(--primary-button-background_lighter)',
+			backgroundColor: 'var(--primary-active-link)',
 		},
 	};
 

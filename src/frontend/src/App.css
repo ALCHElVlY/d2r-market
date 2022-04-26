@@ -1,11 +1,16 @@
 :root {
   --primary-link-text: rgb(180, 69, 69);
+  /* --primary-link-text: rgb(204, 179, 147); */
   --primary-active-link: rgb(247, 76, 79);
+  /* --primary-active-link: rgb(89, 187, 255); */
   --primary-input-text: #abaeaf;
+  --primary-subtext-color: rgb(53, 50, 50);
   --primary-background: #101619;
-  --primary-button-background: #9c3c3c;
-  --primary-button-background_lighter: rgb(200, 60, 60);
+  --primary-button-background: #9c3f3f;
+  /* --primary-button-background: rgb(204, 179, 147); */
+  --primary-button-background_lighter: rgb(212, 86, 86);
   --primary-component-focused: #d40000;
+  /* --primary-component-focused: #0055d4; */
   --background-color: #101619;
   --background-color-light: #171e21;
   --background-color-darker: #071013;
@@ -29,7 +34,8 @@
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(180, 69, 69); 
+  background: var(--primary-link-text);
+  /* background: rgb(206, 186, 162);  */
   border-radius: 10px;
 }
 

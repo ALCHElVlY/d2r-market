@@ -1,21 +1,35 @@
 // Built-in imports
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
+
+// External imports
+import { useSelector, useDispatch } from 'react-redux';
 
 // Internal imports
-import { useSelector } from 'react-redux';
-// import { logout, reset } from '../../features/auth/authSlice';
+import { logout, reset } from '../../features/auth/authSlice';
+import { useEffectCustom } from '../../app/hooks/useEffectCustom';
 
 const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [auth, setAuth] = useState({});
-    const { user } = useSelector((state) => state.auth);
+    const { user, isError, message } = useSelector((state) => state.auth);
 
-    useEffect(() => {
+    useEffectCustom(() => {
         if (user) {
             setAuth({ user: user });
         }
-    }, [user]);
+
+        if (isError && message === 'Token expired') {
+            dispatch(logout(user));
+            dispatch(reset());
+        }
+    }, [
+        user,
+        // App State
+        isError, message,
+        // Functions
+        dispatch,
+    ]);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>

@@ -8,12 +8,13 @@ import {
 const FilterInGame = () => {
 	// Custom button styling
 	const ButtonProps = {
-		backgroundColor: '#9c3c3c',
+		color: 'white',
+		backgroundColor: 'var(--primary-button-background)',
 		textTransform: 'none',
 		height: '30px',
 
 		'&&:hover': {
-			backgroundColor: '#9c3c3c',
+			backgroundColor: 'var(--primary-active-link)',
 		},
 		'&& .MuiSvgIcon-root': {
 			fontSize: '18px',
