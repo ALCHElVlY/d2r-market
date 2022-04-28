@@ -230,6 +230,54 @@ const getUser = async (req, res) => {
 };
 
 /**
+ * The getOnlineUsers function makes a request to the server to
+ * retrieve all the users that are currently marked online.
+ * @param {*} req 
+ * @param {*} res 
+ */
+const getOnlineUsers = async (req, res) => {
+	try {
+		// Find all the users that are online
+		const onlineUsers = await User.find({
+			onlineStatus: 'online',
+		})
+		.count();
+
+		// Return the users
+		res.status(200).json(onlineUsers);
+	} catch (e) {
+		console.log(e);
+		res.status(500).send({
+			message: e.message,
+		});
+	}
+};
+
+/**
+ * The getOnlineTraders function makes a request to the server to
+ * retrieve all the users that are currently marked online in-game.
+ * @param {*} req 
+ * @param {*} res 
+ */
+ const getOnlineTraders = async (req, res) => {
+	try {
+		// Find all the users that are online in-game
+		const onlineTraders = await User.find({
+			onlineStatus: 'online in game',
+		})
+		.count();
+
+		// Return the users
+		res.status(200).json(onlineTraders);
+	} catch (e) {
+		console.log(e);
+		res.status(500).send({
+			message: e.message,
+		});
+	}
+};
+
+/**
  * The deleteUser function takes in the req and res objects
  * and utilizes the User model to find a user with the given id and deletes
  * them from the database.
@@ -273,5 +321,7 @@ module.exports = {
 	logoutUser,
 	updateUser,
 	getUser,
+	getOnlineUsers,
+	getOnlineTraders,
 	deleteUser,
 };

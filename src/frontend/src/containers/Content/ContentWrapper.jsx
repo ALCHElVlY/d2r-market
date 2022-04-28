@@ -7,18 +7,18 @@ import {
 } from '../../components/index';
 import {
 	Header,
+	ContentBody,
 	Footer,
 } from '../index';
 import './contentwrapper.css';
 
 const ContentWrapper = () => {
-	// Create a hook to dymanically change the page title
 	useEffect(() => {
 		document.title = 'Diablo II Market';
 	}, []);
 	
 	return (
-		<div className='content__container'>
+		<div className='content__wrapper'>
 			<Header />
 			<section className='content'>
 				<div className="content_header_second">
@@ -28,9 +28,7 @@ const ContentWrapper = () => {
 					</div>
 					<div className="flex__right"></div>
 				</div>
-				<div className="content_body_second">
-                    This is the second section body
-				</div>
+				<ContentBody />
 			</section>
 			<Footer />
 		</div>

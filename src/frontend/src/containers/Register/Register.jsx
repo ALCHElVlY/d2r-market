@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 // Internal imports
 import RegisterForm from '../../components/Forms/RegisterForm.jsx';
+import {
+	Footer,
+} from '../index';
 import './register.css';
 
 const Register = () => {
@@ -29,27 +32,30 @@ const Register = () => {
 	}, [user, navigate]);
 
 	return (
-		<section className="register__container">
-			<header className="register_header flex__root">
-				<div className="flex__left"></div>
-				<div className="header_content flex__root">
-					<h1>Registration</h1>
-				</div>
-				<div className="flex__right"></div>
-				<div className="header_image_overlay"></div>
-			</header>
-			<div className="register_body flex__root">
-				<div className="flex__left"></div>
-				<div className="form_container">
-					<div className="row py-4">
-						<RegisterForm />
-						<div className="col-12 col-lg-6"></div>
+		<div className="content__wrapper">
+			<section className="register__container">
+				<header className="register_header flex__root">
+					<div className="flex__left"></div>
+					<div className="header_content flex__root">
+						<h1>Registration</h1>
 					</div>
+					<div className="flex__right"></div>
+					<div className="header_image_overlay"></div>
+				</header>
+				<div className="register_body flex__root">
+					<div className="flex__left"></div>
+					<div className="form_container">
+						<div className="row py-4">
+							<RegisterForm />
+							<div className="col-12 col-lg-6"></div>
+						</div>
+					</div>
+					<div className="flex__right"></div>
 				</div>
-				<div className="flex__right"></div>
-			</div>
-			<div className="flex_bottom"></div>
-		</section>
+				<div className="flex_bottom"></div>
+			</section>
+			<Footer />
+		</div>
 	);
 };
 

@@ -5,7 +5,7 @@ import './header.css';
 const Header = () => {
 	return (
 		<section className='header__container'>
-			<div className="header_body">
+			<div className="header_body flex__root">
 				<div className='flex--left'></div>
 				<section className='header_search_container'>
 					<div className="row">

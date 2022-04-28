@@ -11,6 +11,7 @@ import {
 	FilterOnSite,
 	FilterInGame,
 } from '../Buttons/index';
+import { RealmSelectMenu } from '../../components/index';
 import './filterrecentorders.css';
 
 const FilterRecentOrders = () => {
@@ -38,7 +39,10 @@ const FilterRecentOrders = () => {
 					</RadioGroup>
 				</FormControl>
 			</div>
-			<div className='realmFilter'></div>
+			<div className='realmFilter'>
+				<h5>Realm</h5>
+				<RealmSelectMenu />
+			</div>
 		</div>
 	);
 };

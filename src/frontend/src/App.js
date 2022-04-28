@@ -20,6 +20,7 @@ import {
 } from './containers';
 import RequireAuth from './components/RequireAuth/RequireAuth.jsx';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.jsx';
+import PlaceOrder from './components/Modals/PlaceOrder.jsx';
 import './App.css';
 
 
@@ -38,7 +39,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 
 					{/* Private routes - users must be logged in */}
-					<Route element={<RequireAuth persistLogin={true} />}>
+					<Route element={<RequireAuth />}>
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/messages" element={<Messages />} />
 						<Route path="/settings" >
@@ -50,6 +51,7 @@ function App() {
 
 				</Routes>
 			</Router>
+			<PlaceOrder />
 			<ToastContainer />
 			</ErrorBoundary>
 		</div>

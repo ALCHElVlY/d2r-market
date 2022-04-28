@@ -1,8 +1,8 @@
 :root {
   --primary-link-text: rgb(180, 69, 69);
+  --primary-link-text-dimmed: #984054;
   /* --primary-link-text: rgb(204, 179, 147); */
   --primary-active-link: rgb(247, 76, 79);
-  /* --primary-active-link: rgb(89, 187, 255); */
   --primary-input-text: #abaeaf;
   --primary-subtext-color: rgb(53, 50, 50);
   --primary-background: #101619;
@@ -11,16 +11,23 @@
   --primary-button-background_lighter: rgb(212, 86, 86);
   --primary-component-focused: #d40000;
   /* --primary-component-focused: #0055d4; */
+  --secondary-active-link: rgb(89, 187, 255);
   --background-color: #101619;
   --background-color-light: #171e21;
+  --background-color-dark: #171e21;
   --background-color-darker: #071013;
   --border-color: #2d3437;
   --border-color-light: #203137;
+  --border-color-dark: #283235;
   --border-color-danger: #cc3000;
-  --color-status-online: darkgreen;
+  --color-status-online: #04be04;
   --color-status-online-ingame: #FF3D99;
-  --color-status-invisible: grey;
+  --color-status-invisible: #808080;
+  --color-dark-text: #aab3b6;
   --color-danger-text: #cc3000;
+  --color-disclaimer-dark: #333d40;
+  --color-input-background: #121212;
+  --color-input-border: #213138; 
   --disabled-text: rgb(128, 128, 128);
   --disabled-button: rgb(128, 128, 128);
 }
@@ -50,6 +57,12 @@ body {
   font-family: 'AVQuest';
   background-color: #2c2f31;
   color: #fff; 
+}
+h1, h3 {
+  text-transform: uppercase;
+}
+h3, h5 {
+  font-size: 1rem;
 }
 
 @font-face {

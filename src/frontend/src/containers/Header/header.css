@@ -21,19 +21,16 @@
 /* Header container styling */
 .header__container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
     position: relative;
-    min-height: 600px;
+    min-height: 595px;
     background-image: url('../../../../../assets/images/home/D2R-SelectHeroBackground-1900.jpg');
     background-size: 100%;
     background-position: 0px -5.8rem;
     background-attachment: scroll;
 }
 .header_body {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
     flex-grow: 1;
     min-height: inherit;
     width: 100%;
