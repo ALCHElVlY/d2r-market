@@ -26,8 +26,8 @@ router.post('/login', loginUser);
 
 // @desc HTTP GET to authenticate a user and log them out
 // @route GET api/users/:id/logout
-// @access Private
-router.get('/:id/logout', protect, logoutUser);
+// @access Public
+router.get('/:id/logout', logoutUser);
 
 // @desc HTTP GET to get the total number of users online
 // @route GET api/users/online

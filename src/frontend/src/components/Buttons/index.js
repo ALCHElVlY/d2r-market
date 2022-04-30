@@ -19,3 +19,4 @@ export { default as RemoveAccount } from './RemoveAccount.jsx';
 export { default as CancelRemoveAccount } from './CancelRemoveAccount.jsx';
 export { default as ConfirmRemoveAccount } from './ConfirmRemoveAccount.jsx';
 export { default as LinkAccount } from './LinkAccount.jsx';
+export { default as CloseModal } from './CloseModalButton.jsx';

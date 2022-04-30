@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
             }
     
             if (isError && message === 'Token expired') {
+                console.log('error');
                 await dispatch(logout(user));
                 await dispatch(reset());
             }
