@@ -7,7 +7,7 @@ const Header = () => {
 		<section className='header__container'>
 			<div className="header_body flex__root">
 				<div className='flex--left'></div>
-				<section className='header_search_container'>
+				<section className='search_header container'>
 					<div className="row">
 						<ItemSearchBar />
 					</div>

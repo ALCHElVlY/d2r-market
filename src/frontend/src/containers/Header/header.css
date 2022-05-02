@@ -1,19 +1,26 @@
 /* --------------------- Media Queries --------------------- */
-@media (max-width: 769px) {
-    .header__container {
-        background-size: 1800px !important;
-        background-position: 50% -80px !important;
-    }
-}
-@media (max-width: 821px) {
-    .header__container {
-        background-size: 1550px !important;
-        background-position: 50% -40px !important;
-    }
-}
 @media (min-width: 1200px) {
-    .header_search_container {
+    .header__container {
+        margin-bottom: -180px !important;
+    }
+    .header_body {
+        padding-bottom: 180px !important;
+    }
+
+    .search_header {
         max-width: 1140px;
+    }
+}
+@media (max-width: 1470px) {
+    .header__container {
+        background-image: url('../../../../../assets/images/home/D2R-SelectHerobackground2-960.jpg') !important;
+        background-position: unset !important;
+    }
+}
+
+@media not all and (hover: hover) {
+    .header__container {
+        min-height: 877px !important;
     }
 }
 
@@ -21,14 +28,13 @@
 /* Header container styling */
 .header__container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
     position: relative;
-    min-height: 595px;
-    background-image: url('../../../../../assets/images/home/D2R-SelectHeroBackground-1900.jpg');
+    min-height: 100vh;
+    background-image: url('../../../../../assets/images/home/D2R-SelectHerobackground2-1920.jpg');
     background-size: 100%;
-    background-position: 0px -5.8rem;
-    background-attachment: scroll;
+    background-position: 0 -8rem;
 }
 .header_body {
     flex-grow: 1;
@@ -44,25 +50,16 @@
 }
 
 /* Header search container styling */
-.header_search_container {
+.search_header {
     display: flex;
     align-items: stretch;
     justify-content: center;
     flex-direction: column;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
 }
-.header_search_container > .row {
-    display: flex;
-    flex-wrap: wrap;
+.search_header > .row {
+    position: sticky;
+    top: 60px;
     align-items: center;
     justify-content: center;
-    position: sticky;
-    margin-right: -15px;
-    margin-left: -15px;
-    top: 60px;
     z-index: 20;
 }

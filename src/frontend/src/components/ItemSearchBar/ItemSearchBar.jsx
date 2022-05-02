@@ -25,11 +25,11 @@ const ItemSearchBar = () => {
 	};
 	const handleClearSearchVisibility = (e) => {
 		switch (e.target.value.length > 0) {
-		case true:
-			setIsVisible(true);
-			break;
-		default:
-			setIsVisible(false);
+			case true:
+				setIsVisible(true);
+				break;
+			default:
+				setIsVisible(false);
 		}
 	};
 	const handleClearSearchButtonClick = () => {
@@ -91,16 +91,14 @@ const ItemSearchBar = () => {
 				</section>
 				<ClearSearchButton
 					isVisible={isVisible}
-					onClick={handleClearSearchButtonClick}
-				/>
+					onClick={handleClearSearchButtonClick} />
 			</div>
 			<Button
 				variant="contained"
 				onClick={handleSearchButtonClick}
 				sx={searchButtonProps}
-				disableRipple
-			>
-      Search
+				disableRipple>
+				Search
 			</Button>
 		</section>
 	);

@@ -3,6 +3,11 @@
     .container {
         max-width: 540px;
     }
+
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
 }
 @media (min-width: 768px) {
     .container {
@@ -148,15 +153,15 @@
     color: #ff5f63;
 }
 
-/* -------------------------- Global "Display" Styling -------------------------- */
+/* ---------------------------- Global "Display" Styling ---------------------------- */
 .display_flex {
     display: flex !important;
 }
-/* -------------------------- Global "Align-Items" Styling -------------------------- */
+/* --------------------------- Global "Align-Items" Styling ------------------------- */
 .align_items_center {
     align-items: center !important;
 }
-/* -------------------------- Global "Row" Styling -------------------------- */
+/* ------------------------------ Global "Row" Styling ------------------------------ */
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -164,7 +169,7 @@
     margin-left: -15px;
 }
 
-/* -------------------------- Global "Column" Styling -------------------------- */
+/* ----------------------------- Global "Column" Styling ---------------------------- */
 .col-auto {
     display: flex;
     width: auto;
@@ -289,7 +294,7 @@
     padding-left: 15px;
 }
 
-/* -------------------------- Global "Header Height" Styling -------------------- */
+/* ------------------------------- Global "Header Height" Styling --------------------- */
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     color: inherit;
     font-family: inherit;
@@ -297,7 +302,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* -------------------------- Global "Padding" Styling -------------------------- */
+/* --------------------------------- Global "Padding" Styling ------------------------- */
 .py-1 {
     padding-top: .25rem !important;
     padding-bottom: .25rem !important;
@@ -306,7 +311,7 @@
     padding-top: .5rem;
     padding-bottom: .5rem;
 }
-.py-3 {
+.pt-3, .py-3 {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
@@ -334,7 +339,7 @@
     padding-bottom: 1.25rem !important;
 }
 
-/* -------------------------- Global "Margin" Styling -------------------------- */
+/* ---------------------------------- Global "Margin" Styling -------------------------- */
 .mx-0 {
     margin-right: 0 !important;
     margin-left: 0 !important;

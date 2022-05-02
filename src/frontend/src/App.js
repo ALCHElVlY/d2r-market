@@ -20,7 +20,7 @@ import {
 } from './containers';
 import RequireAuth from './components/RequireAuth/RequireAuth.jsx';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.jsx';
-import PlaceOrder from './components/Modals/PlaceOrder.jsx';
+import PlaceOrder from './components/Modals/PlaceOrder/PlaceOrder.jsx';
 import './App.css';
 
 

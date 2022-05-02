@@ -8,7 +8,8 @@ const CloseModal = (props) => {
 	const ButtonProps = {
 		flexBasis: '30%',
 		height: '36px',
-		backgroundColor: 'var(--primary-button-background)',
+		color: 'black',
+		backgroundColor: '#a52f31',
 		fontSize: '14px',
 		fontWeight: '400',
 		whiteSpace: 'nowrap',
