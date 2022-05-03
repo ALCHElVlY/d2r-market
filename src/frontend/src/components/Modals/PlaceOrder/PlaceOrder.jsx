@@ -25,14 +25,22 @@ import {
     OrderLadderButton,
     OrderNonLadderButton,
 } from '../../Buttons/index';
+import { DataProvider } from '../../Providers/DataProvider.jsx';
 import ItemSeeker from './ItemSeeker/ItemSeeker.jsx';
-import d2items from './ItemSeeker/d2items';
+import { useSearchData } from '../../../app/hooks/index';
+import d2itemSuggestions from './ItemSeeker/d2items';
 import './placeorder.css';
 
 const ItemImagePreview = () => {
+    const { data } = useSearchData();
+    const matchFound = d2itemSuggestions.find(item => item === data);
+
     return (
         <div className="modal_widget_preview">
             <div className="item__image"></div>
+            <div className="item__name">
+                {matchFound && <h1>{data}</h1>}
+            </div>
             <div className="preview_seperator"></div>
         </div>
     );
@@ -86,7 +94,7 @@ const ModalItemContent = (props) => {
                 <div className="col-12">
                     <div className="form_group">
                         <label htmlFor="orderItemName">Item Name</label>
-                        <ItemSeeker data={d2items} />
+                        <ItemSeeker data={d2itemSuggestions} />
                     </div>
                 </div>
                 <div className="col-12"></div>
@@ -117,7 +125,8 @@ const PlaceOrder = () => {
 
 
     return (
-        user ?
+        <DataProvider>
+        {user ?
             <div className="place_order">
                 <div className="place_order_button" role="button"
                     title="place_order_button" onClick={handleOpen}>
@@ -137,8 +146,7 @@ const PlaceOrder = () => {
                     BackdropComponent={Backdrop}
                     BackdropProps={{
                         timeout: 500,
-                    }}
-                >
+                    }}>
                     <Fade in={open}>
                         <Box className="widget_modal"
                             sx={style}>
@@ -147,8 +155,9 @@ const PlaceOrder = () => {
                         </Box>
                     </Fade>
                 </Modal>
-            </div> : null
-    )
+            </div> : null}
+        </DataProvider>
+    );
 }
 
 export default PlaceOrder;

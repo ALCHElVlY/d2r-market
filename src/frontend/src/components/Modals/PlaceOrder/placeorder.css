@@ -286,3 +286,11 @@
 .item_seeker_input .fake_input .fake_input_invisible {
     color: transparent;
 }
+
+.modal_widget_preview h1 {
+    color: #fcfdfd;
+    font-size: 1.15rem;
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 40px;
+}

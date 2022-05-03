@@ -1,2 +1,2 @@
 export { default as useAuth } from './useAuth.jsx';
-export { default as useAxiosPrivate } from './useAxiosPrivate.jsx';
+export { default as useSearchData } from './useSearchData.jsx';

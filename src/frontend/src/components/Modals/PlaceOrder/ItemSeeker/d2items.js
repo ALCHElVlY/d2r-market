@@ -1,37 +1,251 @@
-const d2items = `
-el
-Cham
-Sur
-Ber
-Jah
-Vex
-Lem
-Ist
-Zod
-Um
-Sol
-Shael
-Pul
-Hel
-Ohm
-Gul
-Lo
-Ko
-Nef
-Mal
-Eth
-Tal
-Lum
-Fal
-Io
-Ral
-Ith
-Dol
-Tir
-Eld
-Thul
-Amn
-Ort
+/**
+ * A function that returns a single rune object that matches
+ * the users search query.
+ * @param {String} search The search query.
+ */
+const d2RuneData = (search) => {
+    // A list of all the runes in the game
+    let runes = [
+        {
+            "name": "El",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Eld",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Tir",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Nef",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Eth",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ith",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Tal",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ral",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ort",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Thul",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Amn",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Sol",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Shael",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Dol",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Hel",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Io",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Lum",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ko",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Fal",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Lem",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Pul",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Um",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Mal",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ist",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Gul",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Vex",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ohm",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Lo",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Sur",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ber",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Jah",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Cham",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Zod",
+            "type": "Rune",
+            "image": "",
+            "properties": [],
+        },
+    ];
+
+    // Find the rune that matches the search
+    let rune = runes.find(r => r.name.toLowerCase() === search.toLowerCase());
+    console.log(rune);
+};
+
+// A list of Diablo II item name suggestions
+const d2itemSuggestions = `
+el Rune
+Cham Rune
+Sur Rune
+Ber Rune
+Jah Rune
+Vex Rune
+Lem Rune
+Ist Rune
+Zod Rune
+Um Rune
+Sol Rune
+Shael Rune
+Pul Rune
+Hel Rune
+Ohm Rune
+Gul Rune
+Lo Rune
+Ko Rune
+Nef Rune
+Mal Rune
+Eth Rune
+Tal Rune
+Lum Rune
+Fal Rune
+Io Rune
+Ral Rune
+Ith Rune
+Dol Rune
+Tir Rune
+Eld Rune
+Thul Rune
+Amn Rune
+Ort Rune
 Chipped Ruby
 Chipped Emerald
 Chipped Sapphire
@@ -236,5 +450,94 @@ Vidala's Ambush
 Vidala's Fetlock
 Vidala's Barb
 Vidala's Rig Set
+Duress
+Wisdom
+Mist
+Delirium
+Crescent Moon
+Black
+Malice
+Flickering Flame
+Lore
+Splendor
+Enigma
+Fortitude
+Lawbringer
+Plague
+White
+Obsession
+Unbending Will
+Pattern
+Insight
+Wind
+Rift
+Brand
+Ice
+Oath
+Stone
+Nadir
+Doom
+Destruction
+Infinity
+Phoenix
+Lionheart
+Passion
+Obedience
+Bramble
+Chains of Honor
+Pride
+Eternity
+Grief
+Last Wish
+Chaos
+Venom
+Sanctuary
+Rain
+Leaf
+Radiance
+Edge
+Peace
+Treachery
+Spirit
+Heart of the Oak
+Call To Arms
+Dream
+Rhyme
+Steel
+Ancient's Pledge
+Melody
+Faith
+Principle
+Exile
+Stealth
+Wrath
+Enlightenment
+Bone
+Voice of Reason
+Myth
+Prudence
+Dragon
+Death
+Kingslayer
+Harmony
+Gloom
+Famine
+Beast
+Breath of the Dying
+Hand of Justice
+Holy Thunder
+Wealth
+Honor
+Memory
+Strength
+King's Grace
+Silence
+Smoke
+Fury
 `.split('\n');
-export default d2items;
+
+
+export default d2itemSuggestions;
+export {
+    d2RuneData,
+}

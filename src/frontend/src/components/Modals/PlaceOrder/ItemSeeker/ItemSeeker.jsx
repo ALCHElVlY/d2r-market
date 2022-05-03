@@ -1,10 +1,16 @@
 // Built-in imports
-import { useEffect, useState, useRef } from 'react';
+import {
+    useEffect,
+    useState,
+    useRef,
+} from 'react';
 
 // Internal imports
 import {
     ClearSearchButton,
 } from '../../../Buttons/index';
+import { useSearchData } from '../../../../app/hooks';
+
 
 const SuggestionDropDown = (props) => {
     const { suggestions } = props;
@@ -22,6 +28,8 @@ const SuggestionDropDown = (props) => {
     );
 };
 const ItemSeeker = (props) => {
+    const { setData } = useSearchData();
+
     // Reference variables
     const searchInputRef = useRef(null);
 
@@ -84,6 +92,17 @@ const ItemSeeker = (props) => {
         }
     }, [isFocused]);
 
+    // React hook to handle passing the search input as
+    // context back to the parent component
+    useEffect(() => {
+        if (searchInput) {
+            setData(searchInput);
+        }
+        else {
+            setData({});
+        }
+    }, [searchInput, setData]);
+
 
     return (
         <div className="item_seeker"
@@ -92,8 +111,10 @@ const ItemSeeker = (props) => {
             ref={searchInputRef}>
             <section className="item_seeker_input margin">
                 <span className="real_input">
-                    <input type="text" placeholder="Select Item"
-                        value={searchInput} onChange={handleSearchInput} />
+                    <input type="text" id="item_seeker_query"
+                        placeholder="Select Item"
+                        value={searchInput}
+                        onChange={handleSearchInput}/>
                 </span>
                 <div className="fake_input">
                     <span className="fake_input_invisible"></span>

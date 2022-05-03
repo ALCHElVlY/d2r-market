@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // Internal imports
 import { logout, reset } from '../../features/auth/authSlice';
 
-const AuthContext = createContext();
+const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
     const dispatch = useDispatch();
     const [auth, setAuth] = useState({});
@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
             }
     
             if (isError && message === 'Token expired') {
-                console.log('error');
                 await dispatch(logout(user));
                 await dispatch(reset());
             }
