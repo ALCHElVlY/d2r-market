@@ -28,18 +28,22 @@ import {
 import { DataProvider } from '../../Providers/DataProvider.jsx';
 import ItemSeeker from './ItemSeeker/ItemSeeker.jsx';
 import { useSearchData } from '../../../app/hooks/index';
-import d2itemSuggestions from './ItemSeeker/d2items';
+import d2itemSuggestions, {
+    d2ItemData,
+} from './ItemSeeker/d2items';
 import './placeorder.css';
 
 const ItemImagePreview = () => {
     const { data } = useSearchData();
-    const matchFound = d2itemSuggestions.find(item => item === data);
+    const match = d2ItemData(data);
 
     return (
         <div className="modal_widget_preview">
-            <div className="item__image"></div>
+            <div className="item__image">
+                {match?.found && <img src={match?.item.image} alt={match?.item.name} />}
+            </div>
             <div className="item__name">
-                {matchFound && <h1>{data}</h1>}
+                {match?.found && <h1>{match?.item.name}</h1>}
             </div>
             <div className="preview_seperator"></div>
         </div>

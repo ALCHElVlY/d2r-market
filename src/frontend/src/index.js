@@ -7,8 +7,7 @@ import { Provider } from 'react-redux';
 
 // Internal imports
 import App from './App';
-import { AuthProvider } from './components/AuthProvider/AuthProvider';
-// import { DataProvider } from './components/Providers/DataProvider';
+import { AuthProvider } from './components/Providers/AuthProvider';
 import { store, Persistor } from './app/storage/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';

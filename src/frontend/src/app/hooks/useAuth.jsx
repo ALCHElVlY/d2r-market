@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 
 // Internal imports
-import AutContext from '../../components/AuthProvider/AuthProvider';
+import AutContext from '../../components/Providers/AuthProvider';
 
 const useAuth = () => {
   return useContext(AutContext);

@@ -65,7 +65,7 @@
 .statusIndicator {
     display: block;
     min-width: 105px;
-    font-size: 12px;
+    font-size: 10px;
     white-space: nowrap;
     text-align: center;
     padding: 0;

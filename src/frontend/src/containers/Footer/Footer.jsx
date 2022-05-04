@@ -39,7 +39,12 @@ const Footer = () => {
 			const data = await response.json();
 			return data;
 		};
+
+		// Set the initial totals on re-render
 		(async () => setTotalOnline(await getTotalOnline()))();
+		(async () => setTotalTraders(await getTotalTradersOnline()))();
+
+		// Update the totals every 60 seconds after re-render
 		const timer = setInterval(async () => {
 			setTotalOnline(await getTotalOnline());
 			setTotalTraders(await getTotalTradersOnline());

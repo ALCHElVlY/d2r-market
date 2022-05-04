@@ -1,219 +1,6 @@
-/**
- * A function that returns a single rune object that matches
- * the users search query.
- * @param {String} search The search query.
- */
-const d2RuneData = (search) => {
-    // A list of all the runes in the game
-    let runes = [
-        {
-            "name": "El",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Eld",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Tir",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Nef",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Eth",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ith",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Tal",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ral",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ort",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Thul",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Amn",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Sol",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Shael",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Dol",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Hel",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Io",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Lum",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ko",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Fal",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Lem",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Pul",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Um",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Mal",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ist",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Gul",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Vex",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ohm",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Lo",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Sur",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Ber",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Jah",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Cham",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-        {
-            "name": "Zod",
-            "type": "Rune",
-            "image": "",
-            "properties": [],
-        },
-    ];
-
-    // Find the rune that matches the search
-    let rune = runes.find(r => r.name.toLowerCase() === search.toLowerCase());
-    console.log(rune);
-};
-
 // A list of Diablo II item name suggestions
 const d2itemSuggestions = `
-el Rune
+El Rune
 Cham Rune
 Sur Rune
 Ber Rune
@@ -537,7 +324,648 @@ Fury
 `.split('\n');
 
 
+/**
+ * A function that tests a search query against an array of set item objects,
+ * returning a match if found.
+ * @param {String} search The search query.
+ */
+ const d2SetData = (search) => {
+    if (typeof search !== "string") return;
+    let setItem;
+    let matchFound = false;
+    const pathToImage = 'assets/images/d2items/set';
+
+    // Object Array of all the runes in the game
+    const setItems = [
+        {
+            "name": "Sigon's Shelter",
+            "type": "Set Item",
+            "image": `${pathToImage}/Sigon's_Shelter.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sigon's Visor",
+            "type": "Set Item",
+            "image": `${pathToImage}/Sigon's_Visor.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sigon's Guard",
+            "type": "Set Item",
+            "image": `${pathToImage}/Sigon's_Guard.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sigon's Gage",
+            "type": "Set Item",
+            "image": `${pathToImage}/Sigon's_Gage.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sigon's Sabot",
+            "type": "Set Item",
+            "image": `${pathToImage}/Sigon's_Sabot.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sigon's Wrap",
+            "type": "Set Item",
+            "image": `${pathToImage}/Sigon's_Wrap.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sigon's Steel Set",
+            "type": "Set Item",
+            "image": "",
+            "properties": [],
+        },
+    ];
+
+    // Loop through runes array and find the rune name that matches the search
+    // query
+    for (let i in setItems) {
+        if (setItems[i].name.toLowerCase() === search.toLowerCase()) {
+            setItem = setItems[i];
+            matchFound = true;
+            break;
+        }
+    }
+
+    if (matchFound) return setItem;
+};
+
+/**
+ * A function that tests a search query against an array of rune objects,
+ * returning a match if found.
+ * @param {String} search The search query.
+ */
+ const d2RuneData = (search) => {
+    if (typeof search !== "string") return;
+    let rune;
+    let matchFound = false;
+    const pathToImage = 'assets/images/d2items/runes';
+
+    // Object Array of all the runes in the game
+    const runes = [
+        {
+            "name": "El Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/El_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Eld Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Eld_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Tir Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Tir_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Nef Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Nef_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Eth Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Eth_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ith Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ith_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Tal Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Tal_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ral Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ral_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ort Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ort_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Thul Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Thul_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Amn Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Amn_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sol Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Sol_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Shael Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Shael_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Dol Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Dol_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Hel Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Hel_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Io Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Io_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Lum Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Lum_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ko Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ko_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Fal Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Fal_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Lem Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Lem_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Pul Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Pul_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Um Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Um_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Mal Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Mal_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ist Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ist_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Gul Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Gul_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Vex Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Vex_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ohm Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ohm_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Lo Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Lo_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Sur Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Sur_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Ber Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Ber_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Jah Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Jah_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Cham Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Cham_Rune.webp`,
+            "properties": [],
+        },
+        {
+            "name": "Zod Rune",
+            "type": "Rune",
+            "image": `${pathToImage}/Zod_Rune.webp`,
+            "properties": [],
+        },
+    ];
+
+    // Loop through runes array and find the rune name that matches the search
+    // query
+    for (let r in runes) {
+        if (runes[r].name.toLowerCase() === search.toLowerCase()) {
+            rune = runes[r];
+            matchFound = true;
+            break;
+        }
+    }
+
+    if (matchFound) return rune;
+};
+
+/**
+ * A function that tests a search query against an array of misc item objects,
+ * returning a match if found.
+ * @param {String} search The search query.
+ */
+ const d2MiscItemData = (search) => {
+    if (typeof search !== "string") return;
+    let miscItem;
+    let matchFound = false;
+
+    // Object Array of all the runes in the game
+    const miscItems = [
+        {
+            "name": "Chipped Ruby",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Chipped Emerald",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Chipped Sapphire",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Chipped Topaz",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Chipped Amethyst",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Chipped Diamond",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Chipped Skull",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Ruby",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Emerald",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Sapphire",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Topaz",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Amethyst",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Diamond",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawed Skull",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Ruby",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Emerald",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Sapphire",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Topaz",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Amethyst",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Diamond",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Skull",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Ruby",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Emerald",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Sapphire",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Topaz",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Amethyst",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Diamond",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Flawless Skull",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Ruby",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Emerald",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Sapphire",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Topaz",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Amethyst",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Diamond",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Perfect Skull",
+            "type": "Gem",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Full Rejuvenation",
+            "type": "Potion",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Key of Destruction",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Key of Terror",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Key of Hatred",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "3x3 Keyset",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Twisted Essence of Suffering",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Burning Essence of Terror",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Charged Essence of Hatred",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Festering Essence of Destruction",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+        {
+            "name": "Token of Absolution",
+            "type": "Misc",
+            "image": "",
+            "properties": [],
+        },
+    ];
+
+    // Loop through miscItems array and find the item name that matches the search
+    // query
+    for (let i in miscItems) {
+        if (miscItems[i].name.toLowerCase() === search.toLowerCase()) {
+            miscItem = miscItems[i];
+            matchFound = true;
+            break;
+        }
+    }
+
+    if (matchFound) return miscItem;
+};
+
+/**
+ * A function that accepts a search query as a string and tests it against
+ * several different functions for a match, returning the first match.
+ * @param {String} search The user's search query.
+ */
+const d2ItemData = (search) => {
+    // An empty search comes in as an object, and
+    // we only want string searches.
+    if (typeof search !== "string") return;
+
+    // Object of match results
+    let match = {
+        found: false,
+        item: null,
+    };
+
+    
+    // Test the search query for unique items
+    /* const uniqueSearch = d2UniqueItemData(search);
+    if (uniqueSearch) {
+        match.found = true;
+        match.item = uniqueSearch;
+    }*/
+    
+    // Test the search query for set items
+    const setSearch = d2SetData(search);
+    if (setSearch) {
+        match.found = true;
+        match.item = setSearch;
+    }
+
+    // Test the search query for runes
+    const runeSearch = d2RuneData(search);
+    if (runeSearch) {
+        match.found = true;
+        match.item = runeSearch;
+    }
+
+    // Test the search query for misc items
+    const miscSearch = d2MiscItemData(search);
+    if (miscSearch) {
+        match.found = true;
+        match.item = miscSearch;
+    }
+
+    return match;
+};
+
 export default d2itemSuggestions;
 export {
-    d2RuneData,
+    d2ItemData,
 }

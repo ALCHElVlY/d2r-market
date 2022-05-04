@@ -67,7 +67,7 @@ h3, h5 {
 
 @font-face {
   font-family: 'AVQuest';
-  src: url('../../../assets/fonts/Avqest.ttf');
+  src: url('/public/assets/fonts/Avqest.ttf');
   font-weight: 700;
   font-size: 16px;
   line-height: 1.6;

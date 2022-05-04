@@ -18,9 +18,9 @@ const SuggestionDropDown = (props) => {
         <section className="suggestions__dropdown">
             <ul className="suggestions">
                 {suggestions.map((suggestion, index) => (
-                    <li onClick={props.onClick}
-                        key={index}>
-                        {suggestion}
+                    <li className="selectable" key={index}
+                        onClick={props.onClick}>
+                        <span>{suggestion}</span>
                     </li>
                 ))}
             </ul>
@@ -95,13 +95,20 @@ const ItemSeeker = (props) => {
     // React hook to handle passing the search input as
     // context back to the parent component
     useEffect(() => {
-        if (searchInput) {
+        if (searchInput && !isFocused) {
             setData(searchInput);
         }
         else {
             setData({});
         }
-    }, [searchInput, setData]);
+    }, [
+        // State
+        isFocused,
+        // Data
+        searchInput,
+        // Functions
+        setData
+    ]);
 
 
     return (

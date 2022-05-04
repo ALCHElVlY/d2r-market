@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    background-image: url('../../../../../../assets/images/settings/d2r-settings-bg-1800.webp');
+    background-image: url('/public/assets/images/settings/d2r-settings-bg-1800.webp');
     background-size: cover;
     background-position: 54% -78%;
     z-index: 10;
