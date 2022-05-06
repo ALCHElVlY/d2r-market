@@ -28,9 +28,10 @@ import {
 import { DataProvider } from '../../Providers/DataProvider.jsx';
 import ItemSeeker from './ItemSeeker/ItemSeeker.jsx';
 import { useSearchData } from '../../../app/hooks/index';
-import d2itemSuggestions, {
-    d2ItemData,
-} from './ItemSeeker/d2items';
+import d2ItemData from './ItemSeeker/d2items';
+import {
+    D2ItemSuggestions,
+} from '../../../app/structures/index';
 import './placeorder.css';
 
 const ItemImagePreview = () => {
@@ -98,7 +99,7 @@ const ModalItemContent = (props) => {
                 <div className="col-12">
                     <div className="form_group">
                         <label htmlFor="orderItemName">Item Name</label>
-                        <ItemSeeker data={d2itemSuggestions} />
+                        <ItemSeeker data={D2ItemSuggestions} />
                     </div>
                 </div>
                 <div className="col-12"></div>

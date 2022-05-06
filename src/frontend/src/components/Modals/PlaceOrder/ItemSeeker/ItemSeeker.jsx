@@ -66,6 +66,7 @@ const ItemSeeker = (props) => {
         }
     };
     const handleClearSearchButtonClick = () => {
+        console.log('clear search button clicked');
         setSearchInput('');
         setSuggestions([]);
         setIsVisible(false);

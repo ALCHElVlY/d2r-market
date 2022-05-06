@@ -1,19 +1,20 @@
 {
   "short_name": "D2R Market",
   "name": "Diablo II: Resurrected Market",
+  "description": "A marketplace for Diablo II: Resurrected players to trade items and in-game services with eachother.",
   "icons": [
     {
-      "src": "d2r-favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "assets/logos/d2r-favicon48.ico",
+      "sizes": "48x48",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "assets/logos/logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "assets/logos/logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

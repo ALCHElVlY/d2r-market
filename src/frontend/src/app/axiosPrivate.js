@@ -14,6 +14,8 @@ export const axiosPrivate = axios.create({
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
 });
+
+// Interceptors
 axiosPrivate.interceptors.request.use(
     (config) => {
         if (config.user) {
@@ -31,24 +33,15 @@ axiosPrivate.interceptors.request.use(
         Promise.reject(error)
     },
 );
-
 axiosPrivate.interceptors.response.use(
     response => response,
     async (error) => {
-        // console.log(error.response);
-        const TokenExpired = error.response.data.message
-        // const prevRequest = error?.config;
+        const { message } = error.response.data;
 
         if (error?.response?.status === 401 &&
-            TokenExpired === 'Token expired') {
-                // const user = JSON.parse(error.config.data);
+            message === 'Token expired') {
                 toast.error('Your session has expired. Please login again.');
             }
-        /* if (error?.response?.status === 403 && !prevRequest?.sent) {
-            prevRequest.sent = true;
-            prevRequest.headers.Authorization = `Bearer ${undefined}`;
-            return axiosPrivate(prevRequest);
-        }*/
         return Promise.reject(error);
     }
 );
