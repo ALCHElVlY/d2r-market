@@ -27,7 +27,8 @@
 <br />
 <p align="center">
   <a href="#">
-    <img src="https://github.com/ALCHElVlY/d2r-market/blob/main/assets/logos/D2R-Market-Logo-03.png" alt="Logo" width="400" height="140">
+    <img src="https://github.com/ALCHElVlY/d2r-market/blob/main/src/frontend/public/assets/logos/D2R-Market-Logo-03.png"
+         alt="Logo" width="400" height="140">
   </a>
 
   <!-- <h3 align="center">HLN-A</h3> -->
