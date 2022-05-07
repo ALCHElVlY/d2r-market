@@ -48,7 +48,7 @@ const ItemSeeker = (props) => {
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, 'i');
             suggestions = data
-                .sort((a,b) => a - b)
+                .sort((a, b) => a - b)
                 .filter(v => regex.test(v));
         }
 
@@ -66,7 +66,6 @@ const ItemSeeker = (props) => {
         }
     };
     const handleClearSearchButtonClick = () => {
-        console.log('clear search button clicked');
         setSearchInput('');
         setSuggestions([]);
         setIsVisible(false);
@@ -77,10 +76,10 @@ const ItemSeeker = (props) => {
         setSuggestions([]);
     };
     const handleFocus = () => {
-        setIsFocused(true);
+        setIsFocused(prevState => !prevState);
     };
     const handleBlur = () => {
-        setIsFocused(false);
+        setIsFocused(prevState => !prevState);
     };
 
     // React hook to handle the focus and blur events
@@ -96,7 +95,7 @@ const ItemSeeker = (props) => {
     // React hook to handle passing the search input as
     // context back to the parent component
     useEffect(() => {
-        if (searchInput && !isFocused) {
+        if (searchInput.length > 0) {
             setData(searchInput);
         }
         else {
@@ -122,7 +121,7 @@ const ItemSeeker = (props) => {
                     <input type="text" id="item_seeker_query"
                         placeholder="Select Item"
                         value={searchInput}
-                        onChange={handleSearchInput}/>
+                        onChange={handleSearchInput} />
                 </span>
                 <div className="fake_input">
                     <span className="fake_input_invisible"></span>

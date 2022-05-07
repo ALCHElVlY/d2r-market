@@ -68,6 +68,7 @@ Perfect Topaz
 Perfect Amethyst
 Perfect Diamond
 Perfect Skull
+Perfect Gems
 Full Rejuvenation
 Key of Destruction
 Key of Terror
