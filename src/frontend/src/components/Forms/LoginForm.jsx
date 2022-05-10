@@ -140,13 +140,13 @@ const LoginForm = () => {
 				</div>
 				<div className='flex_evenly col-12'>
 					<Link to="#">
-						<img src="https://imgur.com/yJwXBdC.png" alt="login-steam" />
+						<img src="assets/images/OAuth-Icons/OAuth_Icon_Blizzard.webp" alt="login-blizzard" />
 					</Link>
 					<Link to="#">
-						<img src="https://imgur.com/qQaBHlr.png" alt="login-xbox" />
+						<img src="assets/images/OAuth-Icons/OAuth_Icon_Xbox.webp" alt="login-xbox" />
 					</Link>
 					<Link to="#">
-						<img src="https://imgur.com/B7jUAd0.png" alt="login-discord" />
+						<img src="assets/images/OAuth-Icons/OAuth_Icon_Discord.webp" alt="login-discord" />
 					</Link>
 				</div>
 			</div>

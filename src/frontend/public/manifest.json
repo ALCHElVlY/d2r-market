@@ -4,8 +4,8 @@
   "description": "A marketplace for Diablo II: Resurrected players to trade items and in-game services with eachother.",
   "icons": [
     {
-      "src": "assets/logos/d2r-favicon48.ico",
-      "sizes": "48x48",
+      "src": "assets/logos/diablo-2-icon64.ico",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
