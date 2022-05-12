@@ -1,10 +1,33 @@
 // Internal imports
 import {
+    uniques,
     sets,
     runes,
     miscItems,
 } from '../../../../app/structures/index';
 
+
+/**
+ * A function that tests a search query against an array of unique item objects,
+ * returning a match if found.
+ * @param {String} search The search query.
+ */
+ const d2UniqueData = (search) => {
+    if (typeof search !== "string") return;
+    let uniqueItem;
+    let matchFound = false;
+
+    // Loop through runes array and find the unique item name that matches the
+    // search query
+    for (let i in uniques) {
+        if (uniques[i].name.toLowerCase() !== search.toLowerCase()) continue;
+        uniqueItem = uniques[i];
+        matchFound = true;
+        break;
+    }
+
+    if (matchFound) return uniqueItem;
+};
 
 /**
  * A function that tests a search query against an array of set item objects,
@@ -13,19 +36,19 @@ import {
  */
  const d2SetData = (search) => {
     if (typeof search !== "string") return;
-    let set;
+    let setItem;
     let matchFound = false;
 
     // Loop through runes array and find the rune name that matches the search
     // query
-    for (let s in sets) {
-        if (sets[s].name.toLowerCase() !== search.toLowerCase()) continue;
-        set = sets[s];
+    for (let i in sets) {
+        if (sets[i].name.toLowerCase() !== search.toLowerCase()) continue;
+        setItem = sets[i];
         matchFound = true;
         break;
     }
 
-    if (matchFound) return set;
+    if (matchFound) return setItem;
 };
 
 /**
@@ -90,11 +113,11 @@ const d2ItemData = (search) => {
 
     
     // Test the search query for unique items
-    /* const uniqueSearch = d2UniqueItemData(search);
+    const uniqueSearch = d2UniqueData(search);
     if (uniqueSearch) {
         match.found = true;
         match.item = uniqueSearch;
-    }*/
+    }
     
     // Test the search query for set items
     const setSearch = d2SetData(search);
