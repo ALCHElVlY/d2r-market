@@ -95,7 +95,7 @@ Here are any frameworks/libraries used in the applications development.
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/ALCHElVlY/d2r-market/issues) for a list of known issues, and [project board](https://github.com/ALCHElVlY/d2r-market/projects/3) for a list of planned updates.
+See the [open issues](https://github.com/ALCHElVlY/d2r-market/issues) for a list of known issues, and [project board](https://github.com/users/ALCHElVlY/projects/3) for a list of planned updates.
 
 
 
