@@ -70,9 +70,7 @@
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
 <p>
-   A market web application for Diablo II: Resurrected. Players can buy and sell their in-game items at their leisure, as well as list in-game services they may 
-   like to provide to other players; such as cow runs, rushes, and even uber killing services. This application does not condone nor support the use of real-world 
-   money trading and any user caught doing so will be reported to Blizzard for further punishment.
+   The diabloii.market is a web application for Diablo II: Resurrected that allows players to buy and sell in-game items and services with eachother. The application brings a "post n go" system for players across multiple platforms for the game. Battle.net authentication is required to engage in trades via the app to ensure a smooth and safe transaction process between players. Those that wish to be dishonest will be reported to Blizzard directly. This includes, but is not limited to scamming in any form, and/or attempting to trade with real-world currency.
 </p>
 
 
@@ -121,6 +119,7 @@ Twitter: n/a
 ## ACKNOWLEDGEMENTS
 
 1. My amazing girlfriend Rey0Sun2187#6979 for her continued support in all of my programming projects!
+2. The [Fextralife Wiki](https://diablo2.wiki.fextralife.com) for providing the item data.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
