@@ -95,7 +95,7 @@ Here are any frameworks/libraries used in the applications development.
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/ALCHElVlY/d2r-market/issues) for a list of known issues, and [project board](https://github.com/ALCHElVlY/d2r-market/projects/1) for a list of planned updates.
+See the [open issues](https://github.com/ALCHElVlY/d2r-market/issues) for a list of known issues, and [project board](https://github.com/users/ALCHElVlY/projects/3) for a list of planned updates.
 
 
 
@@ -119,7 +119,7 @@ Twitter: n/a
 ## ACKNOWLEDGEMENTS
 
 1. My amazing girlfriend Rey0Sun2187#6979 for her continued support in all of my programming projects!
-2. The [Fextralife Wiki](https://diablo2.wiki.fextralife.com) for providing the item data.
+2. The [Fextralife Wiki](https://diablo2.wiki.fextralife.com) for providing the Diablo II: Resurrected item data.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
