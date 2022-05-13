@@ -178,9 +178,9 @@ Hwanin's Refuge
 Hwanin's Splendor
 Hwanin's Blessing
 Hwanin's Majesty Set
-Bul-Kathos's Sacred Charge
-Bul-Kathos's Tribal Guardian
-Bul-Kathos's Children Set
+Bul-Kathos' Sacred Charge
+Bul-Kathos' Tribal Guardian
+Bul-Kathos' Children Set
 Death's Touch
 Death's Guard
 Death's Hand
@@ -242,7 +242,7 @@ Duress
 Wisdom
 Mist
 Delirium
-Crescent Moon
+Crescent Moon (runeword)
 Black
 Malice
 Flickering Flame

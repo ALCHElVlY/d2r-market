@@ -3,6 +3,7 @@ import {
     uniques,
     sets,
     runes,
+    runewords,
     miscItems,
 } from '../../../../app/structures/index';
 
@@ -49,6 +50,28 @@ import {
     }
 
     if (matchFound) return setItem;
+};
+
+/**
+ * A function that tests a search query against an array of runeword objects,
+ * returning a match if found.
+ * @param {String} search The search query.
+ */
+ const d2RunewordData = (search) => {
+    if (typeof search !== "string") return;
+    let runeword;
+    let matchFound = false;
+
+    // Loop through runes array and find the rune name that matches the search
+    // query
+    for (let rw in runewords) {
+        if (runewords[rw].name.toLowerCase() !== search.toLowerCase()) continue;
+        runeword = runewords[rw];
+        matchFound = true;
+        break;
+    }
+
+    if (matchFound) return runeword;
 };
 
 /**
@@ -124,6 +147,13 @@ const d2ItemData = (search) => {
     if (setSearch) {
         match.found = true;
         match.item = setSearch;
+    }
+    
+    // Test the search query for set items
+    const runewordSearch = d2RunewordData(search);
+    if (runewordSearch) {
+        match.found = true;
+        match.item = runewordSearch;
     }
 
     // Test the search query for runes

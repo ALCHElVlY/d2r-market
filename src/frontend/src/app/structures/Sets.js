@@ -71,7 +71,7 @@ const SetItems = [
     {
         "name": "Aldur's Watchtower Set",
         "type": "Set Item",
-        "image": '',
+        "image": `${pathToImage}/Aldur's_Watchtower_Set.webp`,
         "properties": [],
     },
     {
@@ -101,7 +101,7 @@ const SetItems = [
     {
         "name": "Milabrega's Regalia Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Milabrega's_Regalia_Set.webp`,
         "properties": [],
     },
     {
@@ -131,7 +131,7 @@ const SetItems = [
     {
         "name": "Arctic Gear Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Arctic_Gear_Set.webp`,
         "properties": [],
     },
     {
@@ -167,7 +167,7 @@ const SetItems = [
     {
         "name": "Cathan's Traps Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Cathan's_Traps_Set.webp`,
         "properties": [],
     },
     {
@@ -203,7 +203,7 @@ const SetItems = [
     {
         "name": "Trang-Oul's Avatar Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Trang-Oul's_Avatar_Set.webp`,
         "properties": [],
     },
     {
@@ -233,7 +233,7 @@ const SetItems = [
     {
         "name": "Isenhart's Armory Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Isenhart's_Armory_Set.webp`,
         "properties": [],
     },
     {
@@ -263,7 +263,7 @@ const SetItems = [
     {
         "name": "Angelic Raiment Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Angelic_Raiment_Set.webp`,
         "properties": [],
     },
     {
@@ -305,7 +305,7 @@ const SetItems = [
     {
         "name": "Immortal King Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Immortal_King_Set.webp`,
         "properties": [],
     },
     {
@@ -341,7 +341,7 @@ const SetItems = [
     {
         "name": "Tal Rasha's Wrappings Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Tal_Rasha's_Wrappings_Set.webp`,
         "properties": [],
     },
     {
@@ -371,7 +371,7 @@ const SetItems = [
     {
         "name": "Sander's Folly Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Sander's_Folly_Set.webp`,
         "properties": [],
     },
     {
@@ -395,7 +395,7 @@ const SetItems = [
     {
         "name": "Berserker's Arsenal Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Berserker's_Arsenal_Set.webp`,
         "properties": [],
     },
     {
@@ -419,7 +419,7 @@ const SetItems = [
     {
         "name": "Cow King's Leathers Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Cow_King's_Leathers_Set.webp`,
         "properties": [],
     },
     {
@@ -449,7 +449,7 @@ const SetItems = [
     {
         "name": "Orphan's Call Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Orphan's_Call_Set.webp`,
         "properties": [],
     },
     {
@@ -473,7 +473,7 @@ const SetItems = [
     {
         "name": "Sazabi's Grand Tribute Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Sazabi's_Grand_Tribute_Set.webp`,
         "properties": [],
     },
     {
@@ -509,7 +509,7 @@ const SetItems = [
     {
         "name": "M'avina's Battle Hymn Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/M'avina's_Battle_Hymn_Set.webp`,
         "properties": [],
     },
     {
@@ -533,7 +533,7 @@ const SetItems = [
     {
         "name": "Naj's Ancient Vestige Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Naj's_Ancient_Vestige_Set.webp`,
         "properties": [],
     },
     {
@@ -563,7 +563,7 @@ const SetItems = [
     {
         "name": "Heaven's Brethren Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Heaven's_Breathren_Set.webp`,
         "properties": [],
     },
     {
@@ -593,25 +593,25 @@ const SetItems = [
     {
         "name": "Hwanin's Majesty Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Hwanin's_Majesty_Set.webp`,
         "properties": [],
     },
     {
-        "name": "Bul-Kathos's Sacred Charge",
+        "name": "Bul-Kathos' Sacred Charge",
         "type": "Set Item",
-        "image": `${pathToImage}/Bul-Kathos's_Sacred_Charge.webp`,
+        "image": `${pathToImage}/Bul-Kathos'_Sacred_Charge.webp`,
         "properties": [],
     },
     {
-        "name": "Bul-Kathos's Tribal Guardian",
+        "name": "Bul-Kathos' Tribal Guardian",
         "type": "Set Item",
-        "image": `${pathToImage}/Bul-Kathos's_Tribal_Guardian.webp`,
+        "image": `${pathToImage}/Bul-Kathos'_Tribal_Guardian.webp`,
         "properties": [],
     },
     {
-        "name": "Bul-Kathos's Children Set",
+        "name": "Bul-Kathos' Children Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Bul-Kathos'_Children_Set.webp`,
         "properties": [],
     },
     {
@@ -635,7 +635,7 @@ const SetItems = [
     {
         "name": "Death's Disguise Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Death's_Disguise_Set.webp`,
         "properties": [],
     },
     {
@@ -671,7 +671,7 @@ const SetItems = [
     {
         "name": "Tancred's Battle Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Tancred's_Battle_Set.webp`,
         "properties": [],
     },
     {
@@ -701,7 +701,7 @@ const SetItems = [
     {
         "name": "Iratha's Finery Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Iratha's_Finery_Set.webp`,
         "properties": [],
     },
     {
@@ -725,7 +725,7 @@ const SetItems = [
     {
         "name": "Infernal Tools Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Infernal_Tools_Set.webp`,
         "properties": [],
     },
     {
@@ -749,7 +749,7 @@ const SetItems = [
     {
         "name": "Hsarus' Defense Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Hsaru's_Defense_Set.webp`,
         "properties": [],
     },
     {
@@ -779,7 +779,7 @@ const SetItems = [
     {
         "name": "Natalya's Odium Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Natalya's_Odium_Set.webp`,
         "properties": [],
     },
     {
@@ -803,7 +803,7 @@ const SetItems = [
     {
         "name": "Cleglaw's Brace Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Cleglaw's_Brace_Set.webp`,
         "properties": [],
     },
     {
@@ -833,7 +833,7 @@ const SetItems = [
     {
         "name": "Griswold's Legacy Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Griswold's_Legacy_Set.webp`,
         "properties": [],
     },
     {
@@ -869,7 +869,7 @@ const SetItems = [
     {
         "name": "The Disciple Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/The_Disciple_Set.webp`,
         "properties": [],
     },
     {
@@ -893,7 +893,7 @@ const SetItems = [
     {
         "name": "Civerb's Vestments Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Civerb's_Vestments_Set.webp`,
         "properties": [],
     },
     {
@@ -923,7 +923,7 @@ const SetItems = [
     {
         "name": "Arcanna's Tricks Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Arcanna's_Tricks_Set.webp`,
         "properties": [],
     },
     {
@@ -953,7 +953,7 @@ const SetItems = [
     {
         "name": "Vidala's Rig Set",
         "type": "Set Item",
-        "image": "",
+        "image": `${pathToImage}/Vidala's_Rig_Set.webp`,
         "properties": [],
     },
 ];
