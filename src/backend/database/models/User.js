@@ -39,18 +39,14 @@ const UserSchema = new mongoose.Schema({
 		default: 0,
 	},
 	linkedAccounts: [{
-		steam: {
-			username: {
-				type: String,
-				required: true,
-				unique: true,
-				sparse: true,
-			},
+		bnet: {
 			id: {
 				type: String,
 				required: true,
-				unique: true,
-				sparse: true,
+			},
+			battletag: {
+				type: String,
+				required: true,
 			},
 		},
 		xbox: {

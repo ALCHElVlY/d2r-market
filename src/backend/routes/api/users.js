@@ -1,8 +1,8 @@
-// Internal imports
-const express = require('express');
-
 // External imports
+const express = require('express');
 const router = express.Router();
+
+// Internal imports
 const protect = require('../../middleware/authController.js');
 const {
 	registerUser,

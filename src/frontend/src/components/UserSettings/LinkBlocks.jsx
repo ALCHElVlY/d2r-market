@@ -1,7 +1,7 @@
 // External imports
 import {
 	faPatreon,
-	faSteamSquare,
+    faBattleNet,
 	faXbox,
 	faDiscord,
 } from '@fortawesome/free-brands-svg-icons';
@@ -19,8 +19,8 @@ const LinkBlocks = () => {
                 <LinkAccount />
             </section>
             <section className="link_block">
-                <FontAwesomeIcon icon={faSteamSquare} className="icon" />
-                <h3>Steam</h3>
+                <FontAwesomeIcon icon={faBattleNet} className="icon" />
+                <h3>Battlenet</h3>
                 <LinkAccount />
             </section>
             <section className="link_block">

@@ -23,4 +23,13 @@ root.render(
 		</PersistGate>
 	</Provider>
 );
+
+// If we want our app to work offline and load faster, we can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Additional info about service workers: https://cra.link/PWA
+// serviceWorkerRegistration.unregister();
+
+// If we want to start measuring performance in the app, we can pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

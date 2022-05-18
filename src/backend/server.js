@@ -7,6 +7,7 @@ const connectDB = require('./database/config/db');
 const corsConfig = require('./database/config/corsConfig.js');
 const {
 	userRoutes,
+	oauthRoutes,
 } = require('./routes/index');
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 // Route the API requests
 app.use('/api/users', userRoutes);
+app.use('/api/oauth', oauthRoutes);
 
 /**
  * The connectServer function initialises the
