@@ -14,7 +14,7 @@ import {
 	HandleInputFocus,
 	HandleFormError,
 } from '../../features/forms/ValidateForm.js';
-import { updateUser, reset } from '../../features/auth/authSlice';
+import { updateUser, reset } from '../../app/reducers/auth/authSlice';
 
 const ChangeEmailForm = () => {
 	const dispatch = useDispatch();

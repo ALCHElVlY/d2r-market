@@ -1,5 +1,6 @@
 // External imports
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 // Internal imports
@@ -15,12 +16,13 @@ const PORT = process.env.PORT || 5000;
 
 // Express middleware
 app.use(cors(corsConfig));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Route the API requests
+app.use('/oauth', oauthRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/oauth', oauthRoutes);
 
 /**
  * The connectServer function initialises the

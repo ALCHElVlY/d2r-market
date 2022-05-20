@@ -1,3 +1,6 @@
+// Built-in imports
+import { useState, useRef } from 'react';
+
 // External imports
 import {
 	faPatreon,
@@ -11,27 +14,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LinkAccount from '../../components/Buttons/LinkAccount.jsx';
 
 const LinkBlocks = () => {
+    //Event handlers
+    const handleBnetOauth = () => {
+        // Open another tab and begin the bnet oauth flow
+        window.open('/oauth/bnet', '_blank');
+    };
+
+
     return (
         <div className="settings_links col-12">
             <section className="link_block">
-                <FontAwesomeIcon icon={faPatreon} className="icon" />
-                <h3>Patreon</h3>
-                <LinkAccount />
-            </section>
-            <section className="link_block">
                 <FontAwesomeIcon icon={faBattleNet} className="icon" />
-                <h3>Battlenet</h3>
-                <LinkAccount />
+                <h3>Battle.net</h3>
+                <LinkAccount onClick={handleBnetOauth} />
             </section>
             <section className="link_block">
                 <FontAwesomeIcon icon={faXbox} className="icon" />
                 <h3>Xbox</h3>
-                <LinkAccount />
+                <LinkAccount isDisabled={true} />
             </section>
             <section className="link_block">
                 <FontAwesomeIcon icon={faDiscord} className="icon" />
                 <h3>Discord</h3>
-                <LinkAccount />
+                <LinkAccount isDisabled={true} />
+            </section>
+            <section className="link_block">
+                <FontAwesomeIcon icon={faPatreon} className="icon" />
+                <h3>Patreon</h3>
+                <LinkAccount isDisabled={true} />
             </section>
         </div>
     );

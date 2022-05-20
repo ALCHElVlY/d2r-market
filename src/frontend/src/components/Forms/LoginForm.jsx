@@ -10,27 +10,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Internal imports
-import { login, reset } from '../../features/auth/authSlice';
 import { LoginButton } from '../Buttons//index.js';
 import {
 	ValidateForm,
 	HandleInputFocus,
 	HandleFormError,
 } from '../../features/forms/ValidateForm.js';
+import { login, reset } from '../../app/reducers/auth/authSlice';
 
 const LoginForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const BNET_CLIENT_ID = '788f5747158048ce916b63abec815a78';
-	const BNET_AUTH_ENDPOINT = 'https://us.battle.net/oauth/authorize';
-	const redirectUri = 'http://localhost:5002/api/oauth/blizzard';
-	const scopes = ['openid'];
-	const scopesString = encodeURIComponent(scopes.join(' '));
-    const redirectUriString = encodeURIComponent(redirectUri);
-	const bnetAuthorizeUrl
-        = `${BNET_AUTH_ENDPOINT}?client_id=${BNET_CLIENT_ID}&scope=${scopesString}&redirect_uri=${redirectUriString}&response_type=code`;
 	
-
 	// Reference variables
 	const emailFocus = useRef(null),
 		passwordFocus = useRef(null);
@@ -78,10 +69,6 @@ const LoginForm = () => {
 	const handleClick = async () => {
 		await ValidateForm(inputs, setError);
 		setIsMounted('loginForm');
-	};
-	const handleBnetOauth = async () => {
-		console.log(process.env.REACT_APP_BNET_CLIENT_ID);
-		window.location.replace(bnetAuthorizeUrl);
 	};
 	const handleSubmit = async (e) => {
 		// Prevent the default form submission
@@ -152,7 +139,7 @@ const LoginForm = () => {
 					<h2>Login through</h2>
 				</div>
 				<div className='flex_evenly col-12'>
-					<Link to="#" onClick={handleBnetOauth}>
+					<Link to="/oauth/bnet">
 						<img src="assets/images/OAuth-Icons/OAuth_Icon_Blizzard.webp" alt="login-blizzard" />
 					</Link>
 					<Link to="#">

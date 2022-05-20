@@ -16,7 +16,7 @@ import {
     CancelRemoveAccount,
 } from '../Buttons/index.js';
 import LinkBlocks from '../../components/UserSettings/LinkBlocks.jsx';
-import { deleteUser, reset } from '../../features/auth/authSlice';
+import { deleteUser, reset } from '../../app/reducers/auth/authSlice';
 
 
 const UserSettings = () => {

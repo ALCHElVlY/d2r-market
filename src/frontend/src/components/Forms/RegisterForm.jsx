@@ -10,13 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // Internal imports
-import { register, reset } from '../../features/auth/authSlice';
 import RegisterButton from '../Buttons/RegisterButton.jsx';
 import {
 	ValidateForm,
 	HandleInputFocus,
 	HandleFormError,
 } from '../../features/forms/ValidateForm.js';
+import { register, reset } from '../../app/reducers/auth/authSlice';
 
 const RegisterForm = () => {
 	const dispatch = useDispatch();

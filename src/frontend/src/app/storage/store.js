@@ -15,20 +15,26 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 
 // Internal imports
-import authReducer from '../../features/auth/authSlice';
+import {
+	authReducer,
+	oauthReducer,
+	usersReducer,
+} from '../../app/reducers/index';
 
 const rootReducerConfig = {
-	key: 'root',
+	key: 'session',
 	storage,
 	version: 1,
 	stateReconciler: autoMergeLevel2,
 	transforms: [encryptTransform({ secretKey: 'some-super-secret-key' })],
-	whiteList: ['auth'],
+	whiteList: ['auth', 'oauth', 'users'],
 };
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunk));
 const rootReducer = persistReducer(rootReducerConfig, combineReducers({
 	auth: authReducer,
+	oauth: oauthReducer,
+	users: usersReducer,
 }));
 
 export const store = createStore(rootReducer, composedEnhancer);

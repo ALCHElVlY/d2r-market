@@ -5,7 +5,7 @@ import { createContext, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal imports
-import { logout, reset } from '../../features/auth/authSlice';
+import { logout, reset } from '../../app/reducers/auth/authSlice';
 
 const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {

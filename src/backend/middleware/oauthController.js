@@ -4,6 +4,9 @@ const btoa = require('btoa');
 
 // Internal imports
 const User = require('../database/models/User.js');
+const {
+    // decodeCredentials,
+} = require('../database/functions/oauthCredentials.js');
 
 
 /**
@@ -46,43 +49,81 @@ const initBnetOAuth = async (scopes, code) => {
  * Returns basic information about the BNET user associated with the current token.
  * @param {String} token The access token to use for the request
  */
-const getBnetUser = async (token) => {
-    const response = await axios.get(process.env.BNET_USERS_ENDPOINT, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-    
-    if (response) return response.data;
+const getBnetCredentials = async (token) => {
+    try {
+        const response = await axios.get(process.env.BNET_USERS_ENDPOINT, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response) return response.data;
+    }
+    catch (e) {
+        console.log(e);
+    }
 };
 
-const getAssociatedUser = async (data) => {
-    const { id, battletag } = data;
-
-    // Find a registered user with an associated BNET account
-    const user = await User.findOne({
-        'linkedAccounts.bnet.battletag': battletag,
-    });
-    console.log(user);
-};
-
+/**
+ * Middleware function to handle the Battle.net OAuth flow.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const handleBnetOAuth = async (req, res, next) => {
     const scopes = ['openid'];
     const { code } = req.query;
+    const closeWindow = () => {
+        const close = () => window.close();
+        return `
+        <script>
+            ${close}
+            window.addEventListener('load', ${close});
+        </script>`;
+    };
 
-    // Initialise the BNET OAuth flow
-    const oauthResponse = await initBnetOAuth(scopes, code);
+    try {
+        // Initialise the BNET OAuth flow
+        const oauthResponse = await initBnetOAuth(scopes, code);
 
-    // handle errors
-    if (oauthResponse.status !== 200) {
-        console.log(oauthResponse);
-        console.log(`Token request failed with "${oauthResponse.statusText}"`);
-        return next(new Error(oauthResponse.statusText));
+        // handle errors
+        if (oauthResponse.status !== 200) {
+            console.log(`Token request failed with "${oauthResponse.statusMessage}"`);
+            return next(new Error(oauthResponse.statusMessage));
+        }
+
+        // Get the user's data from the BNET API
+        const { access_token } = oauthResponse.data;
+        const credentials = await getBnetCredentials(access_token);
+        const data = {
+            bnet: {
+                id: credentials.id,
+                battletag: credentials.battletag,
+            }
+        }
+
+        // Get the user id from the oauth cookie
+        const { oauth } = req.cookies;
+        const { id, token } = JSON.parse(oauth);
+
+        // Save the user's credentials to the database
+        const response = await axios.patch(`${process.env.USERS_ENDPOINT}/${id}`, { data }, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.status === 200) {
+            res.clearCookie('oauth');
+            return res.send(closeWindow());
+        }
+        
     }
-
-    // Get the user's data from the BNET API
-    const { access_token } = oauthResponse.data;
-    const response = await getBnetUser(access_token);
-    await getAssociatedUser(response);
+    catch (e) {
+        // Handle if the user denies the app access to their BNET account
+        if (e.response.status === 400) {
+            res.clearCookie('oauth');
+            return res.send(closeWindow());
+        }
+        console.log(e);
+    }
 };
+
 
 module.exports = {
     handleBnetOAuth,

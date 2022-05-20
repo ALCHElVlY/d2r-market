@@ -1,10 +1,10 @@
 // Internal imports
 import {
 	axiosPrivate
-} from '../../app/axiosPrivate.js';
+} from '../../axiosPrivate.js';
 
 // API Endpoint
-const USERS_ENDPOINT = '/api/users';
+const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
 
 
 /**

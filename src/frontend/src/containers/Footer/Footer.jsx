@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 
 // External imports
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	faDiscord,
 	faPatreon,
@@ -15,9 +16,15 @@ import {
 	ChangeLanguage,
 	ChangeTheme,
 } from '../../components/SelectMenus/index';
+import {
+	getOnlineUsers,
+	getInGameUsers,
+} from '../../app/reducers/user/userSlice';
 import './footer.css';
 
 const Footer = () => {
+	const dispatch = useDispatch();
+
 	// Reference variables
 	const totalOnlineRef = useRef(null);
 	const totalTradersRef = useRef(null);
@@ -25,33 +32,24 @@ const Footer = () => {
 	// State variables
 	const [totalOnline, setTotalOnline] = useState(0);
 	const [totalTraders, setTotalTraders] = useState(0);
+	const { total } = useSelector((state) => state.users);
 
 	// React hook to set the total users thats are marked as online
 	// and online in-game
 	useEffect(() => {
-		const getTotalOnline = async () => {
-			const response = await fetch('/api/users/online');
-			const data = await response.json();
-			return data;
-		};
-		const getTotalTradersOnline = async () => {
-			const response = await fetch('/api/users/online_traders');
-			const data = await response.json();
-			return data;
-		};
-
-		// Set the initial totals on re-render
-		(async () => setTotalOnline(await getTotalOnline()))();
-		(async () => setTotalTraders(await getTotalTradersOnline()))();
-
 		// Update the totals every 60 seconds after re-render
 		const timer = setInterval(async () => {
-			setTotalOnline(await getTotalOnline());
-			setTotalTraders(await getTotalTradersOnline());
+			dispatch(getOnlineUsers({ status: 'online' }));
+			dispatch(getInGameUsers({ status: 'onlineInGame' }));
 		}, 60000);
 
+		// Update the user totals
+		setTotalOnline(total.online);
+		setTotalTraders(total.inGame);
+
+		// Clear the timer when the component is unmounted
 		return () => clearInterval(timer);
-	}, []);
+	}, [total, dispatch]);
 
 
 	return (

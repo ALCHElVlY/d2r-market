@@ -6,21 +6,22 @@ import 'react-toastify/dist/ReactToastify.css';
 // Internal imports
 import {
 	NavMenu,
-} from './components';
+	RequireAuth,
+	ErrorBoundary,
+	PlaceOrder,
+} from './components/index';
 import {
 	ContentWrapper,
 	Services,
 	Register,
 	Login,
+	OAuthLogin,
 	Profile,
 	Messages,
 	Settings,
 	Subscription,
 	Notifications,
 } from './containers';
-import RequireAuth from './components/RequireAuth/RequireAuth.jsx';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.jsx';
-import PlaceOrder from './components/Modals/PlaceOrder/PlaceOrder.jsx';
 import './App.css';
 
 
@@ -36,6 +37,11 @@ function App() {
 					<Route path='/services' element={<Services />} />
 					<Route path="/register" element={<Register />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/oauth" >
+						<Route path="bnet" element={<OAuthLogin target="bnet" />} />
+						{ /* <Route path="xbox" element={<OAuthLogin target="xbox" />} /> */}
+						{/* <Route path="discord" element={<OAuthLogin target="discord" />} /> */}
+					</Route>
 
 					{/* Private routes - users must be logged in */}
 					<Route element={<RequireAuth />}>

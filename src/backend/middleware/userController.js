@@ -1,9 +1,12 @@
 // External imports
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 // Internal imports
 const User = require('../database/models/User');
+const generateToken = require('../database/functions/generateToken.js');
+const {
+	generateCredentials,
+} = require('../database/functions/oauthCredentials.js');
 
 
 /**
@@ -41,11 +44,13 @@ const registerUser = async (req, res) => {
 		// Hash the password
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
+		const oauthCredentials = await generateCredentials(email, password);
 
 		// Create a new user
 		await User.create({
 				email,
-				password: hashedPassword
+				password: hashedPassword,
+				oauthCredentials: oauthCredentials,
 			})
 			.then((user) => {
 				res.status(201).json({
@@ -83,8 +88,9 @@ const loginUser = async (req, res) => {
 	const user = await User.findOne({
 		email
 	});
+
 	if (user && (await bcrypt.compare(password, user.password))) {
-		res.json({
+		return res.status(200).json({
 			id: user._id,
 			username: user.username,
 			customAvatar: user.customAvatar,
@@ -105,7 +111,7 @@ const loginUser = async (req, res) => {
  * @param {*} res 
  */
 const logoutUser = (req, res) => {
-	res.status(200).json({
+	return res.status(200).json({
 		succes: true,
 	});
 };
@@ -123,11 +129,15 @@ const updateUser = async (req, res) => {
 		newPassword,
 		newEmail,
 		status,
+		bnet,
 	} = req.body.data;
 	
 	if (newEmail && !newPassword) {
 		// Check if the user provided the correct password
-		const validPassword = await bcrypt.compare(req.body?.data?.currentPassword, user.password);
+		const validPassword = await bcrypt.compare(
+			req.body?.data?.currentPassword,
+			user.password,
+		);
 		if (!validPassword) return res.status(400)
 			.json({ message: 'Invalid password' });
 		// Check if the new email is already in use
@@ -142,18 +152,21 @@ const updateUser = async (req, res) => {
 
 		// Save the user
 		await user.save()
-			.then(() => res.status(200).json({
-				id: user._id,
-				username: user.username,
-				customAvatar: user.customAvatar,
-				platform: user.platform,
-				onlineStatus: user.onlineStatus,
-				token: generateToken(user._id),
-			}));
+		.then(() => res.status(200).json({
+			id: user._id,
+			username: user.username,
+			customAvatar: user.customAvatar,
+			platform: user.platform,
+			onlineStatus: user.onlineStatus,
+			token: generateToken(user._id),
+		}));
 	}
 	if (!newEmail && newPassword) {
 		// Check if the user provided the correct password
-		const validPassword = await bcrypt.compare(req.body?.data?.currentPassword, user.password);
+		const validPassword = await bcrypt.compare(
+			req.body?.data?.currentPassword,
+			user.password,
+		);
 		if (!validPassword) return res.status(400)
 			.json({ message: 'Invalid password' });
 
@@ -166,14 +179,14 @@ const updateUser = async (req, res) => {
 
 		// Save the user
 		await user.save()
-			.then(() => res.status(200).json({
-				id: user._id,
-				username: user.username,
-				customAvatar: user.customAvatar,
-				platform: user.platform,
-				onlineStatus: user.onlineStatus,
-				token: generateToken(user._id),
-			}));
+		.then(() => res.status(200).json({
+			id: user._id,
+			username: user.username,
+			customAvatar: user.customAvatar,
+			platform: user.platform,
+			onlineStatus: user.onlineStatus,
+			token: generateToken(user._id),
+		}));
 	}
 	if (status) {
 		// Set the user's new status
@@ -181,28 +194,58 @@ const updateUser = async (req, res) => {
 
 		// Save the user
 		await user.save()
-			.then(() => res.status(200).json({
-				id: user._id,
-				username: user.username,
-				customAvatar: user.customAvatar,
-				platform: user.platform,
-				onlineStatus: user.onlineStatus,
-				token: generateToken(user._id),
-			}));
+		.then(() => res.status(200).json({
+			id: user._id,
+			username: user.username,
+			customAvatar: user.customAvatar,
+			platform: user.platform,
+			onlineStatus: user.onlineStatus,
+			token: generateToken(user._id),
+		}));
+	}
+	if (bnet) {
+		// Check if the user already has bnet credentials saved
+		let hasCredentials;
+		for (let i in user.linkedAccounts) {
+			if (!user.linkedAccounts[i].bnet) hasCredentials = false;
+			hasCredentials = true;
+			break;
+		}
+		if (hasCredentials) return;
+
+		// Add the user's bnet credentials
+		user.linkedAccounts.push({
+			bnet: {
+				id: bnet.id,
+				battletag: bnet.battletag,
+			}
+		});
+
+		// Save the user
+		await user.save()
+		.then(() => res.status(200).json({
+			id: user._id,
+			username: user.username,
+			customAvatar: user.customAvatar,
+			platform: user.platform,
+			onlineStatus: user.onlineStatus,
+			linkedAccounts: user.linkedAccounts[0],
+			token: generateToken(user._id),
+		}));
 	}
 };
 
 /**
  * The getUser function takes in the req and res objects and
- * returns the user's current data.
- * @param {*} req 
+ * returns the user's current data from the database.
+ * @param {*} req
  * @param {*} res
  */
-const getUser = async (req, res) => {
+const getUser = async (req, res, next) => {
 	try {
 		// Find the user by their id
-		const findUserByID = await User.findById(req.params.id);
-		if (!findUserByID) return res.status(404).json({
+		const user = await User.findById(req.params.id);
+		if (!user) return res.status(404).json({
 			message: 'User not found'
 		});
 
@@ -213,8 +256,12 @@ const getUser = async (req, res) => {
 			customAvatar: user.customAvatar,
 			platform: user.platform,
 			onlineStatus: user.onlineStatus,
+			linkedAccounts: user.linkedAccounts,
 			token: generateToken(user._id),
 		});
+
+		// Move to the next middleware
+		return next();
 	} catch (e) {
 		console.log(e);
 		if (e.name === 'TokenExpiredError') {
@@ -222,7 +269,6 @@ const getUser = async (req, res) => {
 				message: 'Token expired',
 			});
 		};
-
 		res.status(500).send({
 			message: e.message,
 		});
@@ -235,16 +281,18 @@ const getUser = async (req, res) => {
  * @param {*} req 
  * @param {*} res 
  */
-const getOnlineUsers = async (req, res) => {
+const getOnlineUsers = async (req, res, next) => {
 	try {
 		// Find all the users that are online
 		const onlineUsers = await User.find({
 			onlineStatus: 'online',
-		})
-		.count();
+		}).count();
 
 		// Return the users
 		res.status(200).json(onlineUsers);
+
+		// Move to the next middleware
+		return next();
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({
@@ -254,21 +302,23 @@ const getOnlineUsers = async (req, res) => {
 };
 
 /**
- * The getOnlineTraders function makes a request to the server to
+ * The getOnlineInGame function makes a request to the server to
  * retrieve all the users that are currently marked online in-game.
  * @param {*} req 
  * @param {*} res 
  */
- const getOnlineTraders = async (req, res) => {
+ const getOnlineInGame = async (req, res, next) => {
 	try {
 		// Find all the users that are online in-game
-		const onlineTraders = await User.find({
+		const onlineInGame = await User.find({
 			onlineStatus: 'online in game',
-		})
-		.count();
+		}).count();
 
 		// Return the users
-		res.status(200).json(onlineTraders);
+		res.status(200).json(onlineInGame);
+
+		// Move to the next middleware
+		return next();
 	} catch (e) {
 		console.log(e);
 		res.status(500).send({
@@ -308,13 +358,6 @@ const deleteUser = async (req, res) => {
 	}
 };
 
-// Generate JWT access token
-const generateToken = (id) => {
-	return jwt.sign({ id },
-		process.env.ACCESS_TOKEN_SECRET,
-		{ expiresIn: '2h' });
-};
-
 module.exports = {
 	registerUser,
 	loginUser,
@@ -322,6 +365,6 @@ module.exports = {
 	updateUser,
 	getUser,
 	getOnlineUsers,
-	getOnlineTraders,
+	getOnlineInGame,
 	deleteUser,
 };

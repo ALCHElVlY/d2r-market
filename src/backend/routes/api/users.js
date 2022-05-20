@@ -10,8 +10,9 @@ const {
 	logoutUser,
 	updateUser,
 	deleteUser,
+	getUser,
 	getOnlineUsers,
-	getOnlineTraders,
+	getOnlineInGame,
 } = require('../../middleware/userController');
 
 // @desc HTTP POST to register a new user
@@ -29,15 +30,20 @@ router.post('/login', loginUser);
 // @access Public
 router.get('/:id/logout', logoutUser);
 
-// @desc HTTP GET to get the total number of users online
-// @route GET api/users/online
+// @desc HTTP GET a user's data from the database
+// @route GET api/users/:id
 // @access Public
-router.get('/online', getOnlineUsers);
+router.get('/:id', getUser);
+
+// @desc HTTP GET to get the total number of users online
+// @route GET api/users/status/online
+// @access Public
+router.get('/status/online', getOnlineUsers);
 
 // @desc HTTP GET to get the total number of users online in-game
-// @route GET api/users/online
+// @route GET api/users/status/onlineInGame
 // @access Public
-router.get('/online_traders', getOnlineTraders);
+router.get('/status/onlineInGame', getOnlineInGame);
 
 // @desc HTTP PATCH to update the users data in the database
 // @route PATCH api/users/:id

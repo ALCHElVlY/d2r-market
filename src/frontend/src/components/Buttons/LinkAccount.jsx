@@ -1,9 +1,15 @@
+// Built-in imports
+import { useEffect, useRef } from 'react';
+
 // External imports
 import {
 	Button,
 } from '@mui/material';
 
 const LinkAccount = (props) => {
+	// Reference variables
+	const buttonRef = useRef(null);
+
 	// Custom button styling
 	const ButtonProps = {
 		flexBasis: '30%',
@@ -30,11 +36,19 @@ const LinkAccount = (props) => {
 		
 	};
 
+	// React hook to handle adding the disabled button class
+	useEffect(() => {
+		if (props.isDisabled) {
+			buttonRef.current.classList.add('disabled_button');
+		}
+	}, [props]);
+
 	return (
 		<Button
 			variant='contained'
 			sx={ButtonProps}
-			className='link_account disabled_button'
+			className='link_account'
+			ref={buttonRef}
 			disableRipple
 			type='submit'
 			onClick={props.onClick}

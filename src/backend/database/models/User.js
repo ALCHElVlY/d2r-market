@@ -42,17 +42,21 @@ const UserSchema = new mongoose.Schema({
 		bnet: {
 			id: {
 				type: String,
-				required: true,
+				required: false,
+				unique: true,
+				sparse: true,
 			},
 			battletag: {
 				type: String,
-				required: true,
+				required: false,
+				unique: true,
+				sparse: true,
 			},
 		},
 		xbox: {
 			username: {
 				type: String,
-				required: true,
+				required: false,
 				unique: true,
 				sparse: true,
 			},
@@ -60,13 +64,13 @@ const UserSchema = new mongoose.Schema({
 		discord: {
 			username: {
 				type: String,
-				required: true,
+				required: false,
 				unique: true,
 				sparse: true,
 			},
 			id: {
 				type: String,
-				required: true,
+				required: false,
 				unique: true,
 				sparse: true,
 			},

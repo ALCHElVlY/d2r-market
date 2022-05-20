@@ -15,9 +15,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 // Internal imports
-import { logout, updateUser, reset } from '../../features/auth/authSlice';
 import UserNavProfile from '../UserNavProfile/UserNavProfile.jsx';
 import PlatformSelector from './PlatformSelector/PlatformSelector.jsx';
+import { logout, updateUser, reset } from '../../app/reducers/auth/authSlice';
 import './navmenu.css';
 
 const NavMenu = () => {
