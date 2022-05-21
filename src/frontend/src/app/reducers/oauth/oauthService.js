@@ -7,7 +7,12 @@ import {
 const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
 
 
-
+/**
+ * The setCredentials function sends a request to the server to
+ * fetch the user's oauth credentials from the database and store
+ * them in application state.
+ * @param {object} payload
+ */
 const setCredentials = async (payload) => {
     const response = await axiosPrivate.patch(`${USERS_ENDPOINT}/${payload}`);
 

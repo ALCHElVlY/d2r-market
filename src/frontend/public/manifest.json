@@ -1,7 +1,7 @@
 {
   "short_name": "D2R Market",
   "name": "Diablo II: Resurrected Market",
-  "description": "A marketplace for Diablo II: Resurrected players to trade items and in-game services with eachother.",
+  "description": "A marketplace application for Diablo II: Resurrected players to trade items and in-game services with eachother.",
   "icons": [
     {
       "src": "assets/logos/diablo-2-icon64.ico",

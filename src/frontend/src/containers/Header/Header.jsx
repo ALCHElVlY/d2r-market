@@ -1,5 +1,7 @@
 // Internal imports
-import { ItemSearchBar } from '../../components/index';
+import {
+	ItemSearchBar,
+} from '../../components/index';
 import './header.css';
 
 const Header = () => {

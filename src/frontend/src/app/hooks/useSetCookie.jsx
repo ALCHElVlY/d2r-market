@@ -5,6 +5,7 @@
  * @param {object} options Options for the cookie
  */
 const setCookie = (name, value, options = {}) => {
+    // Type guard to ensure the value is an object
     if (typeof value !== 'object') throw TypeError('Value must be an object');
 
     options = {

@@ -3,25 +3,15 @@ import { useEffect } from 'react';
 
 // External imports
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-	// Declare the navigate variable
-	const navigate = useNavigate();
-
-	// Get the user from state
+	// State variable
 	const { user } = useSelector((state) => state.auth);
 
-	// Create a hook to prevent users who are not logged in
-	// from accessing this page
+	// React hook to handle setting the page title
 	useEffect(() => {
-		if (!user) {
-			navigate('/login');
-		}
-		else {
-			document.title = `Profile - ${user.username} | Diablo II Market`;
-		}
-	}, [user, navigate]);
+		document.title = `Profile - ${user.username} | Diablo II Market`;
+	}, [user]);
 
 	return (
 		<div>

@@ -1,25 +1,11 @@
 // Builtin imports
 import { useEffect } from 'react';
 
-// External imports
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
 const Messages = () => {
-	// Declare the navigate variable
-	const navigate = useNavigate();
-
-	// Get the user from state
-	const { user } = useSelector((state) => state.auth);
-
-	// Create a hook to prevent users who are not logged in
-	// from accessing this page
+	// REact hook to handle setting the page title
 	useEffect(() => {
 		document.title = 'Chats';
-		if (!user) {
-			navigate('/login');
-		}
-	}, [user, navigate]);
+	}, []);
 
 	return (
 		<div>

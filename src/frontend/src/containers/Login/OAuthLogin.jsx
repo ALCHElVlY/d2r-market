@@ -35,7 +35,10 @@ const OAUTH_LOGIN_BNET = () => {
         })();
 
         return () => setLoaded(false);
-    }, [linkedAccounts]);
+    }, [linkedAccounts,
+        // Functions
+        setLoaded, setHasBnetCreds,
+    ]);
 
     // React hook to handle checking if any oauth credentials have been stored
     // Redirects to bnets oauth page if no credentials are found
@@ -53,10 +56,6 @@ const OAUTH_LOGIN_BNET = () => {
                 id: user.id,
                 token: user.token,
             });
-            console.log(setCookie('oauth', {
-                id: user.id,
-                token: user.token,
-            }));
 
             // Redirect to bnet oauth page
             window.location.href = bnetOauth;
@@ -65,7 +64,7 @@ const OAUTH_LOGIN_BNET = () => {
         // Data
         bnetOauth, user, hasBnetCreds,
         // Functions
-        dispatch, setLoaded, setHasBnetCreds,
+        dispatch,
     ]);
 
     return (

@@ -12,13 +12,39 @@ import {
 } from '../index';
 import './register.css';
 
+
+const RegisterHeader = () => {
+	return (
+		<header className="register_header flex__root">
+			<div className="flex__left"></div>
+			<div className="header_content flex__root">
+				<h1>Registration</h1>
+			</div>
+			<div className="flex__right"></div>
+			<div className="header_image_overlay"></div>
+		</header>
+	);
+};
+const RegisterBody = () => {
+	return (
+		<div className="register_body flex__root">
+			<div className="flex__left"></div>
+			<div className="form_container">
+				<div className="row py-4">
+					<RegisterForm />
+					<div className="col-12 col-lg-6"></div>
+				</div>
+			</div>
+			<div className="flex__right"></div>
+		</div>
+	);
+};
 const Register = () => {
 	const navigate = useNavigate();
-	const { user, } = useSelector(
-		(state) => state.auth);
+	const { user, } = useSelector((state) => state.auth);
 
 
-	// React hook to dynamically set the page title
+	// React hook to handle setting the page title
 	useEffect(() => {
 		document.title = 'Registration | Diablo II Market';
 	}, []);
@@ -26,32 +52,14 @@ const Register = () => {
 	// React hook to keep logged in users from accidently navigating
 	// back to the login page
 	useEffect(() => {
-		(async () => {
-			if (user) await navigate('/');
-		})();
+		if (user) navigate('/');
 	}, [user, navigate]);
 
 	return (
 		<div className="content__wrapper">
 			<section className="register__container">
-				<header className="register_header flex__root">
-					<div className="flex__left"></div>
-					<div className="header_content flex__root">
-						<h1>Registration</h1>
-					</div>
-					<div className="flex__right"></div>
-					<div className="header_image_overlay"></div>
-				</header>
-				<div className="register_body flex__root">
-					<div className="flex__left"></div>
-					<div className="form_container">
-						<div className="row py-4">
-							<RegisterForm />
-							<div className="col-12 col-lg-6"></div>
-						</div>
-					</div>
-					<div className="flex__right"></div>
-				</div>
+				<RegisterHeader />
+				<RegisterBody />
 				<div className="flex_bottom"></div>
 			</section>
 			<Footer />

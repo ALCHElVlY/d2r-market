@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
 
 		// Check if an account already exists with the given email
 		const userExists = await User.findOne({
-			email
+			email: { $eq: email },
 		});
 		if (userExists) {
 			return res.status(400)

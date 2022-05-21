@@ -1,29 +1,14 @@
 // Builtin imports
 import { useEffect } from 'react';
 
-// External imports
-import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
-
 // Internal imports
+import {
+	SettingsTab,
+} from '../../../components/index';
 import './notifications.css';
 
 const Notifications = () => {
-	// Declare the navigate variable
-	const navigate = useNavigate();
-
-	// Get the user from state
-	const { user } = useSelector((state) => state.auth);
-
-	// Create a hook to prevent users who are not logged in
-	// from accessing this page
-	useEffect(() => {
-		if (!user) {
-			navigate('/login');
-		}
-	}, [user, navigate]);
-
-	// Create a hook to dynamically change the page title
+	// React hook to handle setting the page title
 	useEffect(() => {
 		document.title = 'Settings | Notifications';
 	}, []);
@@ -41,31 +26,7 @@ const Notifications = () => {
 			<div className="notifications_subheader">
 				<div className="flex_left"></div>
 				<div className="container">
-					<div className="settings_tab">
-						<ul className='tabs'>
-							<li>
-								<NavLink to="/settings/account" className={({ isActive }) => isActive
-									? 'smartlink active'
-									: 'smartlink'}>
-                  Account
-								</NavLink>
-							</li>
-							<li>
-								<NavLink to="/settings/subscription" className={({ isActive }) => isActive
-									? 'smartlink active'
-									: 'smartlink'}>
-                  Patronage
-								</NavLink>
-							</li>
-							<li>
-								<NavLink to="/settings/notifications" className={({ isActive }) => isActive
-									? 'smartlink active'
-									: 'smartlink'}>
-                  Notifications
-								</NavLink>
-							</li>
-						</ul>
-					</div>
+					<SettingsTab />
 				</div>
 				<div className="flex_right"></div>
 			</div>

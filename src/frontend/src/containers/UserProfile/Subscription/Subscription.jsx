@@ -8,36 +8,43 @@ import { NavLink, useNavigate } from 'react-router-dom';
 // Internal imports
 import './subscription.css';
 
+
+
+const SubscriptionHeader = () => {
+	return (
+		<header className="subscription_header">
+			<div className="flex__left"></div>
+			<div className="header_content">
+				<h1>Settings</h1>
+			</div>
+			<div className="flex__right"></div>
+			<div className="header_image_overlay"></div>
+		</header>
+	);
+};
 const Subscription = () => {
 	// Declare the navigate variable
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	// Get the user from state
-	const { user } = useSelector((state) => state.auth);
+	// const { user } = useSelector((state) => state.auth);
 
 	// Create a hook to prevent users who are not logged in
 	// from accessing this page
-	useEffect(() => {
+	/* useEffect(() => {
 		if (!user) {
 			navigate('/login');
 		}
-	}, [user, navigate]);
+	}, [user, navigate]);*/
 
-	// Create a hook to dynamically change the page title
+	// React hook to handle setting the page title
 	useEffect(() => {
 		document.title = 'Settings | Patronage';
 	}, []);
 
 	return (
 		<section className="subscription__container">
-			<header className="subscription_header">
-				<div className="flex__left"></div>
-				<div className="header_content">
-					<h1>Settings</h1>
-				</div>
-				<div className="flex__right"></div>
-				<div className="header_image_overlay"></div>
-			</header>
+			<SubscriptionHeader />
 			<div className="settings_subheader">
 				<div className="flex_left"></div>
 				<div className="container">
@@ -47,21 +54,21 @@ const Subscription = () => {
 								<NavLink to="/settings/account" className={({ isActive }) => isActive
 									? 'smartlink active'
 									: 'smartlink'}>
-                  Account
+									Account
 								</NavLink>
 							</li>
 							<li>
 								<NavLink to="/settings/subscription" className={({ isActive }) => isActive
 									? 'smartlink active'
 									: 'smartlink'}>
-                  Patronage
+									Patronage
 								</NavLink>
 							</li>
 							<li>
 								<NavLink to="/settings/notifications" className={({ isActive }) => isActive
 									? 'smartlink active'
 									: 'smartlink'}>
-                  Notifications
+									Notifications
 								</NavLink>
 							</li>
 						</ul>

@@ -1,15 +1,14 @@
-// Import our environment variables
 require('dotenv').config();
 
-// Import mongoose
+// External imports
 const mongoose = require('mongoose');
 
 /**
- * The connectDB function initialises the mongoDB connection.
+ * The connectDatabase function initialises the mongoDB connection.
  */
-const connectDB = async () => {
+const connectDatabase = async () => {
 	try {
-		await mongoose.connect(process.env.MONGO_URI, {
+		await mongoose.connect(process.env.DEFAULT_MONGO_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
@@ -21,4 +20,4 @@ const connectDB = async () => {
 	}
 };
 
-module.exports = connectDB;
+module.exports = connectDatabase;

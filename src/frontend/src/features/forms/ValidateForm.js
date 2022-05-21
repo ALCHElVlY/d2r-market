@@ -26,48 +26,58 @@ function HandleInputFocus(inputs, references) {
  * @param {Array} references An array of form error references
  */
 async function HandleFormError(form, errors, references) {
+    const addClass = (formType, index) => {
+        switch (formType) {
+            case 'loginForm':
+                references[index]?.current.classList.add('visible');
+                break;
+            case 'registerForm':
+                references[index]?.current.classList.add('visible');
+                break;
+            case 'changeEmailForm':
+                references[index]?.current.classList.add('visible');
+                break;
+            case 'changePasswordForm':
+                references[index]?.current.classList.add('visible');
+                break;
+            default:
+                break;
+        }
+    };
+    const removeClass = (formType, index) => {
+        switch (formType) {
+            case 'loginForm':
+                references[index]?.current.classList.remove('visible');
+                break;
+            case 'registerForm':
+                references[index]?.current.classList.remove('visible');
+                break;
+            case 'changeEmailForm':
+                references[index]?.current.classList.remove('visible');
+                break;
+            case 'changePasswordForm':
+                references[index]?.current.classList.remove('visible');
+                break;
+            default:
+                break;
+        }
+    };
+    const checkValue = (value, index) => {
+        switch (value) {
+            case true:
+                addClass(form, index);
+                break;
+            default:
+                removeClass(form, index);
+        }
+    };
+
     Object.entries(errors)
         .forEach(async ([key, value], index) => {
             if (!value) return;
             if (key === 'message') return;
 
-            switch (value) {
-                case true:
-                    switch (form) {
-                        case 'loginForm':
-                            references[index]?.current.classList.add('visible');
-                            break;
-                        case 'registerForm':
-                            references[index]?.current.classList.add('visible');
-                            break;
-                        case 'changeEmailForm':
-                            references[index]?.current.classList.add('visible');
-                            break;
-                        case 'changePasswordForm':
-                            references[index]?.current.classList.add('visible');
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    switch (form) {
-                        case 'loginForm':
-                            references[index]?.current.classList.remove('visible'); 
-                            break;
-                        case 'registerForm':
-                            references[index]?.current.classList.remove('visible');
-                            break;
-                        case 'changeEmailForm':
-                            references[index]?.current.classList.remove('visible');
-                            break;
-                        case 'changePasswordForm':
-                            references[index]?.current.classList.remove('visible');
-                            break;
-                        default:
-                            break;
-                    }
-            }
+            checkValue(value, index);
         });
 }
 
@@ -86,8 +96,7 @@ async function ValidateForm(inputs, action) {
                     ...prevState,
                     [key]: true,
                 }));
-            }
-            else {
+            } else {
                 action((prevState) => ({
                     ...prevState,
                     [key]: false,

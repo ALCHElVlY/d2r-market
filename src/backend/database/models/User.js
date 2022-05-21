@@ -1,4 +1,4 @@
-// Import mongoose
+// External imports
 const mongoose = require('mongoose');
 
 // Define the user schema

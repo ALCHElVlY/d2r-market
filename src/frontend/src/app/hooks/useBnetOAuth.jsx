@@ -12,14 +12,14 @@ const useBnetOauth = () => {
     const constructAuthURL = (endpoint, clientID, scope, redirectURI) => {
         return `${endpoint}?client_id=${clientID}&scope=${scope}&redirect_uri=${redirectURI}&response_type=code`;
     };
-    const bnetAuthorizeUrl = constructAuthURL(
+    const BNET_AUTHORIZATION_URL = constructAuthURL(
         BNET_AUTH_ENDPOINT,
         BNET_CLIENT_ID,
         scopesString,
         redirectUriString
     );
 
-    return bnetAuthorizeUrl;
+    return BNET_AUTHORIZATION_URL;
 };
 
 export default useBnetOauth;
