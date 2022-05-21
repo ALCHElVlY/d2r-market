@@ -18,6 +18,7 @@ const limiter = rateLimit({
 	windowMs: 1 * 60 * 1000, // 1 minute(s)
 	max: 1000, // limit each IP to 100 requests per windowMs
 	standardHeaders: true, // set standard rate limit headers
+	message: 'Too many requests have been made, please try again later.',
 });
 
 // Express middleware
