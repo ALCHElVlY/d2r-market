@@ -151,7 +151,7 @@ const updateUser = async (req, res) => {
 		}
 		// Check if the new email is already in use
 		const emailExists = await User.findOne({
-			email: newEmail,
+			email: { $eq: newEmail },
 		});
 		if (emailExists) {
 			return res.status(400)

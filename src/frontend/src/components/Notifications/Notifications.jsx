@@ -23,6 +23,7 @@ const ToastNotification = (type, message, options={}) => {
         throw new Error('ToastNotification requires a string message prop');
     }
 
+    // Set the options for the toast notification
     toastOptions = {
         className: options.className || null,
         position: 'top-center',

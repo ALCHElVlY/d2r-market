@@ -19,8 +19,6 @@ import UserNavProfile from '../UserNavProfile/UserNavProfile.jsx';
 import PlatformSelector from './PlatformSelector/PlatformSelector.jsx';
 import { logout, updateUser, reset } from '../../app/reducers/auth/authSlice';
 import './navmenu.css';
-import { getBnetCredentials } from '../../app/reducers/oauth/oauthSlice.js';
-import { ToastNotifiaction } from '../index';
 
 const NavMenuLogo = () => {
 	return (
@@ -216,13 +214,6 @@ const NavMenuList = () => {
 	);
 };
 const NavMenu = () => {
-	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.auth);
-	const { linkedAccounts } = useSelector((state) => state.oauth);
-
-	// State variables
-	const [isAuthorized, setIsAuthorized] = useState(false);
-
 	// React hook to load the font-awesome css file
 	useEffect(() => {
 		const node = loadCSS(
@@ -235,54 +226,6 @@ const NavMenu = () => {
 			node.parentNode.removeChild(node);
 		};
 	}, []);
-
-	// React hook to handle checking the oauth credentials
-	useEffect(() => {
-		if (user) {
-			// Set an initial request to get the user's credentials
-			dispatch(getBnetCredentials(user));
-
-			// If the user is logged in, fetch their linked accounts
-			// every 5 minutes
-			setInterval(async () => {
-				dispatch(getBnetCredentials(user));
-			}, 1000 * 60 * 60 * 5);
-		}
-	}, [
-		user,
-		// Functions
-		dispatch,
-	]);
-
-	// React hook to check if a user has linked a battle.net account
-	// Pre-loader to the 'Must be authorized to interact' notification
-	useEffect(() => {
-		// Check if the user has a linked battle.net account
-		const hasBnetCredentials = linkedAccounts.some(account => account.bnet);
-		if (hasBnetCredentials) {
-			setIsAuthorized(true);
-		}
-		else {
-			setIsAuthorized(false);
-		}
-	}, [linkedAccounts]);
-
-	// React hook to send a toast notification while the user has
-	// not linked a battle.net account
-	useEffect(() => {
-		if (user && isAuthorized) return;
-		const message = [
-			'A linked battle.net account is required to interact with this app.',
-			`Visit the settings page to link your account.`,
-		].join('\n');
-		const options = {
-			className: 'toast-missing-bnet',
-			autoClose: false,
-		}
-
-		// Send the notification
-		ToastNotifiaction('warning', message, options);
-	}, [user, isAuthorized]);
 
 	return (
 		<div className='navigation__container'>

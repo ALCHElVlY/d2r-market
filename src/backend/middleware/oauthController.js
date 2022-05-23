@@ -101,7 +101,8 @@ const handleBnetOAuth = async (req, res, next) => {
 		const { id, token } = JSON.parse(oauth);
 
 		// Save the user's credentials to the database
-		const response = await axios.patch(`${process.env.USERS_ENDPOINT}/${id}`, { data }, {
+		const url = `${process.env.USERS_ENDPOINT}/` + id;
+		const response = await axios.patch(url, { data }, {
 			headers: { Authorization: `Bearer ${token}` },
 		});
 
