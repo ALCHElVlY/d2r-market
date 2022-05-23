@@ -1,4 +1,4 @@
-const pathToRuneWordImages = 'assets/images/d2items/runewords';
+const pathToRuneWordImages = '../assets/images/d2items/runewords';
 
 // Object Array of all the runewords in the game
 const runewords = [

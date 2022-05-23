@@ -11,12 +11,7 @@
         max-width: 1140px;
     }
 }
-@media (max-width: 1470px) {
-    .header__container {
-        background-image: url('/public/assets/images/home/D2R-SelectHerobackground2-1920.jpg') !important;
-        background-position: unset !important;
-    }
-}
+/* @media (max-width: 1470px) { } */
 
 @media not all and (hover: hover) {
     .header__container {
@@ -32,15 +27,34 @@
     align-items: stretch;
     position: relative;
     min-height: 100vh;
-    background-image: url('/public/assets/images/home/D2R-SelectHerobackground2-1920.jpg');
-    background-size: 100%;
-    background-position: 0 -8rem;
 }
 .header_body {
     flex-grow: 1;
     min-height: inherit;
     width: 100%;
     padding-bottom: 120px;
+}
+.header_background {
+    position: absolute !important;
+    top: 0;
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+}
+.HeroSelect {
+    width: 110%;
+    height: calc(100vh + 10px);
+    background-blend-mode: overlay;
+    background-size: cover;
+    transform: translate3d(-5%,0,0) scale(1.005);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    object-fit: cover;
+}
+.header_background > img {
+    vertical-align: middle;
+    border-style: none;
 }
 .flex--left,
 .flex--right {

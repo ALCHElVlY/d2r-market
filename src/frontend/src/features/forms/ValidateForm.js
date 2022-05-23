@@ -77,7 +77,7 @@ async function HandleFormError(form, errors, references) {
             if (!value) return;
             if (key === 'message') return;
 
-            checkValue(value, index);
+            return checkValue(value, index);
         });
 }
 
@@ -92,12 +92,12 @@ async function ValidateForm(inputs, action) {
     Object.entries(inputs)
         .forEach(([key, value]) => {
             if (value === '') {
-                action((prevState) => ({
+                return action((prevState) => ({
                     ...prevState,
                     [key]: true,
                 }));
             } else {
-                action((prevState) => ({
+                return action((prevState) => ({
                     ...prevState,
                     [key]: false,
                 }));

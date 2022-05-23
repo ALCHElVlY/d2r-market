@@ -1,12 +1,13 @@
+/* eslint-disable no-inline-comments */
 // External imports
-const express = require('express');
 const cookieParser = require('cookie-parser');
-const { rateLimit } = require('express-rate-limit');
 const cors = require('cors');
+const express = require('express');
+const { rateLimit } = require('express-rate-limit');
 
 // Internal imports
-const connectDatabase = require('./database/config/db');
 const corsConfig = require('./database/config/corsConfig.js');
+const connectDatabase = require('./database/config/db');
 const {
 	userRoutes,
 	oauthRoutes,

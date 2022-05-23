@@ -2,8 +2,8 @@
 import { useEffect } from 'react';
 
 // External imports
-import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 // Internal imports
 import './subscription.css';

@@ -1,4 +1,4 @@
-const pathToImage = 'assets/images/d2items/runes';
+const pathToImage = '../assets/images/d2items/runes';
 
 // Object Array of all the runes in the game
 const runes = [

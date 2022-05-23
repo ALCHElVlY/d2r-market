@@ -13,7 +13,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('diabloii_react'));
 root.render(
 	<Provider store={store}>
 		<PersistGate loading={null} persistor={Persistor}>

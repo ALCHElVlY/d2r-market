@@ -25,14 +25,14 @@ import {
 import './App.css';
 
 
-function App() {
+const App = () => {
 	return (
 		<div className="main__container">
 			<ErrorBoundary>
 			<Router>
 				<NavMenu />
+				{/* Public routes - users do not need to be logged in */}
 				<Routes>
-					{/* Public routes - users do not need to be logged in */}
 					<Route exact path="/" element={<ContentWrapper />} />
 					<Route path='/services' element={<Services />} />
 					<Route path="/register" element={<Register />} />

@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 const Account = () => {
     return (
         <li>
-            <NavLink to="/settings/account" className={({ isActive }) => isActive
+            <NavLink to="/settings/account"
+            className={({ isActive }) => isActive
                 ? 'smartlink active'
                 : 'smartlink'}>
                 Account
@@ -16,7 +17,8 @@ const Account = () => {
 const Subscription = () => {
     return (
         <li>
-            <NavLink to="/settings/subscription" className={({ isActive }) => isActive
+            <NavLink to="/settings/subscription"
+            className={({ isActive }) => isActive
                 ? 'smartlink active'
                 : 'smartlink'}>
                 Patronage
@@ -27,7 +29,8 @@ const Subscription = () => {
 const Notifications = () => {
     return (
         <li>
-            <NavLink to="/settings/notifications" className={({ isActive }) => isActive
+            <NavLink to="/settings/notifications"
+            className={({ isActive }) => isActive
                 ? 'smartlink active'
                 : 'smartlink'}>
                 Notifications

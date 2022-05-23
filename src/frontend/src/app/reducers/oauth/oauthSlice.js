@@ -48,6 +48,22 @@ export const getBnetCredentials = createAsyncThunk(
 	},
 );
 
+// Reset the oauth credentials
+export const resetOAuthCredentials = createAsyncThunk(
+	'oauth/reset',
+	async (state, thunkAPI) => {
+		try {
+			return await oauthService.resetCredentials(state);
+		}
+		catch (error) {
+			const message = (error.response &&
+				error.response.data && error.response.data.message)
+			|| error.message || error.toString();
+			return thunkAPI.rejectWithValue(message);
+		}
+	},
+);
+
 
 
 export const oauthSlice = createSlice({
@@ -79,6 +95,22 @@ export const oauthSlice = createSlice({
 				state.isSuccess = false;
 				state.message = action.payload;
             })
+			.addCase(resetOAuthCredentials.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(resetOAuthCredentials.fulfilled, (state) => {
+				state.isLoading = false;
+				state.isError = false;
+				state.isSuccess = true;
+				state.message = '';
+				state.linkedAccounts = [];
+			})
+			.addCase(resetOAuthCredentials.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.isSuccess = false;
+				state.message = action.payload;
+			});
     },
 });
 

@@ -194,8 +194,8 @@
     fill: #fafbfc;
 }
 .active {
-    color: var(--primary-active-link);
-    border-bottom: 3px solid var(--primary-active-link);
+    color: var(--primary-active-link) !important;
+    border-bottom: 3px solid var(--primary-active-link) !important;
 }
 .settings_content .form_field_errors {
     display: none;

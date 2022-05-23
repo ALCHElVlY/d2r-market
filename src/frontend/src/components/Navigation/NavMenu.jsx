@@ -19,21 +19,34 @@ import UserNavProfile from '../UserNavProfile/UserNavProfile.jsx';
 import PlatformSelector from './PlatformSelector/PlatformSelector.jsx';
 import { logout, updateUser, reset } from '../../app/reducers/auth/authSlice';
 import './navmenu.css';
+import { getBnetCredentials } from '../../app/reducers/oauth/oauthSlice.js';
+import { ToastNotifiaction } from '../index';
 
-const NavMenu = () => {
+const NavMenuLogo = () => {
+	return (
+		<div className='navMenu_logo_container'>
+			<Link to="/">
+				<img src='https://imgur.com/3S4kh9l.png'
+					alt='diabloii.market'
+					className='navMenu_logo' />
+			</Link>
+		</div>
+	);
+};
+const NavMenuList = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { user } = useSelector((state) => state.auth);
+
+	// State variables
+	const [open, setOpen] = useState(false);
+	const [onlineStatus, setOnlineStatus] = useState('');
 
 	// Reference variables
 	const userNavProfileRef = useRef(null);
 	const invisStatusRef = useRef(null);
 	const onlineStatusRef = useRef(null);
 	const onlineGameStatusRef = useRef(null);
-
-	// State variables
-	const [open, setOpen] = useState(false);
-	const [onlineStatus, setOnlineStatus] = useState('');
 
 	// Event handlers
 	const handleLogout = async () => {
@@ -47,19 +60,168 @@ const NavMenu = () => {
 	const handleClick = (e) => {
 		const prev = onlineStatus;
 		const target = e.target.innerHTML.toLowerCase();
-		const payload ={
+		const payload = {
 			user: user,
 			data: { status: target },
 		}
 		if (target === prev) return;
 		dispatch(updateUser(payload));
 	}
-	const handleMouseEnter = () => {
-		setOpen(true);
-	};
-	const handleMouseOut = () => {
-		setOpen(false);
-	};
+	const handleMouseEnter = () => setOpen(true);
+	const handleMouseOut = () => setOpen(false);
+
+	// React hook to handle when the profile dropdown is opened
+	useEffect(() => {
+		if (user && open) {
+			userNavProfileRef.current.classList.add('open_close');
+		}
+		else if (user && !open) {
+			userNavProfileRef.current.classList.remove('open_close');
+		}
+		else {
+			setOpen(false);
+		}
+	}, [
+		user, open,
+	]);
+
+	// React hook to handle when the user updates their status
+	useEffect(() => {
+		if (user) {
+			// Set the user's status
+			setOnlineStatus(user.onlineStatus);
+			switch (onlineStatus) {
+				case 'online':
+					onlineStatusRef.current.classList.add('activeStatus');
+					onlineGameStatusRef.current?.classList.remove('activeStatus');
+					invisStatusRef.current?.classList?.remove('activeStatus');
+					break;
+				case 'online in game':
+					onlineGameStatusRef.current.classList.add('activeStatus');
+					onlineStatusRef.current?.classList.remove('activeStatus');
+					invisStatusRef.current?.classList?.remove('activeStatus');
+					break;
+				case 'invisible':
+					invisStatusRef.current.classList.add('activeStatus');
+					onlineStatusRef.current?.classList.remove('activeStatus');
+					onlineGameStatusRef.current?.classList.remove('activeStatus');
+					break;
+				default:
+					break;
+			};
+		}
+	}, [
+		user, onlineStatus,
+		// Functions
+		dispatch,
+	]);
+
+	return (
+		<ul className='navMenu_list'>
+			<li className='navMenu_category'>
+				<NavLink to="/" className={({ isActive }) => isActive
+					? 'navMenu_link_active'
+					: 'navMenu_link'}>
+					<ShoppingCartIcon className='navMenu_market_icon' />
+					<div className='navMenu_title'><span>Market</span></div>
+				</NavLink>
+			</li>
+			<li className='navMenu_category'>
+				<NavLink to="/services" className={({ isActive }) => isActive
+					? 'navMenu_link_active'
+					: 'navMenu_link'}>
+					<Icon baseClassName='far' className='fa-handshake'></Icon>
+					<div className='navMenu_title'>
+						<span>Services</span>
+						<span className="navMenu_title_subscript">
+							Rushes | Cows | Ubers
+						</span>
+					</div>
+				</NavLink>
+			</li>
+			<li className="navMenu_category_separator"></li>
+
+			{/* If the user is logged in, show the user's profile and logout options */}
+			{user ? (
+				<><li className='navMenu_category'>
+					<NavLink to="/profile" className={({ isActive }) => isActive
+						? 'navMenu_link_active'
+						: 'navMenu_link'}>
+						<Icon baseClassName='fa'
+							className='fa-solid fa-user' id='profileIcon' />
+						<div className='navMenu_title'><span>My Profile</span></div>
+					</NavLink>
+				</li><li className="navMenu_category">
+						<NavLink to="/messages" className={({ isActive }) => isActive
+							? 'navMenu_link_active'
+							: 'navMenu_link'}>
+							<Icon baseClassName='fa'
+								className='fa-solid fa-envelope' id='messagesIcon' />
+							<div className='navMenu_title'><span>My Messages</span></div>
+						</NavLink>
+					</li><li className="navMenu_profileComboBox"
+						onMouseEnter={handleMouseEnter}
+						onMouseLeave={handleMouseOut}>
+						<ul className="profileShift"
+							ref={userNavProfileRef}>
+							<li className="profile_text_entry">
+								Select your status
+							</li>
+							<li className="profile_status_switch">
+								<span className='status_online'
+									ref={onlineStatusRef}
+									onClick={handleClick}
+								>Online</span>
+								<span className='status_online_ingame'
+									ref={onlineGameStatusRef}
+									onClick={handleClick}
+								>Online in game</span>
+								<span className='status_invisible'
+									ref={invisStatusRef}
+									onClick={handleClick}
+								>Invisible</span>
+							</li>
+							<li className="profile_settings">
+								<Link to="/settings/account" className="smartlink">
+									<FontAwesomeIcon icon={faGears}
+										className="profile_settings_icon" />
+									<div className='profile_settings_title'>
+										<span>Settings</span>
+									</div>
+								</Link>
+							</li>
+							<li className="profile_signout">
+								<Link to='/' onClick={handleLogout} className="smartlink">
+									<FontAwesomeIcon icon={faRightFromBracket}
+										className="profile_logout_icon" />
+									<div className='profile_logout_title'>
+										<span>Sign out</span>
+									</div>
+								</Link>
+							</li>
+						</ul>
+						<UserNavProfile open={open} />
+					</li></>
+			) : (
+				<li className='navMenu_category'>
+					<NavLink to="/login" className={({ isActive }) => isActive
+						? 'navMenu_link_active'
+						: 'navMenu_link'}>
+						<LoginIcon className='navMenu_login_icon' />
+						<div className='navMenu_title'><span>Log In</span></div>
+					</NavLink>
+				</li>
+			)}
+		</ul>
+	);
+};
+const NavMenu = () => {
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.auth);
+	const { linkedAccounts } = useSelector((state) => state.oauth);
+
+	// State variables
+	const [isAuthorized, setIsAuthorized] = useState(false);
 
 	// React hook to load the font-awesome css file
 	useEffect(() => {
@@ -74,152 +236,59 @@ const NavMenu = () => {
 		};
 	}, []);
 
-	// React hook to handle when the profile dropdown is opened
+	// React hook to handle checking the oauth credentials
 	useEffect(() => {
-		if (user && open) {
-			userNavProfileRef.current.classList.add('open_close');
-		}
-		else if (user && !open) {
-			userNavProfileRef.current.classList.remove('open_close');
-		}
-		else {
-			setOpen(false);
-		}
-
-
 		if (user) {
-			setOnlineStatus(user.onlineStatus);
+			// Set an initial request to get the user's credentials
+			dispatch(getBnetCredentials(user));
 
-			if (onlineStatus === 'online') {
-				onlineStatusRef.current.classList.add('activeStatus');
-			} else {
-				onlineStatusRef.current.classList.remove('activeStatus');
-			}
-			if (onlineStatus === 'online in game') {
-				onlineGameStatusRef.current.classList.add('activeStatus');
-			} else {
-				onlineGameStatusRef.current.classList.remove('activeStatus');
-			}
-			if (onlineStatus === 'invisible') {
-				invisStatusRef.current.classList.add('activeStatus');
-			} else {
-				invisStatusRef.current.classList.remove('activeStatus');
-			}
+			// If the user is logged in, fetch their linked accounts
+			// every 5 minutes
+			setInterval(async () => {
+				dispatch(getBnetCredentials(user));
+			}, 1000 * 60 * 60 * 5);
 		}
 	}, [
-		user, open, onlineStatus,
+		user,
+		// Functions
+		dispatch,
 	]);
 
+	// React hook to check if a user has linked a battle.net account
+	// Pre-loader to the 'Must be authorized to interact' notification
+	useEffect(() => {
+		// Check if the user has a linked battle.net account
+		const hasBnetCredentials = linkedAccounts.some(account => account.bnet);
+		if (hasBnetCredentials) {
+			setIsAuthorized(true);
+		}
+		else {
+			setIsAuthorized(false);
+		}
+	}, [linkedAccounts]);
+
+	// React hook to send a toast notification while the user has
+	// not linked a battle.net account
+	useEffect(() => {
+		if (user && isAuthorized) return;
+		const message = [
+			'A linked battle.net account is required to interact with this app.',
+			`Visit the settings page to link your account.`,
+		].join('\n');
+		const options = {
+			className: 'toast-missing-bnet',
+			autoClose: false,
+		}
+
+		// Send the notification
+		ToastNotifiaction('warning', message, options);
+	}, [user, isAuthorized]);
 
 	return (
 		<div className='navigation__container'>
-			<div className='navMenu_logo_container'>
-				<Link to="/">
-					<img src='https://imgur.com/3S4kh9l.png'
-						alt='d2r.market'
-						className='navMenu_logo' />
-				</Link>
-			</div>
+			<NavMenuLogo />
 			<PlatformSelector />
-
-			<ul className='navMenu_list'>
-				<li className='navMenu_category'>
-					<NavLink to="/" className={({ isActive }) => isActive
-						? 'navMenu_link_active'
-						: 'navMenu_link'}>
-						<ShoppingCartIcon className='navMenu_market_icon' />
-						<div className='navMenu_title'><span>Market</span></div>
-					</NavLink>
-				</li>
-
-				<li className='navMenu_category'>
-					<NavLink to="/services" className={({ isActive }) => isActive
-						? 'navMenu_link_active'
-						: 'navMenu_link'}>
-						<Icon baseClassName='far' className='fa-handshake'></Icon>
-						<div className='navMenu_title'>
-							<span>Services</span>
-							<span className="navMenu_title_subscript">
-								Rushes | Cows | Ubers
-							</span>
-						</div>
-					</NavLink>
-				</li>
-
-				<li className="navMenu_category_separator"></li>
-
-				{/* If the user is logged in, show the user's profile and logout options */}
-				{user ? (
-					<><li className='navMenu_category'>
-						<NavLink to="/profile" className={({ isActive }) => isActive
-							? 'navMenu_link_active'
-							: 'navMenu_link'}>
-							<Icon baseClassName='fa'
-								className='fa-solid fa-user' id='profileIcon' />
-							<div className='navMenu_title'><span>My Profile</span></div>
-						</NavLink>
-					</li><li className="navMenu_category">
-							<NavLink to="/messages" className={({ isActive }) => isActive
-								? 'navMenu_link_active'
-								: 'navMenu_link'}>
-								<Icon baseClassName='fa'
-									className='fa-solid fa-envelope' id='messagesIcon' />
-								<div className='navMenu_title'><span>My Messages</span></div>
-							</NavLink>
-						</li><li className="navMenu_profileComboBox"
-							onMouseEnter={handleMouseEnter}
-							onMouseLeave={handleMouseOut}>
-							<ul className="profileShift"
-								ref={userNavProfileRef}>
-								<li className="profile_text_entry">
-									Select your status
-								</li>
-								<li className="profile_status_switch">
-									<span className='status_online'
-									ref={onlineStatusRef}
-									onClick={handleClick}
-									>Online</span>
-									<span className='status_online_ingame'
-									ref={onlineGameStatusRef}
-									onClick={handleClick}
-									>Online in game</span>
-									<span className='status_invisible'
-									ref={invisStatusRef}
-									onClick={handleClick}
-									>Invisible</span>
-								</li>
-								<li className="profile_settings">
-									<Link to="/settings/account" className="smartlink">
-										<FontAwesomeIcon icon={faGears}
-											className="profile_settings_icon" />
-										<div className='profile_settings_title'>
-											<span>Settings</span>
-										</div>
-									</Link>
-								</li>
-								<li className="profile_signout">
-									<Link to='/' onClick={handleLogout} className="smartlink">
-										<FontAwesomeIcon icon={faRightFromBracket}
-											className="profile_logout_icon" />
-										<div className='profile_logout_title'>
-											<span>Sign out</span>
-										</div>
-									</Link>
-								</li>
-							</ul>
-							<UserNavProfile open={open} />
-					</li></>
-				) : (
-					<li className='navMenu_category'>
-						<NavLink to="/login" className={({ isActive }) => isActive
-							? 'navMenu_link_active'
-							: 'navMenu_link'}>
-							<LoginIcon className='navMenu_login_icon' />
-							<div className='navMenu_title'><span>Log In</span></div>
-						</NavLink>
-					</li>
-				)}
-			</ul>
+			<NavMenuList />
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 // Built-in imports
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // External imports
 import {
@@ -109,14 +109,8 @@ const ModalItemContent = (props) => {
     );
 };
 const PlaceOrder = () => {
-    // State variables
-    const [open, setOpen] = useState(false);
-    const { user } = useSelector(state => state.auth);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
     // Custom Modal styling
-    const style = {
+    const ModelStyle = {
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -128,10 +122,30 @@ const PlaceOrder = () => {
         p: 4,
     };
 
+    // State variables
+    const [open, setOpen] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    const { user } = useSelector(state => state.auth);
+    const { linkedAccounts } = useSelector(state => state.oauth);
+
+    // Event handlers
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    // React hook to check if a user has linked their battle.net account
+    useEffect(() => {
+        const hasBnetCredentials = linkedAccounts.some(account => account.bnet);
+        if (hasBnetCredentials) {
+            setIsAuthorized(true);
+        }
+        else {
+            setIsAuthorized(false);
+        }
+    }, [linkedAccounts]);
 
     return (
         <DataProvider>
-        {user ?
+        {(user && isAuthorized) ?
             <div className="place_order">
                 <div className="place_order_button" role="button"
                     title="place_order_button" onClick={handleOpen}>
@@ -154,7 +168,7 @@ const PlaceOrder = () => {
                     }}>
                     <Fade in={open}>
                         <Box className="widget_modal"
-                            sx={style}>
+                            sx={ModelStyle}>
                             <ItemImagePreview />
                             <ModalItemContent onClick={handleClose} />
                         </Box>

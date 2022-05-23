@@ -2,11 +2,8 @@
 const bcrypt = require('bcryptjs');
 
 // Internal imports
-const User = require('../database/models/User');
 const generateToken = require('../database/functions/generateToken.js');
-const {
-	generateCredentials,
-} = require('../database/functions/oauthCredentials.js');
+const User = require('../database/models/User');
 
 
 /**
@@ -18,56 +15,65 @@ const {
 const registerUser = async (req, res) => {
 	try {
 		const {
+			username,
 			email,
-			password
+			password,
 		} = req.body;
 
 		// Check if an email and password was provided
-		if (!email || !password) {
+		if (!username || !email || !password) {
 			return res.status(400)
 				.json({
-					message: 'Missing required fields'
+					message: 'Missing required fields',
 				});
 		}
 
+		// Check if the username is already taken
+		const usernameExists = await User.findOne({
+			username: { $eq: username },
+		});
+		if (usernameExists) {
+			return res.status(400).json({
+				message: 'Username already taken',
+			});
+		}
+
 		// Check if an account already exists with the given email
-		const userExists = await User.findOne({
+		const emailExists = await User.findOne({
 			email: { $eq: email },
 		});
-		if (userExists) {
+		if (emailExists) {
 			return res.status(400)
 				.json({
-					message: 'Email already registered'
+					message: 'Email already registered',
 				});
 		}
 
 		// Hash the password
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
-		const oauthCredentials = await generateCredentials(email, password);
 
 		// Create a new user
 		await User.create({
-				email,
-				password: hashedPassword,
-				oauthCredentials: oauthCredentials,
-			})
-			.then((user) => {
-				res.status(201).json({
-					id: user._id,
-					username: user.username,
-					customAvatar: user.customAvatar,
-					platform: user.platform,
-					onlineStatus: user.onlineStatus,
-					token: generateToken(user._id),
-				})
-			})
-			.catch(() => res.json({
-				message: 'There was an error registering the user'
-			}));
-	} catch (e) {
+			username,
+			email,
+			password: hashedPassword,
+		}).then((user) => {
+			res.status(201).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			});
+		}).catch(() => res.json({
+			message: 'There was an error registering the user',
+		}));
+	}
+	catch (e) {
 		res.status(500).send({
-			message: e.message
+			message: e.message,
 		});
 	}
 };
@@ -81,7 +87,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 	const {
 		email,
-		password
+		password,
 	} = req.body;
 
 	// Check for a valid user email
@@ -98,21 +104,22 @@ const loginUser = async (req, res) => {
 			onlineStatus: user.onlineStatus,
 			token: generateToken(user._id),
 		});
-	} else {
+	}
+	else {
 		res.status(400).json({
-			message: 'Invalid credentials'
+			message: 'Invalid credentials',
 		});
 	}
 };
 
 /**
  * The logoutUser functions logs the user out of the application
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 const logoutUser = (req, res) => {
 	return res.status(200).json({
-		succes: true,
+		success: true,
 	});
 };
 
@@ -131,35 +138,39 @@ const updateUser = async (req, res) => {
 		status,
 		bnet,
 	} = req.body.data;
-	
+
 	if (newEmail && !newPassword) {
 		// Check if the user provided the correct password
 		const validPassword = await bcrypt.compare(
 			req.body?.data?.currentPassword,
 			user.password,
 		);
-		if (!validPassword) return res.status(400)
-			.json({ message: 'Invalid password' });
+		if (!validPassword) {
+			return res.status(400)
+				.json({ message: 'Invalid password' });
+		}
 		// Check if the new email is already in use
 		const emailExists = await User.findOne({
-			email: newEmail
+			email: newEmail,
 		});
-		if (emailExists) return res.status(400)
-			.json({ message: 'Email already registered' });
+		if (emailExists) {
+			return res.status(400)
+				.json({ message: 'Email already registered' });
+		}
 
 		// Update the user's email
 		user.email = newEmail;
 
 		// Save the user
 		await user.save()
-		.then(() => res.status(200).json({
-			id: user._id,
-			username: user.username,
-			customAvatar: user.customAvatar,
-			platform: user.platform,
-			onlineStatus: user.onlineStatus,
-			token: generateToken(user._id),
-		}));
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			}));
 	}
 	if (!newEmail && newPassword) {
 		// Check if the user provided the correct password
@@ -167,26 +178,28 @@ const updateUser = async (req, res) => {
 			req.body?.data?.currentPassword,
 			user.password,
 		);
-		if (!validPassword) return res.status(400)
-			.json({ message: 'Invalid password' });
+		if (!validPassword) {
+			return res.status(400)
+				.json({ message: 'Invalid password' });
+		}
 
 		// Hash the new password
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(newPassword, salt);
-		
+
 		// Update the user's email
 		user.password = hashedPassword;
 
 		// Save the user
 		await user.save()
-		.then(() => res.status(200).json({
-			id: user._id,
-			username: user.username,
-			customAvatar: user.customAvatar,
-			platform: user.platform,
-			onlineStatus: user.onlineStatus,
-			token: generateToken(user._id),
-		}));
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			}));
 	}
 	if (status) {
 		// Set the user's new status
@@ -194,19 +207,19 @@ const updateUser = async (req, res) => {
 
 		// Save the user
 		await user.save()
-		.then(() => res.status(200).json({
-			id: user._id,
-			username: user.username,
-			customAvatar: user.customAvatar,
-			platform: user.platform,
-			onlineStatus: user.onlineStatus,
-			token: generateToken(user._id),
-		}));
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				token: generateToken(user._id),
+			}));
 	}
 	if (bnet) {
 		// Check if the user already has bnet credentials saved
 		let hasCredentials;
-		for (let i in user.linkedAccounts) {
+		for (const i in user.linkedAccounts) {
 			if (!user.linkedAccounts[i].bnet) hasCredentials = false;
 			hasCredentials = true;
 			break;
@@ -218,20 +231,20 @@ const updateUser = async (req, res) => {
 			bnet: {
 				id: bnet.id,
 				battletag: bnet.battletag,
-			}
+			},
 		});
 
 		// Save the user
 		await user.save()
-		.then(() => res.status(200).json({
-			id: user._id,
-			username: user.username,
-			customAvatar: user.customAvatar,
-			platform: user.platform,
-			onlineStatus: user.onlineStatus,
-			linkedAccounts: user.linkedAccounts[0],
-			token: generateToken(user._id),
-		}));
+			.then(() => res.status(200).json({
+				id: user._id,
+				username: user.username,
+				customAvatar: user.customAvatar,
+				platform: user.platform,
+				onlineStatus: user.onlineStatus,
+				linkedAccounts: user.linkedAccounts[0],
+				token: generateToken(user._id),
+			}));
 	}
 };
 
@@ -245,9 +258,11 @@ const getUser = async (req, res, next) => {
 	try {
 		// Find the user by their id
 		const user = await User.findById(req.params.id);
-		if (!user) return res.status(404).json({
-			message: 'User not found'
-		});
+		if (!user) {
+			return res.status(404).json({
+				message: 'User not found',
+			});
+		}
 
 		// Return the user's data
 		res.status(200).json({
@@ -262,13 +277,14 @@ const getUser = async (req, res, next) => {
 
 		// Move to the next middleware
 		return next();
-	} catch (e) {
+	}
+	catch (e) {
 		console.log(e);
 		if (e.name === 'TokenExpiredError') {
 			res.status(401).json({
 				message: 'Token expired',
 			});
-		};
+		}
 		res.status(500).send({
 			message: e.message,
 		});
@@ -278,8 +294,8 @@ const getUser = async (req, res, next) => {
 /**
  * The getOnlineUsers function makes a request to the server to
  * retrieve all the users that are currently marked online.
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 const getOnlineUsers = async (req, res, next) => {
 	try {
@@ -293,7 +309,8 @@ const getOnlineUsers = async (req, res, next) => {
 
 		// Move to the next middleware
 		return next();
-	} catch (e) {
+	}
+	catch (e) {
 		console.log(e);
 		res.status(500).send({
 			message: e.message,
@@ -304,10 +321,10 @@ const getOnlineUsers = async (req, res, next) => {
 /**
  * The getOnlineInGame function makes a request to the server to
  * retrieve all the users that are currently marked online in-game.
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
- const getOnlineInGame = async (req, res, next) => {
+const getOnlineInGame = async (req, res, next) => {
 	try {
 		// Find all the users that are online in-game
 		const onlineInGame = await User.find({
@@ -319,7 +336,8 @@ const getOnlineUsers = async (req, res, next) => {
 
 		// Move to the next middleware
 		return next();
-	} catch (e) {
+	}
+	catch (e) {
 		console.log(e);
 		res.status(500).send({
 			message: e.message,
@@ -331,7 +349,7 @@ const getOnlineUsers = async (req, res, next) => {
  * The deleteUser function takes in the req and res objects
  * and utilizes the User model to find a user with the given id and deletes
  * them from the database.
- * @param {*} req 
+ * @param {*} req
  * @param {*} res
  */
 const deleteUser = async (req, res) => {
@@ -344,13 +362,14 @@ const deleteUser = async (req, res) => {
 			.catch(() => res.status(400).json({
 				succes: false,
 			}));
-	} catch (e) {
+	}
+	catch (e) {
 		console.log(e);
 		if (e.name === 'TokenExpiredError') {
 			res.status(401).json({
 				message: 'Token expired',
 			});
-		};
+		}
 
 		res.status(500).send({
 			message: e.message,

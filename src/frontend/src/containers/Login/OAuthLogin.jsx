@@ -26,7 +26,7 @@ const OAUTH_LOGIN_BNET = () => {
         setLoaded(true);
         (() => {
             if (linkedAccounts.length > 0 &&
-                linkedAccounts.some(key => key === 'bnet')) {
+                linkedAccounts.some(account => account.bnet)) {
                 setHasBnetCreds(true);
             }
             else {

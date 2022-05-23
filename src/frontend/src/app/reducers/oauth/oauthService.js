@@ -29,11 +29,17 @@ const setCredentials = async (payload) => {
  * @param {object} payload
  */
  const getCredentials = async (payload) => {
-	const response = await axiosPrivate.get(`${USERS_ENDPOINT}/${payload}`);
+	const response = await axiosPrivate.get(`${USERS_ENDPOINT}/${payload.id}`);
 
 	if (response.status === 200) {
 		const { linkedAccounts } = response.data;
 		return linkedAccounts;
+	}
+};
+
+const resetCredentials = async (payload) => {
+	if (payload.length > 0) {
+		return payload = [];
 	}
 };
 
@@ -44,7 +50,8 @@ const setCredentials = async (payload) => {
 // to export and use
 const oauthService = {
     setCredentials,
-	getCredentials
+	getCredentials,
+	resetCredentials,
 };
 
 export default oauthService;

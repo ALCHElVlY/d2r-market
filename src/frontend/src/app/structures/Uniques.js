@@ -1,8 +1,9 @@
-const pathToWeaponImages = 'assets/images/d2items/uniques/weapons';
-const pathToArmorImages = 'assets/images/d2items/uniques/armor';
-const pathToAccessoryImages = 'assets/images/d2items/uniques/accessories';
-const pathToCharmImages = 'assets/images/d2items/uniques/charms';
-const pathToJewelImages = 'assets/images/d2items/uniques/jewels';
+const pathToUniques = '../assets/images/d2items/uniques';
+const pathToWeaponImages = `${pathToUniques}/weapons`;
+const pathToArmorImages = `${pathToUniques}/armor`;
+const pathToAccessoryImages = `${pathToUniques}/accessories`;
+const pathToCharmImages = `${pathToUniques}/charms`;
+const pathToJewelImages = `${pathToUniques}/jewels`;
 
 // Object Array of all the uniques in the game
 const uniques = [

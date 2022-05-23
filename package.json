@@ -6,8 +6,8 @@
     "d2r-market",
     "diablo2-market",
     "diablo2-market",
+    "diabloii-market",
     "diablo-market",
-    "d2r-services",
     "d2r-rushes"
   ],
   "main": "index.js",

@@ -18,32 +18,49 @@ import {
 } from '../../features/forms/ValidateForm.js';
 import { register, reset } from '../../app/reducers/auth/authSlice';
 
-const RegisterForm = () => {
+
+const FormHeader = () => {
+	return (
+		<div className="pb-2 col-12">
+			<h2>Registration</h2>
+		</div>
+	);
+};
+const FormBody = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { isError, isSuccess, message } = useSelector(
 		(state) => state.auth);
 
 	// Reference variables
-	const emailFocus = useRef(null),
+	const usernameFocus = useRef(null),
+		emailFocus = useRef(null),
 		passwordFocus = useRef(null),
 		confirmPasswordFocus = useRef(null);
-	const emailError = useRef(null),
+	const usernameError = useRef(null),
+		emailError = useRef(null),
 		passwordError = useRef(null),
 		confirmPasswordError = useRef(null),
 		formErrors = useRef(null);
 
 	// State variables
 	const [inputs, setInputs] = useState({
+		username: '',
 		email: '',
 		password: '',
 		confirmPassword: '',
 	});
-	const { email, password, confirmPassword } = inputs;
+	const {
+		username,
+		email,
+		password,
+		confirmPassword,
+	} = inputs;
 	const [isFocused, setIsFocused] = useState({});
 	const [didSubmit, setDidSubmit] = useState(false);
 	const [isMounted, setIsMounted] = useState(null);
 	const [error, setError] = useState({
+		username: false,
 		email: false,
 		password: false,
 		confirmPassword: false,
@@ -95,7 +112,7 @@ const RegisterForm = () => {
 
 		// Check if there are any input errors
 		const inputErrors = Object.entries(error).filter(key =>
-			key.includes('email') || key.includes('password') ||
+			key.includes('username') || key.includes('email') || key.includes('password') ||
 			key.includes('confirmPassword') || key.includes('formError'));
 		const hasInputError = inputErrors.some(key => key[1] === true);
 		switch (hasInputError) {
@@ -103,7 +120,7 @@ const RegisterForm = () => {
 				await setDidSubmit(false);
 				break;
 			default:
-				await dispatch(register({ email, password }));
+				await dispatch(register({ username, email, password }));
 				await setDidSubmit(true);
 		}
 	};
@@ -113,7 +130,8 @@ const RegisterForm = () => {
 		(async () => {
 			HandleInputFocus(
 				isFocused,
-				[emailFocus, passwordFocus, confirmPasswordFocus],
+				[usernameFocus, emailFocus,
+				passwordFocus, confirmPasswordFocus],
 			);
 		})();
 	}, [isFocused]);
@@ -124,7 +142,8 @@ const RegisterForm = () => {
 			await HandleFormError(
 				isMounted,
 				error,
-				[emailError, passwordError, confirmPasswordError, formErrors],
+				[usernameError, emailError, passwordError,
+				confirmPasswordError, formErrors],
 			);
 
 			if (isError) {
@@ -135,11 +154,12 @@ const RegisterForm = () => {
 					message: message,
 				}));
 			}
-			
+
 			if (isSuccess) {
 				// Reset the form
 				setInputs((prevState) => ({
 					...prevState,
+					username: '',
 					email: '',
 					password: '',
 					confirmPassword: '',
@@ -167,88 +187,111 @@ const RegisterForm = () => {
 		navigate, dispatch,
 	]);
 
-
+	return (
+		<div className="col-12">
+			<form onSubmit={handleSubmit}>
+			<div className="form_group">
+					<label htmlFor="username">
+						Username
+					</label>
+					<div className="form_control"
+						onFocus={handleFocus}
+						onBlur={handleBlur}
+						ref={usernameFocus}>
+						<input type="text"
+							id='username'
+							name='username'
+							value={username}
+							autoComplete='text'
+							placeholder='Your username'
+							onChange={handleChange} />
+					</div>
+					<ul className="form_field_errors"
+						ref={usernameError}>
+						{error.username && <li>Field required</li>}
+					</ul>
+				</div>
+				<div className="form_group">
+					<label htmlFor="email">
+						Email address
+					</label>
+					<div className="form_control"
+						onFocus={handleFocus}
+						onBlur={handleBlur}
+						ref={emailFocus}>
+						<input type="email"
+							id='email'
+							name='email'
+							value={email}
+							autoComplete='email'
+							placeholder='Your email'
+							onChange={handleChange} />
+					</div>
+					<ul className="form_field_errors"
+						ref={emailError}>
+						{error.email && <li>Field required</li>}
+					</ul>
+				</div>
+				<div className="form_group">
+					<label htmlFor="password">
+						Password
+					</label>
+					<div className="form_control"
+						onFocus={handleFocus}
+						onBlur={handleBlur}
+						ref={passwordFocus}>
+						<input type="password"
+							id='password'
+							name='password'
+							value={password}
+							autoComplete='current-password'
+							placeholder='Your password'
+							onChange={handleChange} />
+					</div>
+					<ul className="form_field_errors"
+						ref={passwordError}>
+						{error.password && <li>Field required</li>}
+					</ul>
+				</div>
+				<div className="form_group">
+					<label htmlFor="confirmpassword">
+						Confirm Password
+					</label>
+					<div className="form_control"
+						onFocus={handleFocus}
+						onBlur={handleBlur}
+						ref={confirmPasswordFocus}>
+						<input type="password"
+							id='confirmPassword'
+							name='confirmPassword'
+							value={confirmPassword}
+							autoComplete='current-password'
+							placeholder='Your password'
+							onChange={handleChange} />
+					</div>
+					<ul className="form_field_errors"
+						ref={confirmPasswordError}>
+						{error.confirmPassword && <li>Field required</li>}
+					</ul>
+				</div>
+				<ul className="form_errors"
+					ref={formErrors}>
+					{(error.passwordMismatch || error.formError) &&
+						<li>{error.message}</li>}
+				</ul>
+				<div className="register__actions">
+					<RegisterButton onClick={handleClick} />
+				</div>
+			</form>
+		</div>
+	);
+};
+const RegisterForm = () => {
 	return (
 		<div className="col-12 col-lg-6">
 			<div className="row">
-				<div className="pb-2 col-12">
-					<h2>Registration</h2>
-				</div>
-				<div className="col-12">
-					<form onSubmit={handleSubmit}>
-						<div className="form_group">
-							<label htmlFor="email">
-								Email address
-							</label>
-							<div className="form_control"
-								onFocus={handleFocus}
-								onBlur={handleBlur}
-								ref={emailFocus}>
-								<input type="email"
-									id='email'
-									name='email'
-									value={email}
-									autoComplete='email'
-									placeholder='Your email'
-									onChange={handleChange} />
-							</div>
-							<ul className="form_field_errors"
-								ref={emailError}>
-								{error.email && <li>Field required</li>}
-							</ul>
-						</div>
-						<div className="form_group">
-							<label htmlFor="password">
-								Password
-							</label>
-							<div className="form_control"
-								onFocus={handleFocus}
-								onBlur={handleBlur}
-								ref={passwordFocus}>
-								<input type="password"
-									id='password'
-									name='password'
-									value={password}
-									autoComplete='current-password'
-									placeholder='Your password'
-									onChange={handleChange} />
-							</div>
-							<ul className="form_field_errors"
-								ref={passwordError}>
-								{error.password && <li>Field required</li>}
-							</ul>
-						</div>
-						<div className="form_group">
-							<label htmlFor="confirmpassword">
-								Confirm Password
-							</label>
-							<div className="form_control"
-								onFocus={handleFocus}
-								onBlur={handleBlur}
-								ref={confirmPasswordFocus}>
-								<input type="password"
-									id='confirmPassword'
-									name='confirmPassword'
-									value={confirmPassword}
-									autoComplete='current-password'
-									placeholder='Your password'
-									onChange={handleChange} />
-							</div>
-							<ul className="form_field_errors"
-								ref={confirmPasswordError}>
-								{error.confirmPassword && <li>Field required</li>}
-							</ul>
-						</div>
-						<ul className="form_errors"
-							ref={formErrors}>
-							{(error.passwordMismatch || error.formError) &&
-							<li>{error.message}</li>}
-						</ul>
-						<div className="register__actions">
-							<RegisterButton onClick={handleClick} />
-						</div>
-					</form>
-				</div>
+				<FormHeader />
+				<FormBody />
 			</div>
 		</div>
 	);

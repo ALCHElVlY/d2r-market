@@ -17,6 +17,7 @@ import {
 } from '../Buttons/index.js';
 import LinkBlocks from '../../components/UserSettings/LinkBlocks.jsx';
 import { deleteUser, reset } from '../../app/reducers/auth/authSlice';
+import { resetOAuthCredentials } from '../../app/reducers/oauth/oauthSlice.js';
 
 
 const UserSettings = () => {
@@ -62,6 +63,7 @@ const SettingsContent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
+    const { linkedAccounts } = useSelector((state) => state.oauth);
 
     // State variables
     const [pendingRemoval, setPendingRemoval] = useState(false);
@@ -76,6 +78,8 @@ const SettingsContent = () => {
     const handleConfirmRemoval = async () => {
         // Delete the users data from the database
         await dispatch(deleteUser(user));
+        // Delete the oauth credentials
+        await dispatch(resetOAuthCredentials(linkedAccounts));
         // Redirect the user to the home page
         await navigate('/');
         // Reset the state
