@@ -102,9 +102,12 @@ const handleBnetOAuth = async (req, res, next) => {
 
 		// Save the user's credentials to the database
 		const url = `${process.env.USERS_ENDPOINT}/` + id;
-		const response = await axios.patch(url, { data }, {
-			headers: { Authorization: `Bearer ${token}` },
-		});
+		const options = {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		};
+		const response = await axios.patch(url, { data }, options);
 
 		if (response.status === 200) {
 			res.clearCookie('oauth');
