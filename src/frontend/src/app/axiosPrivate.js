@@ -1,6 +1,10 @@
 // External imports
 import axios from 'axios';
-import { toast } from 'react-toastify';
+
+// Internal imports
+import {
+    ToastNotification,
+} from '../components/index';
 
 
 // Default Axios instance
@@ -40,7 +44,7 @@ axiosPrivate.interceptors.response.use(
 
         if (error?.response?.status === 401 &&
             message === 'Token expired') {
-                toast.error('Your session has expired. Please login again.');
+                ToastNotification('error', 'Your session has expired. Please login again.');
             }
         return Promise.reject(error);
     }

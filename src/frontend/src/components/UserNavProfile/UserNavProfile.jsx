@@ -1,5 +1,9 @@
 // Builtin imports
-import { useEffect, useState, useRef } from 'react';
+import {
+	useEffect,
+	useState,
+	useRef,
+} from 'react';
 
 // External imports
 import {
@@ -12,14 +16,46 @@ import { useSelector } from 'react-redux';
 // Internal imports
 import './usernavprofile.css';
 
+
+const UserAvatar = (props) => {
+	const {
+		hasCustomAvatar,
+		user,
+	} = props;
+
+	return (
+		(hasCustomAvatar)
+			? <img src={user.customAvatar} alt="Avatar" className="custom_user_avatar" />
+			: <FontAwesomeIcon icon={faUserCircle} className="default_user_avatar" />
+	);
+}
+const UsernameAndStatus = (props) => {
+	const {
+		username,
+		status,
+		reference,
+	} = props;
+
+	return (
+		<div className="username_and_status">
+			<span className="nickname">
+				{username}
+			</span>
+			<div className="statusIndicator">
+				<span className="status" ref={reference}>
+					{status}
+				</span>
+			</div>
+		</div>
+	);
+};
 const UserNavProfile = (props) => {
 	// Reference variables
 	const caretIconRef = useRef(null);
 	const statusRef = useRef(null);
 
 	// State variables
-	const { user } = useSelector(
-		(state) => state.auth);
+	const { user } = useSelector((state) => state.auth);
 	const [username, setUsername] = useState('');
 	const [avatar, setAvatar] = useState(false);
 	const [onlineStatus, setOnlineStatus] = useState('');
@@ -41,19 +77,19 @@ const UserNavProfile = (props) => {
 		// Apply the CSS style to the status class when it changes
 		switch (onlineStatus) {
 			case 'online':
-				onlineStatus === 'online'
-					? statusRef.current.classList.toggle('online')
-					: statusRef.current.classList.toggle('online');
+				statusRef.current.classList.add('online');
+				statusRef.current?.classList.remove('online_ingame');
+				statusRef.current?.classList.remove('invisible');
 				break;
 			case 'online in game':
-				onlineStatus === 'online in game'
-					? statusRef.current.classList.toggle('online_ingame')
-					: statusRef.current.classList.toggle('online_ingame');
+				statusRef.current.classList.add('online_ingame');
+				statusRef.current?.classList.remove('online');
+				statusRef.current?.classList.remove('invisible');
 				break;
 			case 'invisible':
-				onlineStatus === 'invisible'
-					? statusRef.current.classList.toggle('invisible')
-					: statusRef.current.classList.toggle('invisible');
+				statusRef.current.classList.add('invisible');
+				statusRef.current?.classList.remove('online');
+				statusRef.current?.classList.remove('online_ingame');
 				break;
 			default:
 				break;
@@ -86,22 +122,10 @@ const UserNavProfile = (props) => {
 
 	return (
 		<div className="userProfileHeader" >
-			{avatar ? (
-				<img src={user.customAvatar} alt="Avatar" className="custom_user_avatar" />
-			) : (
-				<FontAwesomeIcon icon={faUserCircle}
-					className="default_user_avatar" />
-			)}
-			<div className="username_and_status">
-				<span className="nickname">
-					{username}
-				</span>
-				<div className="statusIndicator">
-					<span className="status" ref={statusRef}>
-						{onlineStatus}
-					</span>
-				</div>
-			</div>
+			<UserAvatar hasCustomAvatar={avatar} user={user} />
+			<UsernameAndStatus username={username}
+				status={onlineStatus}
+				reference={statusRef} />
 			<FontAwesomeIcon icon={faCaretLeft}
 				className="icon_caret"
 				forwardedRef={caretIconRef} />

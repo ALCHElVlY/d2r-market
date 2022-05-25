@@ -38,21 +38,33 @@ const ItemImagePreview = () => {
     const { data } = useSearchData();
     const match = d2ItemData(data);
 
-    return (
-        <div className="modal_widget_preview">
-            <div className="item__image">
-                {match?.found && <img src={match?.item.image} alt={match?.item.name} />}
-            </div>
+    const ItemName = () => {
+        return (
             <div className="item__name">
                 {match?.found && <h1>{match?.item.name}</h1>}
             </div>
+        );
+    };
+    const ItemImage = () => {
+        return (
+            <div className="item__image">
+                {match?.found &&
+                    <img src={match?.item.image} alt={match?.item.name} />}
+            </div>
+        );
+    };
+
+    return (
+        <div className="modal_widget_preview">
+            <ItemImage />
+            <ItemName />
             <div className="preview_seperator"></div>
         </div>
     );
 }
 const ModalItemContent = (props) => {
-    return (
-        <div className="widget_modal_content">
+    const Header = () => {
+        return (
             <div className="widget_modal_header py-3">
                 <div className="col display_flex align_items_center">
                     <h2>Place Order</h2>
@@ -61,6 +73,10 @@ const ModalItemContent = (props) => {
                     <CloseModal onClick={props.onClick} />
                 </div>
             </div>
+        );
+    };
+    const Body = () => {
+        return (
             <div className="widget_modal_body">
                 <div className="pt-3 col-12">
                     <div className="row compact widget_order_buttons">
@@ -104,6 +120,13 @@ const ModalItemContent = (props) => {
                 </div>
                 <div className="col-12"></div>
             </div>
+        );
+    };
+
+    return (
+        <div className="widget_modal_content">
+            <Header />
+            <Body />
             <div className="widget_modal_actions"></div>
         </div>
     );
@@ -132,6 +155,42 @@ const PlaceOrder = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const HEADER = () => {
+        return (
+            <div className="place_order_button" role="button"
+                title="place_order_button" onClick={handleOpen}>
+                <div className="big_button">
+                    <FontAwesomeIcon icon={faSquarePlus} />
+                </div>
+                <div className="big_button_text">Place Order</div>
+            </div>
+        );
+    };
+    const BODY = () => {
+        return (
+            <Modal
+                className="modal"
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                container={() => document.body.getElementsByClassName('place_order')[0]}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}>
+                <Fade in={open}>
+                    <Box className="widget_modal"
+                        sx={ModelStyle}>
+                        <ItemImagePreview />
+                        <ModalItemContent onClick={handleClose} />
+                    </Box>
+                </Fade>
+            </Modal>
+        );
+    };
+
     // React hook to check if a user has linked their battle.net account
     useEffect(() => {
         const hasBnetCredentials = linkedAccounts.some(account => account.bnet);
@@ -145,36 +204,11 @@ const PlaceOrder = () => {
 
     return (
         <DataProvider>
-        {(user && isAuthorized) ?
-            <div className="place_order">
-                <div className="place_order_button" role="button"
-                    title="place_order_button" onClick={handleOpen}>
-                    <div className="big_button">
-                        <FontAwesomeIcon icon={faSquarePlus} />
-                    </div>
-                    <div className="big_button_text">Place Order</div>
-                </div>
-                <Modal
-                    className="modal"
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    container={() => document.body.getElementsByClassName('place_order')[0]}
-                    open={open}
-                    onClose={handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                        timeout: 500,
-                    }}>
-                    <Fade in={open}>
-                        <Box className="widget_modal"
-                            sx={ModelStyle}>
-                            <ItemImagePreview />
-                            <ModalItemContent onClick={handleClose} />
-                        </Box>
-                    </Fade>
-                </Modal>
-            </div> : null}
+            {(user && isAuthorized) ?
+                <div className="place_order">
+                    <HEADER />
+                    <BODY />
+                </div> : null}
         </DataProvider>
     );
 }

@@ -119,8 +119,8 @@ import {
 };
 
 /**
- * A function that accepts a search query as a string and tests it against
- * several different functions for a match, returning the first match.
+ * A function that tests a search query for a match against all diablo 2 items
+ * and returns a match if found.
  * @param {String} search The user's search query.
  */
 const d2ItemData = (search) => {

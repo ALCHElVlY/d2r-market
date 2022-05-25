@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // Internal imports
-import LoginForm from '../../components/Forms/LoginForm.jsx';
 import {
+	LoginForm,
 	Footer,
-} from '../index';
+} from '../../components/index';
 import './login.css';
 
 

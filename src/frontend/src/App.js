@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // Internal imports
 import {
 	NavMenu,
+	ToastNotification,
 	RequireAuth,
 	ErrorBoundary,
 	PlaceOrder,
@@ -26,7 +27,6 @@ import {
 	Subscription,
 	Notifications,
 } from './containers';
-import { ToastNotifiaction } from './components/index';
 import { getBnetCredentials } from './app/reducers/oauth/oauthSlice';
 import './App.css';
 
@@ -85,7 +85,7 @@ const App = () => {
 			}
 	
 			// Send the notification
-			ToastNotifiaction('warning', message, options);
+			ToastNotification('warning', message, options);
 		}
 	}, [user, isAuthorized]);
 

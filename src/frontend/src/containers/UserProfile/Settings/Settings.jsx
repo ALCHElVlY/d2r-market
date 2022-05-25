@@ -2,14 +2,15 @@
 import { useEffect } from 'react';
 
 // Internal imports
-import UserSettings from '../../../components/UserSettings/UserSettings.jsx';
-import { SettingsContent } from '../../../components//UserSettings//UserSettings.jsx';
 import {
 	Footer,
-} from '../../index';
+	SettingsTab,
+	SettingsContent,
+} from '../../../components/index';
 import './settings.css';
 
 
+// Build the settings page header & subheader components
 const SettingsHeader = () => {
 	return (
 		<header className="settings_header flex__root">
@@ -27,7 +28,7 @@ const SettingsSubHeader = () => {
 		<div className="settings_subheader flex__root">
 			<div className="flex_left"></div>
 			<div className="container">
-				<UserSettings />
+				<SettingsTab />
 			</div>
 			<div className="flex_right"></div>
 		</div>

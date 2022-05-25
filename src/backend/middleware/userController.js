@@ -131,6 +131,7 @@ const logoutUser = (req, res) => {
  */
 const updateUser = async (req, res) => {
 	// Find the user by their id
+	console.log(req.params);
 	const user = await User.findById(req.params.id);
 	const {
 		newPassword,

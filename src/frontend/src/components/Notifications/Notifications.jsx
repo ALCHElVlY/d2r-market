@@ -16,11 +16,11 @@ const ToastNotification = (type, message, options={}) => {
 
     // Type guard: Check if a message was passed
     if (!message) {
-        throw new Error('ToastNotification requires a message prop');
+        throw new Error('ToastNotificationError: A message is required.');
     }
     // Type guard: Check if the message is a string
     if (typeof message !== 'string') {
-        throw new Error('ToastNotification requires a string message prop');
+        throw new Error('ToastNotificationError: Message type must be a string.');
     }
 
     // Set the options for the toast notification

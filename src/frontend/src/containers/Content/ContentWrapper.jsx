@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 // Internal imports
 import {
 	FilterRecentOrders,
+	Footer,
 } from '../../components/index';
 import {
 	Header,
 	ContentBody,
-	Footer,
 } from '../index';
 import './contentwrapper.css';
 

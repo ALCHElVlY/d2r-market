@@ -44,7 +44,7 @@ const OAUTH_LOGIN_BNET = () => {
     // Redirects to bnets oauth page if no credentials are found
     useEffect(() => {
         // Check if any credentials are stored
-        dispatch(getBnetCredentials( user.id ));
+        dispatch(getBnetCredentials(user));
 
         // Validate the users credentials
         if (loaded && hasBnetCreds) {

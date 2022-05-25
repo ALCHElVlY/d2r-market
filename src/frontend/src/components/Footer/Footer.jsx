@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	ChangeLanguage,
 	ChangeTheme,
-} from '../../components/SelectMenus/index';
+} from '../SelectMenus/index';
 import {
 	getOnlineUsers,
 	getInGameUsers,
@@ -118,7 +118,7 @@ const FooterBodyRight = () => {
 				<div className="donate">
 					<Link to="#" className='patreon__link'>
 						<img alt="Support us on Patreon"
-							src="https://imgur.com/cBYiDCe.png" />
+							src="../assets/images/footer/D2R_Patreon_Support.webp" />
 					</Link>
 				</div>
 			</div>

@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 // Internal imports
-import RegisterForm from '../../components/Forms/RegisterForm.jsx';
 import {
+	RegisterForm,
 	Footer,
-} from '../index';
+} from '../../components/index';
 import './register.css';
 
 
