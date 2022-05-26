@@ -1,65 +1,64 @@
 // Built-in imports
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 // Internal imports
 import {
-	Footer,
-	SettingsTab,
-	SettingsContent,
-} from '../../../components/index';
-import './settings.css';
-
+  Footer,
+  SettingsTab,
+  SettingsContent,
+} from "../../../components/index";
+import "./settings.css";
 
 // Build the settings page header & subheader components
 const SettingsHeader = () => {
-	return (
-		<header className="settings_header flex__root">
-			<div className="flex__left"></div>
-			<div className="container header_content">
-				<h1>Settings</h1>
-			</div>
-			<div className="flex__right"></div>
-			<div className="header_image_overlay"></div>
-		</header>
-	);
+  return (
+    <header className="settings_header flex__root">
+      <div className="flex__left"></div>
+      <div className="container header_content">
+        <h1>Settings</h1>
+      </div>
+      <div className="flex__right"></div>
+      <div className="header_image_overlay"></div>
+    </header>
+  );
 };
 const SettingsSubHeader = () => {
-	return (
-		<div className="settings_subheader flex__root">
-			<div className="flex_left"></div>
-			<div className="container">
-				<SettingsTab />
-			</div>
-			<div className="flex_right"></div>
-		</div>
-	);
+  return (
+    <div className="settings_subheader flex__root">
+      <div className="flex_left"></div>
+      <div className="container">
+        <SettingsTab />
+      </div>
+      <div className="flex_right"></div>
+    </div>
+  );
 };
 const SettingsBody = () => {
-	return (
-		<div className="settings_body flex__root">
-			<div className="flex__left"></div>
-			<SettingsContent />
-			<div className="flex__right"></div>
-		</div>
-	);
+  return (
+    <div className="settings_body flex__root">
+      <div className="flex__left"></div>
+      <SettingsContent />
+      <div className="flex__right"></div>
+    </div>
+  );
 };
 const Settings = () => {
-	// React hook to set the page title
-	useEffect(() => {
-		document.title = 'Settings | Verification';
-	}, []);
+  // React hook to set the page title
+  useEffect(() => {
+    document.title = "Settings | Verification";
+  }, []);
 
-	return (
-		<div className='content__wrapper'>
-			<section className="settings__container">
-				<SettingsHeader />
-				<SettingsSubHeader />
-				<SettingsBody />
-				<div className="flex_bottom"></div>
-			</section>
-			<Footer />
-		</div>
-	);
+  return (
+    <div className="content__wrapper">
+      <section className="settings__container">
+        <SettingsHeader />
+        <SettingsSubHeader />
+        <SettingsBody />
+        <div className="flex_bottom"></div>
+      </section>
+      <Footer />
+    </div>
+  );
 };
 
 export default Settings;

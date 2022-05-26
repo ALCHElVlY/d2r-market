@@ -5,14 +5,14 @@ const router = express.Router();
 // Internal imports
 const protect = require('../../middleware/authController.js');
 const {
-	registerUser,
-	loginUser,
-	logoutUser,
-	updateUser,
-	deleteUser,
-	getUser,
-	getOnlineUsers,
-	getOnlineInGame,
+  registerUser,
+  loginUser,
+  logoutUser,
+  updateUser,
+  deleteUser,
+  getUser,
+  getOnlineUsers,
+  getOnlineInGame,
 } = require('../../middleware/userController');
 
 // @desc HTTP POST to register a new user

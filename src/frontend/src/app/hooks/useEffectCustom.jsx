@@ -1,5 +1,5 @@
 // Built-in imports
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
  * Custom React **useEffect** hook to correct the latest bug introduced in React 18
@@ -7,30 +7,30 @@ import { useEffect, useRef } from 'react';
  * @param {*} effect
  */
 export const useEffectCustom = (effect) => {
-    const destroyFunc = useRef();
-    const calledOnce = useRef(false);
-    const renderAfterCalled = useRef(false);
+  const destroyFunc = useRef();
+  const calledOnce = useRef(false);
+  const renderAfterCalled = useRef(false);
 
+  if (calledOnce.current) {
+    renderAfterCalled.current = true;
+  }
+
+  useEffect(() => {
     if (calledOnce.current) {
-        renderAfterCalled.current = true;
+      return;
     }
 
-    useEffect(() => {
-        if (calledOnce.current) {
-            return;
-        }
+    calledOnce.current = true;
+    destroyFunc.current = effect();
 
-        calledOnce.current = true;
-        destroyFunc.current = effect();
+    return () => {
+      if (!renderAfterCalled.current) {
+        return;
+      }
 
-        return () => {
-            if (!renderAfterCalled.current) {
-                return;
-            }
-
-            if (destroyFunc.current) {
-                destroyFunc.current();
-            }
-        };
-    }, [effect]);
+      if (destroyFunc.current) {
+        destroyFunc.current();
+      }
+    };
+  }, [effect]);
 };

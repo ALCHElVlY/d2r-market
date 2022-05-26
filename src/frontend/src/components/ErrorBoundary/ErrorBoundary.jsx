@@ -1,15 +1,15 @@
 // Built-in imports
-import { Component } from 'react';
+import { Component } from "react";
 
 // External imports
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hasError: false,
-      message: '',
+      message: "",
     };
   }
 
@@ -24,13 +24,11 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    return (
-      this.hasError
-        ? toast.error(`An error has occured!\n${this.state.message}`, {
+    return this.hasError
+      ? toast.error(`An error has occured!\n${this.state.message}`, {
           position: "top-center",
         })
-        : this.props.children
-    );
+      : this.props.children;
   }
 }
 

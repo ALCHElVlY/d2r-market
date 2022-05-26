@@ -5,9 +5,9 @@ const router = express.Router();
 // Internal imports
 // const protect = require('../../middleware/authController');
 const {
-	handleBnetOAuth,
-	// handleXboxOauth,
-	// handleDiscordOauth,
+  handleBnetOAuth,
+  // handleXboxOauth,
+  // handleDiscordOauth,
 } = require('../../middleware/oauthController');
 
 // @desc HTTP GET an authenticated user via battle.net oauth and log them in

@@ -1,8 +1,5 @@
 // Internal imports
-import {
-	axiosPrivate
-} from '../../axiosPrivate.js';
-
+import { axiosPrivate } from "../../axiosPrivate.js";
 
 // API Endpoint
 const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
@@ -12,13 +9,13 @@ const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
  * retrieving all of the users with a status of 'online' from the database.
  * @param {object} payload
  */
- const getOnlineUsers = async (payload) => {
-    const { status } = payload;
-	const response = await axiosPrivate.get(`${USERS_ENDPOINT}/status/${status}`);
+const getOnlineUsers = async (payload) => {
+  const { status } = payload;
+  const response = await axiosPrivate.get(`${USERS_ENDPOINT}/status/${status}`);
 
-	if (response.status === 200) {
-		return response.data;
-	}
+  if (response.status === 200) {
+    return response.data;
+  }
 };
 
 /**
@@ -26,23 +23,20 @@ const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
  * retrieving all of the users with a status of 'online in game' from the database.
  * @param {object} payload
  */
- const getOnlineInGameUsers = async (payload) => {
-    const { status } = payload;
-	const response = await axiosPrivate.get(`${USERS_ENDPOINT}/status/${status}`);
+const getOnlineInGameUsers = async (payload) => {
+  const { status } = payload;
+  const response = await axiosPrivate.get(`${USERS_ENDPOINT}/status/${status}`);
 
-	if (response.status === 200) {
-		return response.data;
-	}
+  if (response.status === 200) {
+    return response.data;
+  }
 };
-
-
-
 
 // Declare a auth service object
 // to export and use
 const userService = {
-    getOnlineUsers,
-	getOnlineInGameUsers
+  getOnlineUsers,
+  getOnlineInGameUsers,
 };
 
 export default userService;

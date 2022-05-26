@@ -22,11 +22,10 @@ export const setBnetCredentials = createAsyncThunk(
 	async (user, thunkAPI) => {
 		try {
 			return await oauthService.setCredentials(user);
-		}
-		catch (error) {
+		} catch (error) {
 			const message = (error.response &&
-				error.response.data && error.response.data.message)
-			|| error.message || error.toString();
+				error.response.data && error.response.data.message) ||
+				error.message || error.toString();
 			return thunkAPI.rejectWithValue(message);
 		}
 	},
@@ -38,11 +37,10 @@ export const getBnetCredentials = createAsyncThunk(
 	async (user, thunkAPI) => {
 		try {
 			return await oauthService.getCredentials(user);
-		}
-		catch (error) {
+		} catch (error) {
 			const message = (error.response &&
-				error.response.data && error.response.data.message)
-			|| error.message || error.toString();
+				error.response.data && error.response.data.message) ||
+				error.message || error.toString();
 			return thunkAPI.rejectWithValue(message);
 		}
 	},
@@ -54,11 +52,10 @@ export const resetOAuthCredentials = createAsyncThunk(
 	async (state, thunkAPI) => {
 		try {
 			return await oauthService.resetCredentials(state);
-		}
-		catch (error) {
+		} catch (error) {
 			const message = (error.response &&
-				error.response.data && error.response.data.message)
-			|| error.message || error.toString();
+				error.response.data && error.response.data.message) ||
+				error.message || error.toString();
 			return thunkAPI.rejectWithValue(message);
 		}
 	},
@@ -77,24 +74,24 @@ export const oauthSlice = createSlice({
 			state.message = '';
 		},
 	},
-    extraReducers: (builder) => {
-        builder
-            .addCase(getBnetCredentials.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(getBnetCredentials.fulfilled, (state, action) => {
-                state.isLoading = false;
+	extraReducers: (builder) => {
+		builder
+			.addCase(getBnetCredentials.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getBnetCredentials.fulfilled, (state, action) => {
+				state.isLoading = false;
 				state.isError = false;
 				state.isSuccess = true;
 				state.message = '';
 				state.linkedAccounts = action.payload;
-            })
-            .addCase(getBnetCredentials.rejected, (state, action) => {
-                state.isLoading = false;
+			})
+			.addCase(getBnetCredentials.rejected, (state, action) => {
+				state.isLoading = false;
 				state.isError = true;
 				state.isSuccess = false;
 				state.message = action.payload;
-            })
+			})
 			.addCase(resetOAuthCredentials.pending, (state) => {
 				state.isLoading = true;
 			})
@@ -111,7 +108,7 @@ export const oauthSlice = createSlice({
 				state.isSuccess = false;
 				state.message = action.payload;
 			});
-    },
+	},
 });
 
 export const {

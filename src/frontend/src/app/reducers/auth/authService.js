@@ -1,11 +1,8 @@
 // Internal imports
-import {
-	axiosPrivate
-} from '../../axiosPrivate.js';
+import { axiosPrivate } from "../../axiosPrivate.js";
 
 // API Endpoint
 const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
-
 
 /**
  * The register function sends the user payload to the server,
@@ -13,11 +10,14 @@ const USERS_ENDPOINT = process.env.REACT_APP_USERS_ENDPOINT;
  * @param {object} payload
  */
 const register = async (payload) => {
-	const response = await axiosPrivate.post(`${USERS_ENDPOINT}/register`, payload);
+  const response = await axiosPrivate.post(
+    `${USERS_ENDPOINT}/register`,
+    payload,
+  );
 
-	if (response.status === 200) {
-		return response.data;
-	}
+  if (response.status === 200) {
+    return response.data;
+  }
 };
 
 /**
@@ -26,11 +26,11 @@ const register = async (payload) => {
  * @param {object} payload
  */
 const login = async (payload) => {
-	const response = await axiosPrivate.post(`${USERS_ENDPOINT}/login`, payload);
+  const response = await axiosPrivate.post(`${USERS_ENDPOINT}/login`, payload);
 
-	if (response.status === 200) {
-		return response.data;
-	}
+  if (response.status === 200) {
+    return response.data;
+  }
 };
 
 /**
@@ -39,26 +39,32 @@ const login = async (payload) => {
  * @param {obejct} payload
  */
 const logout = async (payload) => {
-	const response = await axiosPrivate.get(`${USERS_ENDPOINT}/${payload.id}/logout`, {
-		user: payload,
-	});
+  const response = await axiosPrivate.get(
+    `${USERS_ENDPOINT}/${payload.id}/logout`,
+    {
+      user: payload,
+    },
+  );
 
-	if (response.status === 200) {
-		return response.data;
-	}
+  if (response.status === 200) {
+    return response.data;
+  }
 };
 
 /**
  * The updateUser function sends the user payload to the server,
  * updating the user data in the database.
- * @param {object} payload 
+ * @param {object} payload
  */
 const updateUser = async (payload) => {
-	const response = await axiosPrivate.patch(`${USERS_ENDPOINT}/${payload?.user.id}`, payload);
+  const response = await axiosPrivate.patch(
+    `${USERS_ENDPOINT}/${payload?.user.id}`,
+    payload,
+  );
 
-	if (response.status === 200) {
-		return response.data;
-	}
+  if (response.status === 200) {
+    return response.data;
+  }
 };
 
 /**
@@ -68,19 +74,19 @@ const updateUser = async (payload) => {
  * @returns {Promise<*>}
  */
 const deleteUser = async (payload) => {
-	await axiosPrivate.delete(`${USERS_ENDPOINT}/${payload.id}`, {
-		user: payload,
-	});
+  await axiosPrivate.delete(`${USERS_ENDPOINT}/${payload.id}`, {
+    user: payload,
+  });
 };
 
 // Declare a auth service object
 // to export and use
 const authService = {
-	register,
-	login,
-	logout,
-	updateUser,
-	deleteUser,
+  register,
+  login,
+  logout,
+  updateUser,
+  deleteUser,
 };
 
 export default authService;
